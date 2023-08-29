@@ -3,7 +3,7 @@
 //  SOS-SwiftUITests
 //
 //  Created by John Welch on 8/29/23.
-//
+//  basic UI unit tests here
 
 import XCTest
 
@@ -44,6 +44,7 @@ final class SOS_SwiftUITests: XCTestCase {
 //my tests
 
 	//test new game button
+	//this tests that once the application has launched, the "new game"button responds to a click
 	func testNewGameButton() {
 		//launch application for button click test
 		XCUIApplication().launch()
@@ -53,6 +54,7 @@ final class SOS_SwiftUITests: XCTestCase {
 	}
 	
 	//test picker
+	//verifies that you can change the value in the board size picker
 	func testBoardSizePicker() {
 		
 		XCUIApplication().launch()

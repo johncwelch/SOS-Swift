@@ -12,15 +12,11 @@
       },
       {
         "comment": "",
-        "key": "Board Size:"
+        "key": "Board Size"
       },
       {
         "comment": "",
-        "key": "Board Size Label"
-      },
-      {
-        "comment": "",
-        "key": ""
+        "key": "Board Size Dropdown"
       },
       {
         "comment": "",

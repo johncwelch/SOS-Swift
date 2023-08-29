@@ -3,7 +3,7 @@
 //  SOS-Swift
 //
 //  Created by John Welch on 8/29/23.
-//
+//  this is the class file where all our non-UI code lives
 
 import SwiftUI
 import Cocoa
@@ -17,6 +17,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 }
 
 //basic functions
+//collect the initial setup for new game and print them, mostly to show things are actually set right
+//like unit tests without the overhead
 func getInitVars(theType: Int, theSize: Int, theBlueType: Int, theRedType: Int, theCurrentPlayer: String) {
 	print(theType)
 	print(theSize)
@@ -25,6 +27,7 @@ func getInitVars(theType: Int, theSize: Int, theBlueType: Int, theRedType: Int, 
 	print(theCurrentPlayer)
 }
 
+//basic functional test for the board size picker
 func boardSizeSelect(theSelection: Int) {
 	print("The selection is: \(theSelection)")
 }
@@ -36,7 +39,7 @@ struct SOS_SwiftApp: App {
 	var body: some Scene {
         WindowGroup {
             ContentView()
-		   //set min/max size
+		   //set minimum size of the window
 			   .frame(minWidth: 800, minHeight: 800)
         }
     }
