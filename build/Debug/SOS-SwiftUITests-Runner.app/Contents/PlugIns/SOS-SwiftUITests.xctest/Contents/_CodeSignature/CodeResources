@@ -3,9 +3,33 @@
 <plist version="1.0">
 <dict>
 	<key>files</key>
-	<dict/>
+	<dict>
+		<key>Resources/xcbaselines/8BC3C9FB-5251-4500-BD29-DD708F25FD9D.plist</key>
+		<data>
+		wSmPYwPDFORBCHXAiRqNNTQHht4=
+		</data>
+		<key>Resources/xcbaselines/Info.plist</key>
+		<data>
+		kqcMWNPK67w49H++ZmfHTxvEciQ=
+		</data>
+	</dict>
 	<key>files2</key>
-	<dict/>
+	<dict>
+		<key>Resources/xcbaselines/8BC3C9FB-5251-4500-BD29-DD708F25FD9D.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			DCck+oselyGtwdWnoJ2RvIWqI48X7N7xCzynQwvStbc=
+			</data>
+		</dict>
+		<key>Resources/xcbaselines/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			AKU3CypePkp9tgx+uBcjW7uBuJhqUIWE5Uap90ijasM=
+			</data>
+		</dict>
+	</dict>
 	<key>rules</key>
 	<dict>
 		<key>^Resources/</key>

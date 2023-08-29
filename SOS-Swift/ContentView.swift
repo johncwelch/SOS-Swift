@@ -60,7 +60,7 @@ struct ContentView: View {
 				    .pickerStyle(MenuPickerStyle())
 				    //this is how you initiate actions based on a change event
 				    .onChange(of: boardSize) {
-					    print("Board Size is now \(boardSize)")
+					    boardSizeSelect(theSelection: boardSize)
 				    }
 
 				    HStack(alignment: .top){
@@ -115,8 +115,10 @@ struct ContentView: View {
 
 			    VStack(alignment: .leading) {
 				    Button("New Game"){
-					    //testFunc(redPlayerState: redPlayerType)
-					    var myTuple = (theType: gameType, theSize: boardSize, theBlueType: bluePlayerType, theRedType: redPlayerType, theCurrentPlayer: currentPlayer)
+					    //since myTuple technically never changes and is redefined with
+					    //every button click, we'll define it as a constant via "let" instead
+					    //of the mutable "var"
+					    let myTuple = (theType: gameType, theSize: boardSize, theBlueType: bluePlayerType, theRedType: redPlayerType, theCurrentPlayer: currentPlayer)
 					    //function is actually in sos_Swiftapp.swift
 					    getInitVars(theType: myTuple.theType, theSize: myTuple.theSize, theBlueType: myTuple.theBlueType, theRedType: myTuple.theRedType, theCurrentPlayer: myTuple.theCurrentPlayer)
 				    }

@@ -24,6 +24,10 @@ func getInitVars(theType: Int, theSize: Int, theBlueType: Int, theRedType: Int, 
 	print(theCurrentPlayer)
 }
 
+func boardSizeSelect(theSelection: Int) {
+	print("The selection is: \(theSelection)")
+}
+
 @main
 struct SOS_SwiftApp: App {
 	//this line implements the application quitting on last window closed class

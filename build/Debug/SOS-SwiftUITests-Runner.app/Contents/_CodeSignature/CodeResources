@@ -73,7 +73,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			f06oeiV62zVQRDIxBvLtE9Dx4B8=
+			q1AUWZPVl9H2wyYlXN2pwT85xZU=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.bynkii.SOS-SwiftUITests" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
