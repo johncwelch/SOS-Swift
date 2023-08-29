@@ -1,0 +1,116 @@
+{
+  "source": "/Users/jwelch/Desktop/SOS-Swift/SOS-Swift/ContentView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Game Type:"
+      },
+      {
+        "comment": "",
+        "key": "Game Type label"
+      },
+      {
+        "comment": "",
+        "key": "Board Size:"
+      },
+      {
+        "comment": "",
+        "key": "Board Size Label"
+      },
+      {
+        "comment": "",
+        "key": ""
+      },
+      {
+        "comment": "",
+        "key": "3"
+      },
+      {
+        "comment": "",
+        "key": "4"
+      },
+      {
+        "comment": "",
+        "key": "5"
+      },
+      {
+        "comment": "",
+        "key": "6"
+      },
+      {
+        "comment": "",
+        "key": "7"
+      },
+      {
+        "comment": "",
+        "key": "8"
+      },
+      {
+        "comment": "",
+        "key": "9"
+      },
+      {
+        "comment": "",
+        "key": "10"
+      },
+      {
+        "comment": "",
+        "key": "Current Player:"
+      },
+      {
+        "comment": "",
+        "key": "Current Player Label"
+      },
+      {
+        "comment": "",
+        "key": "Current Player"
+      },
+      {
+        "comment": "",
+        "key": "Blue Player:"
+      },
+      {
+        "comment": "",
+        "key": "Blue Player Label"
+      },
+      {
+        "comment": "",
+        "key": "Red Player:"
+      },
+      {
+        "comment": "",
+        "key": "Red Player Label"
+      },
+      {
+        "comment": "",
+        "key": "New Game"
+      },
+      {
+        "comment": "",
+        "key": "Record Game"
+      },
+      {
+        "comment": "",
+        "key": "Replay Game"
+      },
+      {
+        "comment": "",
+        "key": "Simple"
+      },
+      {
+        "comment": "",
+        "key": "General"
+      },
+      {
+        "comment": "",
+        "key": "Human"
+      },
+      {
+        "comment": "",
+        "key": "Computer"
+      }
+    ]
+  },
+  "version": 1
+}
