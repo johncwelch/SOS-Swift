@@ -16,6 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 }
 
+//basic functions
 func getInitVars(theType: Int, theSize: Int, theBlueType: Int, theRedType: Int, theCurrentPlayer: String) {
 	print(theType)
 	print(theSize)

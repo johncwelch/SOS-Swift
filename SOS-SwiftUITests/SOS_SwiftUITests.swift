@@ -41,6 +41,8 @@ final class SOS_SwiftUITests: XCTestCase {
         }
     }
 	
+//my tests
+
 	//test new game button
 	func testNewGameButton() {
 		//launch application for button click test

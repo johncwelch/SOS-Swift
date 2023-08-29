@@ -149,7 +149,7 @@ struct ContentView: View {
     }
 }
 
-//setup for game type radio buttons, swift is fucking weird this way
+//setup for game type radio buttons, swiftui is weird this way
 struct gameTypeRadioButtonView: View {
 	var index: Int
 	@Binding var selectedIndex: Int
