@@ -52,6 +52,7 @@ struct ContentView: View {
 				    Text("10").tag(10)
 				}
 				//picker properties
+				//padding has to be separate for each dimensions
 					.frame(width: 115.0,alignment: .center)
 					.font(.body)
 					.fontWeight(.bold)
