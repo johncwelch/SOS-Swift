@@ -45,6 +45,7 @@
 		704B1EEF2A9E3FD8007F9B81 /* SOS-SwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SOS-SwiftUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		704B1EF32A9E3FD8007F9B81 /* SOS_SwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOS_SwiftUITests.swift; sourceTree = "<group>"; };
 		704B1EF52A9E3FD8007F9B81 /* SOS_SwiftUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOS_SwiftUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		70B634802AA7AE6500D9F6E9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +76,7 @@
 		704B1ECB2A9E3FD6007F9B81 = {
 			isa = PBXGroup;
 			children = (
+				70B634802AA7AE6500D9F6E9 /* README.md */,
 				704B1ED62A9E3FD6007F9B81 /* SOS-Swift */,
 				704B1EE82A9E3FD8007F9B81 /* SOS-SwiftTests */,
 				704B1EF22A9E3FD8007F9B81 /* SOS-SwiftUITests */,
