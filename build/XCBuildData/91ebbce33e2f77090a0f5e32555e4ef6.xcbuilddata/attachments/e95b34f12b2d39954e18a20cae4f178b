@@ -1,0 +1,18 @@
+{
+  "" : {
+    "diagnostics" : "/Users/jwelch/Desktop/SOS-Swift/build/SOS-Swift.build/Debug/SOS-SwiftTests.build/Objects-normal/arm64/SOS-SwiftTests-master.dia",
+    "emit-module-dependencies" : "/Users/jwelch/Desktop/SOS-Swift/build/SOS-Swift.build/Debug/SOS-SwiftTests.build/Objects-normal/arm64/SOS-SwiftTests-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/jwelch/Desktop/SOS-Swift/build/SOS-Swift.build/Debug/SOS-SwiftTests.build/Objects-normal/arm64/SOS-SwiftTests-master-emit-module.dia",
+    "swift-dependencies" : "/Users/jwelch/Desktop/SOS-Swift/build/SOS-Swift.build/Debug/SOS-SwiftTests.build/Objects-normal/arm64/SOS-SwiftTests-master.swiftdeps"
+  },
+  "/Users/jwelch/Desktop/SOS-Swift/SOS-SwiftTests/SOS_SwiftTests.swift" : {
+    "const-values" : "/Users/jwelch/Desktop/SOS-Swift/build/SOS-Swift.build/Debug/SOS-SwiftTests.build/Objects-normal/arm64/SOS_SwiftTests.swiftconstvalues",
+    "dependencies" : "/Users/jwelch/Desktop/SOS-Swift/build/SOS-Swift.build/Debug/SOS-SwiftTests.build/Objects-normal/arm64/SOS_SwiftTests.d",
+    "diagnostics" : "/Users/jwelch/Desktop/SOS-Swift/build/SOS-Swift.build/Debug/SOS-SwiftTests.build/Objects-normal/arm64/SOS_SwiftTests.dia",
+    "index-unit-output-path" : "/SOS-Swift.build/Debug/SOS-SwiftTests.build/Objects-normal/arm64/SOS_SwiftTests.o",
+    "llvm-bc" : "/Users/jwelch/Desktop/SOS-Swift/build/SOS-Swift.build/Debug/SOS-SwiftTests.build/Objects-normal/arm64/SOS_SwiftTests.bc",
+    "object" : "/Users/jwelch/Desktop/SOS-Swift/build/SOS-Swift.build/Debug/SOS-SwiftTests.build/Objects-normal/arm64/SOS_SwiftTests.o",
+    "swift-dependencies" : "/Users/jwelch/Desktop/SOS-Swift/build/SOS-Swift.build/Debug/SOS-SwiftTests.build/Objects-normal/arm64/SOS_SwiftTests.swiftdeps",
+    "swiftmodule" : "/Users/jwelch/Desktop/SOS-Swift/build/SOS-Swift.build/Debug/SOS-SwiftTests.build/Objects-normal/arm64/SOS_SwiftTests~partial.swiftmodule"
+  }
+}
