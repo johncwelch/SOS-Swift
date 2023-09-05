@@ -56,6 +56,7 @@ struct ContentView: View {
 					.font(.body)
 					.fontWeight(.bold)
 					.padding(.leading,20.0)
+					.padding(.top,2)
 					.accessibilityLabel("Board Size Dropdown")
 					.accessibilityIdentifier("boardSizeDropdown")
 				    //makes it look like a dropdown list
