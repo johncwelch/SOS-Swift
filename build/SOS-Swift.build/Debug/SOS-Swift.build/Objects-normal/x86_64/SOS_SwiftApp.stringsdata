@@ -1,5 +1,24 @@
 {
   "source": "/Users/jwelch/Desktop/SOS-Swift/SOS-Swift/SOS_SwiftApp.swift",
-  "tables": {},
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Simple"
+      },
+      {
+        "comment": "",
+        "key": "General"
+      },
+      {
+        "comment": "",
+        "key": "Human"
+      },
+      {
+        "comment": "",
+        "key": "Computer"
+      }
+    ]
+  },
   "version": 1
 }

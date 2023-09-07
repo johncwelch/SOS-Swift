@@ -76,6 +76,81 @@ struct basicTextModifierNoFrame: ViewModifier {
 	}
 }
 
+//setup for game type radio buttons, swiftui is weird this way
+struct gameTypeRadioButtonView: View {
+	var index: Int
+	@Binding var selectedIndex: Int
+
+	var body: some View {
+		//in swiftUI ALL BUTTONS ARE BUTTONS
+		Button(action: {
+			selectedIndex = index
+		}) {
+			//this sets up the view for the basic button. You define it here once, then implement it in
+			//the main view
+			HStack {
+				//literally build the buttons this way because fuck if I know, this UI by code shit is
+				//stupid
+				Image(systemName:  self.selectedIndex == self.index ? "largecircle.fill.circle" : "circle")
+					.foregroundColor(.black)
+				//set the label for each one
+				if index == 1 {
+					Text("Simple")
+				} else if index == 2 {
+					Text("General")
+				}
+
+			}
+			//.padding(.leading, 20.0)
+		}
+	}
+}
+
+//setup for the blue player radio buttons
+struct bluePlayerTypeRadioButton: View {
+	var index: Int
+	@Binding var selectedIndex: Int
+
+	var body: some View {
+		Button(action: {
+			selectedIndex = index
+		}) {
+			HStack {
+				Image(systemName:  self.selectedIndex == self.index ? "largecircle.fill.circle" : "circle")
+					.foregroundColor(.black)
+				if index == 1 {
+					Text("Human")
+				} else if index == 2 {
+					Text("Computer")
+				}
+			}
+		}
+	}
+}
+
+//setup for the red player radio buttons
+struct redPlayerTypeRadioButton: View {
+	var index: Int
+	@Binding var selectedIndex: Int
+
+	var body: some View {
+		Button(action: {
+			selectedIndex = index
+		}) {
+			HStack {
+				Image(systemName:  self.selectedIndex == self.index ? "largecircle.fill.circle" : "circle")
+					.foregroundColor(.black)
+				if index == 1 {
+					Text("Human")
+				} else if index == 2 {
+					Text("Computer")
+				}
+			}
+		}
+	}
+}
+
+
 @main
 struct SOS_SwiftApp: App {
 	//this line implements the application quitting on last window closed class
