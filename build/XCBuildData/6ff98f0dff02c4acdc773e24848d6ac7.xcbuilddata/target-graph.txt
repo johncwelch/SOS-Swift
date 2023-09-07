@@ -1,0 +1,6 @@
+Target dependency graph (3 targets)
+Target 'SOS-SwiftUITests' in project 'SOS-Swift'
+➜ Explicit dependency on target 'SOS-Swift' in project 'SOS-Swift'
+Target 'SOS-SwiftTests' in project 'SOS-Swift'
+➜ Explicit dependency on target 'SOS-Swift' in project 'SOS-Swift'
+Target 'SOS-Swift' in project 'SOS-Swift' (no dependencies)

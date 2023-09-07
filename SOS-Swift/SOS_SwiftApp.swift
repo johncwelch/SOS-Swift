@@ -20,16 +20,60 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //collect the initial setup for new game and print them, mostly to show things are actually set right
 //like unit tests without the overhead
 func getInitVars(theType: Int, theSize: Int, theBlueType: Int, theRedType: Int, theCurrentPlayer: String) {
-	print(theType)
-	print(theSize)
-	print(theBlueType)
-	print(theRedType)
-	print(theCurrentPlayer)
+	var gameType: String = ""
+	var bluePlayerType: String = ""
+	var redPlayerType: String = ""
+
+	if theType == 1 {
+		gameType = "Simple"
+	} else if theType == 2 {
+		gameType = "General"
+	}
+
+	if theBlueType == 1 {
+		bluePlayerType = "Human"
+	} else if theBlueType == 2 {
+		bluePlayerType = "Computer"
+	}
+
+	if theRedType == 1 {
+		redPlayerType = "Human"
+	} else if theRedType == 2 {
+		redPlayerType = "Computer"
+	}
+	print("The Game type is: \(gameType)")
+	print("The Game Board size is: \(theSize)x\(theSize)")
+	print("The blue player type is: \(bluePlayerType)")
+	print("The red player type is: \(redPlayerType)")
+	print("The current player is: \(theCurrentPlayer)")
 }
 
 //basic functional test for the board size picker
 func boardSizeSelect(theSelection: Int) {
-	print("The selection is: \(theSelection)")
+	print("The board size selection is: \(theSelection)x\(theSelection)")
+}
+
+//viewmodifiers to simplify text formatting code
+//think of it as a stylesheet for text labels
+//this sets the font, the font weight, frame properties, and text selection
+struct basicTextModifier: ViewModifier {
+	func body(content: Content) -> some View {
+		return content
+			.font(.body)
+			.fontWeight(.bold)
+			.frame(width: 120.0,height: 22.0,alignment: .leading)
+			.textSelection(.enabled)
+	}
+}
+
+//sets the same as basicTextModifer, but no frame properties
+struct basicTextModifierNoFrame: ViewModifier {
+	func body(content: Content) -> some View {
+		return content
+			.font(.body)
+			.fontWeight(.bold)
+			.textSelection(.enabled)
+	}
 }
 
 @main

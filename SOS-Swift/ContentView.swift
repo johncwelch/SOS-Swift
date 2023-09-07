@@ -25,13 +25,9 @@ struct ContentView: View {
 			//this is just how swiftui does things
 			VStack(alignment: .leading) {
 			    Text("Game Type:")
-				    .font(.body)
-				    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-				    //.padding(.leading, 20.0)
-				    .frame(width: 100.0,height: 22.0,alignment: .leading)
-				    .textSelection(.enabled)
-				    .accessibilityLabel("Game Type label")
-				    .accessibilityIdentifier("gameTypeLabel")
+					.modifier(basicTextModifier())
+					.accessibilityLabel("Game Type label")
+					.accessibilityIdentifier("gameTypeLabel")
 				    //this actually draws the buttons
 				gameTypeRadioButtonView(index: 1, selectedIndex: $gameType)
 				gameTypeRadioButtonView(index: 2, selectedIndex: $gameType)
@@ -53,10 +49,8 @@ struct ContentView: View {
 				}
 				//picker properties
 				//padding has to be separate for each dimensions
-					.frame(width: 115.0,alignment: .center)
-					.font(.body)
-					.fontWeight(.bold)
-					.padding(.leading,20.0)
+					.modifier(basicTextModifierNoFrame())
+					.frame(width: 140.0,alignment: .center)
 					.padding(.top,2)
 					.accessibilityLabel("Board Size Dropdown")
 					.accessibilityIdentifier("boardSizeDropdown")
@@ -70,19 +64,14 @@ struct ContentView: View {
 				    //put in a row with the current player label and value
 				HStack(alignment: .top){
 					Text("Current Player:")
-						.font(.body)
-						.fontWeight(.bold)
-						.padding(.leading, 20.0)
-						.frame(width: 120.0, height: 22.0,alignment: .leading)
-						.textSelection(.enabled)
+						.modifier(basicTextModifierNoFrame())
+						.frame(width: 100.0, height: 22.0,alignment: .leading)
 						.accessibilityLabel("Current Player Label")
 						.accessibilityIdentifier("currentPlayerLabel")
 
 					Text(currentPlayer)
-						.font(.body)
-						.fontWeight(.bold)
-						.frame(width: 40.0,height: 22.0,alignment: .leading)
-						.textSelection(.enabled)
+						.modifier(basicTextModifierNoFrame())
+						.frame(width: 30.0,height: 22.0,alignment: .leading)
 						.accessibilityLabel("Current Player")
 						.accessibilityIdentifier("currentPlayer")
 				}
@@ -90,11 +79,7 @@ struct ContentView: View {
 				//select blue player type
 			VStack(alignment: .leading) {
 				Text("Blue Player:")
-					.font(.body)
-					.fontWeight(.bold)
-					//.padding(.leading, 20.0)
-					.frame(width: 100.0,height: 22.0,alignment: .leading)
-					.textSelection(.enabled)
+					.modifier(basicTextModifier())
 					.accessibilityLabel("Blue Player Label")
 					.accessibilityIdentifier("bluePlayerLabel")
 				bluePlayerTypeRadioButton(index: 1, selectedIndex: $bluePlayerType)
@@ -105,11 +90,7 @@ struct ContentView: View {
 			//select red player type
 			VStack(alignment: .leading) {
 				Text("Red Player:")
-					.font(.body)
-					.fontWeight(.bold)
-					//.padding(.leading, 20.0)
-					.frame(width: 100.0,height: 22.0,alignment: .leading)
-					.textSelection(.enabled)
+					.modifier(basicTextModifier())
 					.accessibilityLabel("Red Player Label")
 					.accessibilityIdentifier("redPlayerLabel")
 				redPlayerTypeRadioButton(index: 1, selectedIndex: $redPlayerType)
@@ -146,7 +127,7 @@ struct ContentView: View {
 				.hidden()
 
 			}
-			.padding(.leading, 20.0)
+			.padding(.leading, 10.0)
 
 		}
 		//this forces the hstack to be the width of the window
@@ -229,7 +210,6 @@ struct redPlayerTypeRadioButton: View {
 		}
 	}
 }
-
 
 #Preview {
     ContentView()
