@@ -89,6 +89,10 @@
       {
         "comment": "",
         "key": "Replay Game"
+      },
+      {
+        "comment": "",
+        "key": "%lld,%lld"
       }
     ]
   },

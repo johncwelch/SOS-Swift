@@ -136,6 +136,60 @@ struct ContentView: View {
 		.background(Color.gray)
 		//this shoves everything to the top of the window
 		Spacer()
+
+		//Hstack for the grid
+		//once nice thing about the CSS-like behavior of SwiftUI, it makes a lot of things
+		//easier, like the autoresizing of the grid and because the controls Hstack
+		//is the width of the window this Hstack inherits that behavior for free
+
+		HStack(alignment: .top) {
+			Grid (horizontalSpacing: 0, verticalSpacing: 0){
+
+				//the view (grid) will refresh if you change the state var gridSize,
+				//but, you have to include the id: \.self for it to work right, because
+				//of how swift handles this. Note, you don't use the id, 
+				//this is just telling the view what's going on.
+
+				//row foreach
+				ForEach(0..<boardSize, id: \.self) { row in
+					GridRow {
+						//column foreach
+						ForEach(0..<boardSize, id: \.self) {col in
+								//put a rectangle in each grid space
+								//the overlay is how you add text
+								//the border is how you set up grid lines
+								//the order is important. if foreground color comes after
+								//overlay, it covers the overlay
+							Rectangle()
+								.foregroundColor(.teal)
+								.overlay(Text("\(row),\(col)").fontWeight(.heavy))
+								.border(Color.black)
+							
+								//keeping this for now in case we need to use it later
+								//but not required for this stage
+
+							/*if (row + col).isMultiple(of: 2) {
+								//the overlay is how you add text
+								//the border is how you set up grid lines
+								Rectangle()
+								//the order is important. if foreground color comes after overlay, it covers the overlay
+									.foregroundColor(.teal)
+									//this will eventually go away when we add buttons,
+									//but for now, we keep the formatting props in the
+									//overlay properties
+									.overlay(Text("\(row),\(col)").fontWeight(.heavy))
+									.border(Color.black )
+							} else {
+								Rectangle()
+									.foregroundColor(.teal)
+									.overlay(Text("\(row),\(col)").fontWeight(.heavy))
+									.border(Color.black)
+							}*/
+						}
+					}
+				}
+			}
+		}
 	}
 }
 
