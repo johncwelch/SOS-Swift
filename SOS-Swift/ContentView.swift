@@ -9,12 +9,16 @@ import SwiftUI
 
 //build the main window view
 struct ContentView: View {
-	//vars for radio buttons and current player
+	//vars for controls and current player
+	//by using @State vars, we get a LOT of UI functionality for free
 	@State var gameType: Int = 1
 	@State var boardSize: Int = 3
 	@State var bluePlayerType: Int = 1
 	@State var redPlayerType: Int = 1
+	@State var bluePlayerScore: Int = 0
+	@State var redPlayerScore: Int = 0
 	@State var currentPlayer: String = "Blue"
+
 
 	var body: some View {
 		//this is the main view within the window
@@ -84,6 +88,22 @@ struct ContentView: View {
 					.accessibilityIdentifier("bluePlayerLabel")
 				bluePlayerTypeRadioButton(index: 1, selectedIndex: $bluePlayerType)
 				bluePlayerTypeRadioButton(index: 2, selectedIndex: $bluePlayerType)
+				//this Hstack only displays its contents if the gameType is not 1 (simple)
+				//because gameType is a state variable, the refresh happens automatically
+				//we don't have to do any extra work.
+				HStack(alignment: .center) {
+					//in an if statement, we don't use the $varname, just the varname
+					if gameType != 1 {
+						Text("Blue Score")
+						Text(String(bluePlayerScore))
+						/*TextField(text: $bluePlayerScore) {
+							Text("")
+						}*/
+						.frame(width: 25, height: 22, alignment: .center)
+					}
+				}
+				.frame(width: 105, height: 22, alignment: .leading)
+
 			}
 			.padding(.leading, 20.0)
 
@@ -95,6 +115,18 @@ struct ContentView: View {
 					.accessibilityIdentifier("redPlayerLabel")
 				redPlayerTypeRadioButton(index: 1, selectedIndex: $redPlayerType)
 				redPlayerTypeRadioButton(index: 2, selectedIndex: $redPlayerType)
+				HStack(alignment: .center) {
+					//in an if statement, we don't use the $varname, just the varname
+					if gameType != 1 {
+						Text("Red Score")
+						Text(String(redPlayerScore))
+						/*TextField(text: $bluePlayerScore) {
+							Text("")
+						}*/
+						.frame(width: 25, height: 22, alignment: .center)
+					}
+				}
+				.frame(width: 105, height: 22, alignment: .leading)
 			}
 			.padding(.leading, 20.0)
 
@@ -105,6 +137,8 @@ struct ContentView: View {
 					//every button click, we'll define it as a constant via "let" instead
 					//of the mutable "var"
 					//using a tuple makes passsing multiple vars to getInitVars() in SOS_SwiftApp.swift somewhat easier
+
+					//clears any existing moves, disables board size/game mode/player mode controls
 					let myTuple = (theType: gameType, theSize: boardSize, theBlueType: bluePlayerType, theRedType: redPlayerType, theCurrentPlayer: currentPlayer)
 
 					//function is actually in sos_Swiftapp.swift
@@ -112,6 +146,11 @@ struct ContentView: View {
 					getInitVars(theType: myTuple.theType, theSize: myTuple.theSize, theBlueType: myTuple.theBlueType, theRedType: myTuple.theRedType, theCurrentPlayer: myTuple.theCurrentPlayer)
 				}
 				.padding(.top,5.0)
+
+				Button("Cancel Game") {
+					//used to abort game in progress
+				}
+				.hidden()
 
 				Button("Record Game") {
 

@@ -72,6 +72,10 @@
       },
       {
         "comment": "",
+        "key": "Blue Score"
+      },
+      {
+        "comment": "",
         "key": "Red Player:"
       },
       {
@@ -80,7 +84,15 @@
       },
       {
         "comment": "",
+        "key": "Red Score"
+      },
+      {
+        "comment": "",
         "key": "New Game"
+      },
+      {
+        "comment": "",
+        "key": "Cancel Game"
       },
       {
         "comment": "",

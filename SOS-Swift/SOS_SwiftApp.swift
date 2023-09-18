@@ -53,6 +53,12 @@ func boardSizeSelect(theSelection: Int) {
 	print("The board size selection is: \(theSelection)x\(theSelection)")
 }
 
+func newGame () {
+	
+}
+
+//View Structs
+
 //viewmodifiers to simplify text formatting code
 //think of it as a stylesheet for text labels
 //this sets the font, the font weight, frame properties, and text selection
@@ -149,6 +155,7 @@ struct redPlayerTypeRadioButton: View {
 		}
 	}
 }
+
 
 
 @main
