@@ -1,0 +1,38 @@
+{
+  "" : {
+    "diagnostics" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/SOS-Swift-master.dia",
+    "emit-module-dependencies" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/SOS-Swift-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/SOS-Swift-master-emit-module.dia",
+    "swift-dependencies" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/SOS-Swift-master.swiftdeps"
+  },
+  "/Users/jwelch/Desktop/School Project/SOS-Swift/SOS-Swift/ContentView.swift" : {
+    "const-values" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/ContentView.d",
+    "diagnostics" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/ContentView.dia",
+    "index-unit-output-path" : "/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/ContentView.o",
+    "llvm-bc" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/ContentView.bc",
+    "object" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/ContentView.o",
+    "swift-dependencies" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/ContentView~partial.swiftmodule"
+  },
+  "/Users/jwelch/Desktop/School Project/SOS-Swift/SOS-Swift/SOS_SwiftApp.swift" : {
+    "const-values" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/SOS_SwiftApp.swiftconstvalues",
+    "dependencies" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/SOS_SwiftApp.d",
+    "diagnostics" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/SOS_SwiftApp.dia",
+    "index-unit-output-path" : "/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/SOS_SwiftApp.o",
+    "llvm-bc" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/SOS_SwiftApp.bc",
+    "object" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/SOS_SwiftApp.o",
+    "swift-dependencies" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/SOS_SwiftApp.swiftdeps",
+    "swiftmodule" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/SOS_SwiftApp~partial.swiftmodule"
+  },
+  "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/jwelch/Library/Developer/Xcode/DerivedData/SOS-Swift-helqtvxtgftianhcdpuzfnylrbzg/Previews/SOS-Swift/Intermediates.noindex/SOS-Swift.build/Debug/SOS-Swift.build/Objects-normal/x86_64/GeneratedAssetSymbols~partial.swiftmodule"
+  }
+}

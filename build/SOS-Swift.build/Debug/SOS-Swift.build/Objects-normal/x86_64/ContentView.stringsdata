@@ -1,5 +1,5 @@
 {
-  "source": "/Users/jwelch/Desktop/SOS-Swift/SOS-Swift/ContentView.swift",
+  "source": "/Users/jwelch/Desktop/School Project/SOS-Swift/SOS-Swift/ContentView.swift",
   "tables": {
     "Localizable": [
       {
@@ -105,6 +105,10 @@
       {
         "comment": "",
         "key": "%lld,%lld"
+      },
+      {
+        "comment": "",
+        "key": ""
       }
     ]
   },

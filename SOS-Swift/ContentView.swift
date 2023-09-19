@@ -199,31 +199,41 @@ struct ContentView: View {
 								//the border is how you set up grid lines
 								//the order is important. if foreground color comes after
 								//overlay, it covers the overlay
-							Rectangle()
-								.foregroundColor(.teal)
-								.overlay(Text("\(row),\(col)").fontWeight(.heavy))
-								.border(Color.black)
-							
-								//keeping this for now in case we need to use it later
-								//but not required for this stage
-
-							/*if (row + col).isMultiple(of: 2) {
-								//the overlay is how you add text
-								//the border is how you set up grid lines
-								Rectangle()
-								//the order is important. if foreground color comes after overlay, it covers the overlay
-									.foregroundColor(.teal)
-									//this will eventually go away when we add buttons,
-									//but for now, we keep the formatting props in the
-									//overlay properties
-									.overlay(Text("\(row),\(col)").fontWeight(.heavy))
-									.border(Color.black )
-							} else {
+							GeometryReader { gridCellSize in
 								Rectangle()
 									.foregroundColor(.teal)
 									.overlay(Text("\(row),\(col)").fontWeight(.heavy))
 									.border(Color.black)
-							}*/
+
+								Button {
+
+								} label: {
+									Text("")
+										//.frame(width: proxy.size.width,height: proxy.size.height)
+										.frame(width: gridCellSize.frame(in: .global).width,height: gridCellSize.frame(in: .global).height)
+								}
+									//keeping this for now in case we need to use it later
+									//but not required for this stage
+
+								/*if (row + col).isMultiple(of: 2) {
+									//the overlay is how you add text
+									//the border is how you set up grid lines
+									Rectangle()
+									//the order is important. if foreground color comes after overlay, it covers the overlay
+										.foregroundColor(.teal)
+										//this will eventually go away when we add buttons,
+										//but for now, we keep the formatting props in the
+										//overlay properties
+										.overlay(Text("\(row),\(col)").fontWeight(.heavy))
+										.border(Color.black )
+								} else {
+									Rectangle()
+										.foregroundColor(.teal)
+										.overlay(Text("\(row),\(col)").fontWeight(.heavy))
+										.border(Color.black)
+								}*/
+							}
+
 						}
 					}
 				}

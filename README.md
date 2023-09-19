@@ -14,3 +14,21 @@ The next part, code-wise will be setting up the game board and allowing it to be
 	Grid Cell Notes: We put a rectangle in each grid space. The overlay is how you add text, the border is how you set up grid lines. The order is important. if foreground color property comes after overlay text property, it covers the overlay property. I left the code treating "even" cells differently from "odd" cells in just in case I need it later. Next step is some grid unit tests.
 
 20230917: Added in Htstack with score text fields and "Cancel Game" button (nothing hooked up yet. hidden for now because we may not actually need it) Set up if statement to use gameType state var to hide and show fields within the hstack for the score fields. If it's a simple game, there's no score shown. If a general game, there's a score. By hooking this to the state var, when you choose between simple and general, the fields automatically show and hide. To simplify things, the only way to switch states once a game is started is to click new game button.
+
+20230919: GOT THE BUTTONS IN!!!! the hard part was getting the size to match the cell. Answer? GeometryReader! So we enclose the Rectangle() for each cell in GeometryReader{}, and then using the <var> in variable for GR, we add a button with the frame for the label text set to using the GeometryReader data:
+		
+		GeometryReader { gridCellSize in
+			Rectangle()
+				.foregroundColor(.teal)
+				.overlay(Text("\(row),\(col)").fontWeight(.heavy))
+				.border(Color.black)
+
+			Button {
+
+			} label: {
+				Text("")
+					.frame(width: gridCellSize.frame(in: .global).width,height: gridCellSize.frame(in: .global).height)
+			}
+		}
+
+	et voila, we have a clickable button that is always the size of the cell it is in. Because that is just AWESOME AS HELL and so easy. 
