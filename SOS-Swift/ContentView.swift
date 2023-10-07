@@ -18,6 +18,7 @@ struct ContentView: View {
 	@State var bluePlayerScore: Int = 0
 	@State var redPlayerScore: Int = 0
 	@State var currentPlayer: String = "Blue"
+	@State var lastButtonClickedIndex: Int = 0
 
 
 	var body: some View {
@@ -151,8 +152,8 @@ struct ContentView: View {
 				}
 				.padding(.top,5.0)
 
-				Button("Cancel Game") {
-					//used to abort game in progress
+				Button("Commit Move") {
+					//used to save the move just made, and set that button to disabled.
 				}
 				.hidden()
 
@@ -197,7 +198,7 @@ struct ContentView: View {
 				ForEach(0..<boardSize, id: \.self) { row in
 					GridRow {
 						//column foreach
-						ForEach(0..<boardSize, id: \.self) {col in
+						ForEach(0..<boardSize, id: \.self) { col in
 								//put a rectangle in each grid space
 								//the overlay is how you add text
 								//the border is how you set up grid lines
@@ -205,38 +206,43 @@ struct ContentView: View {
 								//overlay, it covers the overlay
 								//gridCellSize is how we get the size
 							GeometryReader { gridCellSize in
+								//this sets up the index for gridCellArr so we "know" what button
+								//we're clicking
+								let myIndex = row * boardSize + col
 								Rectangle()
-									.foregroundColor(.teal)
-									.overlay(Text("\(row),\(col)").fontWeight(.heavy))
-									.border(Color.black)
+									//.foregroundColor(.teal)
+									//.overlay(Text("\(row),\(col)").fontWeight(.heavy))
+									//.border(Color.black)
 
 								Button {
-
+									//this is where we run the core function that does all the work
+									var theTuple = buttonClickStuff(for: gridCellArr[myIndex].index, myArray: gridCellArr)
+									gridCellArr[myIndex].title = theTuple.myTitle
+									lastButtonClickedIndex = gridCellArr[myIndex].index
+									//print("the last button clicked was button \(lastButtonClickedIndex)")
 								} label: {
-									Text("")
+									//set the text of the button to be the title of the button
+									Text(gridCellArr[myIndex].title)
+										//set the font of the button text to be system with a
+										//size of 36, a weight of heavy, and to be a serif font
+										.font(.system(size: 36, weight: .heavy, design: .serif))
 										//.frame(width: proxy.size.width,height: proxy.size.height)
-										.frame(width: gridCellSize.frame(in: .global).width,height: gridCellSize.frame(in: .global).height)
+										.frame(width: gridCellSize.frame(in: .global).width,height: gridCellSize.frame(in: .global).height, alignment: .center)
 								}
-									//keeping this for now in case we need to use it later
-									//but not required for this stage
+								//styles button. Since I only have to do this once, here, there's no
+								//real point in building a separate button style
+								//note that .background is necessary to avoid weird button display errors
+								.background(gridCellArr[myIndex].backCol)
+								.border(Color.black)
 
-								/*if (row + col).isMultiple(of: 2) {
-									//the overlay is how you add text
-									//the border is how you set up grid lines
-									Rectangle()
-									//the order is important. if foreground color comes after overlay, it covers the overlay
-										.foregroundColor(.teal)
-										//this will eventually go away when we add buttons,
-										//but for now, we keep the formatting props in the
-										//overlay properties
-										.overlay(Text("\(row),\(col)").fontWeight(.heavy))
-										.border(Color.black )
-								} else {
-									Rectangle()
-										.foregroundColor(.teal)
-										.overlay(Text("\(row),\(col)").fontWeight(.heavy))
-										.border(Color.black)
-								}*/
+								.onAppear(perform: {
+									//print("my index is: \(myIndex)")
+									//this has each button set its own coordinates as it appears
+									//which is IMPORTANT later on
+									gridCellArr[myIndex].xCoord = col
+									gridCellArr[myIndex].yCoord = row
+								})
+
 							}
 
 						}
@@ -250,3 +256,25 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
+
+//keeping this for now in case we need to use it later
+//but not required for this stage
+
+/*if (row + col).isMultiple(of: 2) {
+//the overlay is how you add text
+//the border is how you set up grid lines
+Rectangle()
+//the order is important. if foreground color comes after overlay, it covers the overlay
+	.foregroundColor(.teal)
+	//this will eventually go away when we add buttons,
+	//but for now, we keep the formatting props in the
+	//overlay properties
+	.overlay(Text("\(row),\(col)").fontWeight(.heavy))
+	.border(Color.black )
+} else {
+Rectangle()
+	.foregroundColor(.teal)
+	.overlay(Text("\(row),\(col)").fontWeight(.heavy))
+	.border(Color.black)
+}*/

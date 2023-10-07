@@ -92,7 +92,7 @@
       },
       {
         "comment": "",
-        "key": "Cancel Game"
+        "key": "Commit Move"
       },
       {
         "comment": "",
@@ -101,14 +101,6 @@
       {
         "comment": "",
         "key": "Replay Game"
-      },
-      {
-        "comment": "",
-        "key": "%lld,%lld"
-      },
-      {
-        "comment": "",
-        "key": ""
       }
     ]
   },

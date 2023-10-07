@@ -63,6 +63,43 @@ func buildCellArray(theGridSize: Int) -> [Cell] {
 	return myStructArray
 }
 
+//this is the function that handles what do to on click i.e. setting the text in the button to be S, O, or blank,
+//and any other needs. it takes the index of the button clicked as an int, and the existing array of cells as
+//an array of [Cell], and returns a tuple. By returning a tuple, we can pass back multiple values with some kind
+//of usable naming
+
+func buttonClickStuff(for myIndex: Int, myArray: [Cell]) -> (myColor: Color, myTitle:String) {
+	//switch statement to cycle between  titles on the button
+	//print("Index passed is: \(myIndex)")
+	switch myArray[myIndex].title {
+		case "":
+			myArray[myIndex].title = "S"
+		case "S":
+			myArray[myIndex].title = "O"
+		case "O":
+			myArray[myIndex].title = ""
+		default:
+			print("Something went wrong, try restarting the app")
+	}
+
+	//this really isn't needed, but it's going to be a help later.
+
+	var theColor: Color
+	theColor = Color.blue
+	/*if myIndex <= 7 {
+		var testIndex = myIndex + 1
+		print("\(myArray[testIndex].index)")
+		theColor = Color.green
+	} else {
+		var testIndex = myIndex - 1
+		print("\(myArray[testIndex].index)")
+		theColor = Color.blue
+	}*/
+
+	let theReturnTuple = (myColor: theColor, myTitle: myArray[myIndex].title)
+	return theReturnTuple
+}
+
 func newGame () {
 
 }
@@ -106,6 +143,7 @@ struct basicTextModifierNoFrame: ViewModifier {
 			.textSelection(.enabled)
 	}
 }
+
 
 //setup for game type radio buttons, swiftui is weird this way
 struct gameTypeRadioButtonView: View {
