@@ -199,6 +199,7 @@ struct ContentView: View {
 								//the border is how you set up grid lines
 								//the order is important. if foreground color comes after
 								//overlay, it covers the overlay
+								//gridCellSize is how we get the size
 							GeometryReader { gridCellSize in
 								Rectangle()
 									.foregroundColor(.teal)
