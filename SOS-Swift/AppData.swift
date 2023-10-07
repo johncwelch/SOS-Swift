@@ -45,11 +45,42 @@ func boardSizeSelect(theSelection: Int) {
 	print("The board size selection is: \(theSelection)x\(theSelection)")
 }
 
+//this builds an array of Cell that gets attached to each button in the game. It's kind of important
+//takes in the grid size set in the UI, and then returns an array of cells 
+func buildCellArray(theGridSize: Int) -> [Cell] {
+	var myStructArray: [Cell] = []
+	let arraySize = (theGridSize * theGridSize) - 1
+	for i in 0...arraySize {
+		myStructArray.append(Cell())
+	}
+
+	for i in 0...arraySize {
+		myStructArray[i].index = i
+	}
+	//print statement used to validate the array size when the dropdown changes.
+	//should be one less than the total number of cells in the grid since we start counting at zero
+	//print("Built Cell Array with \(arraySize) elements")
+	return myStructArray
+}
+
 func newGame () {
 
 }
 
+//game classes
 
+//this is the class we use to modify the buttons on click. This avoids having to sling actual buttons back and forth
+//makes memory usage smaller, and our lives more sane
+@Observable
+class Cell: Identifiable {
+	let id = UUID()
+	var title: String = ""
+	var buttonToggled: Bool = false
+	var index: Int = 0
+	var xCoord: Int = 0
+	var yCoord: Int = 0
+	var backCol: Color = .gray
+}
 
 //View Structs
 

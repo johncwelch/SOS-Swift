@@ -21,6 +21,10 @@ struct ContentView: View {
 
 
 	var body: some View {
+
+		//builds the cell array based on boardSize. Any time boardSize changes, this is
+		//rebuilt thanks to the magic of state vars
+		@State var gridCellArr = buildCellArray(theGridSize: boardSize)
 		//this is the main view within the window
 		//the vstack/hstack dance is a very CSS way to do things
 		//the area for all the controls that aren't the game grid
