@@ -92,15 +92,15 @@
       },
       {
         "comment": "",
-        "key": "Commit Move"
-      },
-      {
-        "comment": "",
         "key": "Record Game"
       },
       {
         "comment": "",
         "key": "Replay Game"
+      },
+      {
+        "comment": "",
+        "key": "Commit Move"
       }
     ]
   },

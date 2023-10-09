@@ -10,7 +10,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			+Dg3Vj4/Bv+nH4SFJTNzFBjexVA=
+			x4LPBxCCvt9VjcjoqYFUuscKEL4=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.apple.dt.XCTAutomationSupport" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
@@ -19,7 +19,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			Wi7YDjZEdXa/ObN6PsaLhpH0ADs=
+			Pt75AIVhvrrYz6pAj0stAwsMeM0=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.apple.dt.XCTest" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
@@ -28,7 +28,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			ORl+66D0y6F4v/8hp7Eed/7ePVU=
+			yluBLcSIrQ/JF9eRmd3cVTp2YQo=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.apple.dt.XCTestCore" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
@@ -37,7 +37,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			fiPcCeslTKe8ZzSdfMWZkv2E15U=
+			xrQRjY6zWoox5gWnFct59mnz+4E=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.apple.dt.XCTestSupport" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
@@ -46,7 +46,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			WJbxzvjUqt7nu7Smvns8jQtOvL0=
+			FIa7iVGUw4M0+w5A+vxRf/dc5qE=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.apple.dt.XCUIAutomation" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
@@ -55,7 +55,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			kLcr8g8A/Z8oAW1W4TJZ/B74vKg=
+			dp31UGErMPY1eT7pcLtb5lGDXcc=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.apple.dt.XCUnit" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
@@ -64,16 +64,16 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			y6tFIzv8YCbqJo2cV2Rf9LGHru0=
+			7GMK+kVJ55wq5UOeTBcW/VwhkBI=
 			</data>
 			<key>requirement</key>
-			<string>identifier "libXCTestSwiftSupport-55554944a025749663e83771b6f6d58f65486d3a" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+			<string>identifier "libXCTestSwiftSupport-55554944ec5ec1cb5fd638b89baf79873a7e53a6" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 		</dict>
 		<key>PlugIns/SOS-SwiftUITests.xctest</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			q1AUWZPVl9H2wyYlXN2pwT85xZU=
+			3ATjJ0kmYT3CVJca/WJ1qGnLnQI=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.bynkii.SOS-SwiftUITests" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>

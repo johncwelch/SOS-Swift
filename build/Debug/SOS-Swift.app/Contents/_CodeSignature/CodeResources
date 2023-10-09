@@ -10,7 +10,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			nGuu4i73HvvwzJP4ymttIDLRYUo=
+			66Gvktz+xype7PbHEf+/LboYhPk=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.apple.dt.XCTAutomationSupport" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
@@ -19,7 +19,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			VEwGSzTIwr2qyCFWBZOMJznq9+M=
+			dNTiAaeQ0pxOA0+9VmqsyGahv8M=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.apple.dt.XCTest" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
@@ -28,7 +28,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			knVSTE6BTQiwS4URkRsdPWizy0k=
+			cQOnEJJ/K5Tlyt/+kmpDkGFcJBA=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.apple.dt.XCTestCore" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
@@ -37,7 +37,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			qLdN1Yfr9mozvW1ZH09z/lE6XvY=
+			o0wDajlWoEtaQKKjE123wvoQp08=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.apple.dt.XCTestSupport" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
@@ -46,7 +46,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			P997mFy6yHBRzSTHIEYWaqDrhsU=
+			/covuPb5PuNHIoHAi3sYd8idP5E=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.apple.dt.XCUIAutomation" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
@@ -55,7 +55,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			higNqcyE8nXJ9dqjSNZXwFUWyvk=
+			OhUC5t2O+Hf7XuryAUYi27bF6zw=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.apple.dt.XCUnit" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
@@ -64,25 +64,25 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			S2SGawN/NfYcJcYylN+WMFqWlDI=
+			XN5fl0qvY+KvuixJtVBu7obNwO8=
 			</data>
 			<key>requirement</key>
-			<string>identifier "libXCTestBundleInject-55554944e3b357f6303c3ab98ad17e03080744ff" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+			<string>identifier "libXCTestBundleInject-5555494427f7908b8f333ba1b5114c7a334a72b6" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 		</dict>
 		<key>Frameworks/libXCTestSwiftSupport.dylib</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			ZuPkLO3bmlpFYY7p6rihYCZSVlQ=
+			UtYEZSv6/DDwlWE8jIXOtO8DyGM=
 			</data>
 			<key>requirement</key>
-			<string>identifier "libXCTestSwiftSupport-55554944a025749663e83771b6f6d58f65486d3a" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+			<string>identifier "libXCTestSwiftSupport-55554944ec5ec1cb5fd638b89baf79873a7e53a6" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 		</dict>
 		<key>PlugIns/SOS-SwiftTests.xctest</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			ffL8lneO7maaPCYyDLDKZi+qKjg=
+			8w88PObZEKWrGtgPrZxY68ZJbm8=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.bynkii.SOS-SwiftTests" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: John Welch (ZP5LB5F2MT)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>

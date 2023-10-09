@@ -68,40 +68,61 @@ func buildCellArray(theGridSize: Int) -> [Cell] {
 //an array of [Cell], and returns a tuple. By returning a tuple, we can pass back multiple values with some kind
 //of usable naming
 
-func buttonClickStuff(for myIndex: Int, myArray: [Cell]) -> (myColor: Color, myTitle:String) {
+func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: [Cell], myCurrentPlayer: String) -> (myColor: Color, myTitle:String, myCommitButtonStatus: Bool, myCurrentPlayer: String) {
 	//switch statement to cycle between  titles on the button
 	//print("Index passed is: \(myIndex)")
-	switch myArray[myIndex].title {
+	var theCommitButtonStatus: Bool = false
+	var theCellTitle: String = ""
+	var theCurrentPlayer: String = ""
+	switch theTitle {
 		case "":
-			myArray[myIndex].title = "S"
+			theCellTitle = "S"
+			theCommitButtonStatus = false
 		case "S":
-			myArray[myIndex].title = "O"
+			theCellTitle = "O"
+			theCommitButtonStatus = false
 		case "O":
-			myArray[myIndex].title = ""
+			theCellTitle = ""
+			theCommitButtonStatus = true
 		default:
 			print("Something went wrong, try restarting the app")
 	}
-
+	print("cell button lable is: \(theCellTitle)")
+	print("cell button commit status is: \(theCommitButtonStatus)")
 	//this really isn't needed, but it's going to be a help later.
-
-	var theColor: Color
-	theColor = Color.blue
-	/*if myIndex <= 7 {
-		var testIndex = myIndex + 1
-		print("\(myArray[testIndex].index)")
-		theColor = Color.green
+	if myCurrentPlayer == "Blue" {
+		theCurrentPlayer = "Red"
 	} else {
-		var testIndex = myIndex - 1
-		print("\(myArray[testIndex].index)")
-		theColor = Color.blue
-	}*/
+		theCurrentPlayer = "Blue"
+	}
 
-	let theReturnTuple = (myColor: theColor, myTitle: myArray[myIndex].title)
+	let theColor: Color = Color.blue
+	let theReturnTuple = (myColor: theColor, myTitle: theCellTitle, myCommitButtonStatus: theCommitButtonStatus, myCurrentPlayer: theCurrentPlayer)
 	return theReturnTuple
 }
 
 func newGame () {
 
+}
+
+func changePlayer(myCurrentPlayer: String) -> String {
+	var newPlayer: String = ""
+	if myCurrentPlayer == "Blue" {
+		newPlayer = "Red"
+	} else if myCurrentPlayer == "Red" {
+		newPlayer = "Blue"
+	}
+	return newPlayer
+}
+
+func setButtonColor(myCurrentPlayer: String) -> Color {
+	var buttonColor: Color = .gray
+	if myCurrentPlayer == "Blue" {
+		buttonColor = .blue
+	} else if myCurrentPlayer == "Red" {
+		buttonColor = .red
+	}
+	return buttonColor
 }
 
 //game classes
@@ -112,11 +133,12 @@ func newGame () {
 class Cell: Identifiable {
 	let id = UUID()
 	var title: String = ""
-	var buttonToggled: Bool = false
+	var buttonDisabled: Bool = false
 	var index: Int = 0
 	var xCoord: Int = 0
 	var yCoord: Int = 0
 	var backCol: Color = .gray
+	//var disabled: Bool = false
 }
 
 //View Structs
