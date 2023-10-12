@@ -236,7 +236,7 @@ struct ContentView: View {
 
 								Button {
 									//this is where we run the core function that does all the work
-									var theTuple = buttonClickStuff(for: theGame.gridCellArr[myIndex].index, theTitle: theGame.gridCellArr[myIndex].title, myArray: theGame.gridCellArr, myCurrentPlayer: currentPlayer)
+									let theTuple = buttonClickStuff(for: theGame.gridCellArr[myIndex].index, theTitle: theGame.gridCellArr[myIndex].title, myArray: theGame.gridCellArr, myCurrentPlayer: currentPlayer)
 
 									theGame.gridCellArr[myIndex].title = theTuple.myTitle
 									buttonBlank = theTuple.myCommitButtonStatus
@@ -265,7 +265,6 @@ struct ContentView: View {
 								//once a move is committed, buttonDisabled is set to true, and the button is
 								//disabled so it can't be used again
 								.disabled(theGame.gridCellArr[myIndex].buttonDisabled)
-
 								.onAppear(perform: {
 									//this has each button set its own coordinates as it appears
 									//which is IMPORTANT later on
@@ -277,6 +276,8 @@ struct ContentView: View {
 						}
 					}
 				}
+				//this is needed to force all squares to redraw. If it's not there, then when you go from 3x3 to 4x4 for example,
+				//the original 9 squares don't actually update. That's not good, so this fixes it.
 				.id(theGame.gridSize)
 			}
 		}

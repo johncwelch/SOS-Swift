@@ -32,3 +32,8 @@ The next part, code-wise will be setting up the game board and allowing it to be
 		}
 
 	et voila, we have a clickable button that is always the size of the cell it is in. Because that is just AWESOME AS HELL and so easy. 
+	
+20231012 GOT THE RESIZING WORKING WITH THE BUTTON TITLE CHANGES!!
+	so now when you click on a button, it cycles through "", "S", and "O", and when a button is showing "S" or "O", the "Commit Move" button is enabled. I still have to implement locking out other buttons when "S" or "O" is showing so "bad" moves can't be made. Commit move also changes the current player, and sets the background color of the button to the player that made the move. 
+	
+	this was remarkably difficult due to how SwiftUI handles certain things and required me redoing how I create the array that's attached to the buttons completely. But, it's working, each button knows what it is and where it is, which will be critical in calculating "SOS" or not. But the next immediate thing is wiring in the code to prevent more than one button having a title and having new game do its thing. 

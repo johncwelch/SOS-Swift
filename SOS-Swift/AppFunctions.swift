@@ -85,8 +85,8 @@ func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: [Cell], myCur
 			print("Something went wrong, try restarting the app")
 	}
 	//testing print statements
-	print("cell button lable is: \(theCellTitle)")
-	print("cell button commit status is: \(theCommitButtonStatus)")
+	//print("cell button lable is: \(theCellTitle)")
+	//bprint("cell button commit status is: \(theCommitButtonStatus)")
 	//sets up the values so that the button color can be changed to be correct
 
 	if myCurrentPlayer == "Blue" {
