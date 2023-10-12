@@ -6,13 +6,14 @@
 //  this is the class file for our UI code
 
 import SwiftUI
+import Observation
 
 //build the main window view
 struct ContentView: View {
 	//vars for controls and current player
 	//by using @State vars, we get a LOT of UI functionality for free
 	@State var gameType: Int = 1
-	@State var boardSize: Int = 3
+	//@State var boardSize: Int = 3
 	@State var bluePlayerType: Int = 1
 	@State var redPlayerType: Int = 1
 	@State var bluePlayerScore: Int = 0
@@ -21,10 +22,9 @@ struct ContentView: View {
 	@State var lastButtonClickedIndex: Int = 0
 	@State var buttonTextColor: Color = .white
 	@State var buttonBlank: Bool = true
-	//@State var cellButtonTitle: String = ""
+	@State var theGame = Game(gridSize: 3)
 
 
-	@State var gridCellArr = buildCellArray(theGridSize: 3)
 
 
 	var body: some View {
@@ -52,7 +52,7 @@ struct ContentView: View {
 
 			//select board size
 			VStack(alignment: .leading) {
-				Picker("Board Size", selection: $boardSize) {
+				Picker("Board Size", selection: $theGame.gridSize) {
 				    Text("3").tag(3)
 				    Text("4").tag(4)
 				    Text("5").tag(5)
@@ -71,12 +71,10 @@ struct ContentView: View {
 					.accessibilityIdentifier("boardSizeDropdown")
 				    //makes it look like a dropdown list
 					.pickerStyle(MenuPickerStyle())
-
-				    //this is how you initiate actions based on a change event
-				    //test func to show size of board based on selection
-					.onChange(of: boardSize) {
-					    boardSizeSelect(theSelection: boardSize)
-
+					//this is how you initiate actions based on a change event
+					//test func to show size of board based on selection
+					.onChange(of: theGame.gridSize) {
+						    boardSizeSelect(theSelection: theGame.gridSize)
 					}
 
 				    //put in a row with the current player label and value
@@ -137,9 +135,6 @@ struct ContentView: View {
 					if gameType != 1 {
 						Text("Red Score")
 						Text(String(redPlayerScore))
-						/*TextField(text: $bluePlayerScore) {
-							Text("")
-						}*/
 						.frame(width: 25, height: 22, alignment: .center)
 					}
 				}
@@ -157,7 +152,7 @@ struct ContentView: View {
 
 					//clears any existing moves, disables board size/game mode/player mode controls
 
-					let myTuple = (theType: gameType, theSize: boardSize, theBlueType: bluePlayerType, theRedType: redPlayerType, theCurrentPlayer: currentPlayer)
+					let myTuple = (theType: gameType, theSize: theGame.gridSize, theBlueType: bluePlayerType, theRedType: redPlayerType, theCurrentPlayer: currentPlayer)
 
 					//function is actually in appData.swift
 					//this lets us put non-ui code in its own class file
@@ -172,9 +167,9 @@ struct ContentView: View {
 				Button {
 					//on commit...
 					//set the background color to that of the current player
-					gridCellArr[lastButtonClickedIndex].backCol = setButtonColor(myCurrentPlayer: currentPlayer)
+					theGame.gridCellArr[lastButtonClickedIndex].backCol = setButtonColor(myCurrentPlayer: currentPlayer)
 					//disable that button from further use
-					gridCellArr[lastButtonClickedIndex].buttonDisabled = true
+					theGame.gridCellArr[lastButtonClickedIndex].buttonDisabled = true
 					//disable the commit button
 					buttonBlank = true
 					//change the player
@@ -223,10 +218,10 @@ struct ContentView: View {
 				//this is just telling the view what's going on.
 
 				//row foreach
-				ForEach(0..<boardSize, id: \.self) { row in
+				ForEach(0..<theGame.gridSize, id: \.self) { row in
 					GridRow {
 						//column foreach
-						ForEach(0..<boardSize, id: \.self) { col in
+						ForEach(0..<theGame.gridSize, id: \.self) { col in
 								//put a rectangle in each grid space
 								//the overlay is how you add text
 								//the border is how you set up grid lines
@@ -236,27 +231,23 @@ struct ContentView: View {
 							GeometryReader { gridCellSize in
 								//this sets up the index for gridCellArr so we "know" what button
 								//we're clicking
-								let myIndex = row * boardSize + col
-								//Rectangle()
-									//.foregroundColor(.teal)
-									//.overlay(Text("\(row),\(col)").fontWeight(.heavy))
-									//.border(Color.black)
+								//let myIndex = row * boardSize + col
+								let myIndex = (row * theGame.gridSize) + col
 
 								Button {
 									//this is where we run the core function that does all the work
-									var theTuple = buttonClickStuff(for: gridCellArr[myIndex].index, theTitle: gridCellArr[myIndex].title, myArray: gridCellArr, myCurrentPlayer: currentPlayer)
+									var theTuple = buttonClickStuff(for: theGame.gridCellArr[myIndex].index, theTitle: theGame.gridCellArr[myIndex].title, myArray: theGame.gridCellArr, myCurrentPlayer: currentPlayer)
 
-									gridCellArr[myIndex].title = theTuple.myTitle
+									theGame.gridCellArr[myIndex].title = theTuple.myTitle
 									buttonBlank = theTuple.myCommitButtonStatus
-									lastButtonClickedIndex = gridCellArr[myIndex].index
+									lastButtonClickedIndex = theGame.gridCellArr[myIndex].index
 
-									//print statements to validate the button clicked properties
-									//print("the current index is: \(gridCellArr[myIndex].index), the current button grid location is \(gridCellArr[myIndex].xCoord),\(gridCellArr[myIndex].yCoord)")
-									//print("buttonBlank is: \(buttonBlank)")
+									//print("Current button index is: \(theGame.gridCellArr[myIndex].index)")
+									//print("Button Coords are: \(theGame.gridCellArr[myIndex].xCoord),\(theGame.gridCellArr[myIndex].yCoord)")
 
 								} label: {
 									//set the text of the button to be the title of the button
-									Text(gridCellArr[myIndex].title)
+									Text(theGame.gridCellArr[myIndex].title)
 										//set the font of the button text to be system with a
 										//size of 36, a weight of heavy, and to be a serif font
 										.font(.system(size: 36, weight: .heavy, design: .serif))
@@ -269,25 +260,24 @@ struct ContentView: View {
 								//note that .background is necessary to avoid weird button display errors
 								.foregroundStyle(buttonTextColor)
 								//this allows the button color to change on commit
-								.background(gridCellArr[myIndex].backCol)
+								.background(theGame.gridCellArr[myIndex].backCol)
 								.border(Color.black)
 								//once a move is committed, buttonDisabled is set to true, and the button is
 								//disabled so it can't be used again
-								.disabled(gridCellArr[myIndex].buttonDisabled)
+								.disabled(theGame.gridCellArr[myIndex].buttonDisabled)
 
 								.onAppear(perform: {
-									//print("my index is: \(myIndex)")
 									//this has each button set its own coordinates as it appears
 									//which is IMPORTANT later on
-									gridCellArr[myIndex].xCoord = col
-									gridCellArr[myIndex].yCoord = row
+									theGame.gridCellArr[myIndex].xCoord = col
+									theGame.gridCellArr[myIndex].yCoord = row
 								})
 
 							}
-
 						}
 					}
 				}
+				.id(theGame.gridSize)
 			}
 		}
 	}

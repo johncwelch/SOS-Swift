@@ -1,0 +1,24 @@
+{
+  "source": "/Users/jwelch/Desktop/School Project/SOS-Swift/SOS-Swift/AppStructs.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Simple"
+      },
+      {
+        "comment": "",
+        "key": "General"
+      },
+      {
+        "comment": "",
+        "key": "Human"
+      },
+      {
+        "comment": "",
+        "key": "Computer"
+      }
+    ]
+  },
+  "version": 1
+}

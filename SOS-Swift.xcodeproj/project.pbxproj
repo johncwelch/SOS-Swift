@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		702892D22AD2023900BEC5CB /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702892D12AD2023900BEC5CB /* AppData.swift */; };
+		702893262AD898E800BEC5CB /* AppClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702893252AD898E200BEC5CB /* AppClasses.swift */; };
+		702893282AD8995800BEC5CB /* AppFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702893272AD8995800BEC5CB /* AppFunctions.swift */; };
+		7028932A2AD89E6400BEC5CB /* AppStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702893292AD89E6400BEC5CB /* AppStructs.swift */; };
 		704B1ED82A9E3FD6007F9B81 /* SOS_SwiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704B1ED72A9E3FD6007F9B81 /* SOS_SwiftApp.swift */; };
 		704B1EDA2A9E3FD6007F9B81 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704B1ED92A9E3FD6007F9B81 /* ContentView.swift */; };
 		704B1EDC2A9E3FD7007F9B81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 704B1EDB2A9E3FD7007F9B81 /* Assets.xcassets */; };
@@ -35,7 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		702892D12AD2023900BEC5CB /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		702893252AD898E200BEC5CB /* AppClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppClasses.swift; sourceTree = "<group>"; };
+		702893272AD8995800BEC5CB /* AppFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFunctions.swift; sourceTree = "<group>"; };
+		702893292AD89E6400BEC5CB /* AppStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStructs.swift; sourceTree = "<group>"; };
 		704B1ED42A9E3FD6007F9B81 /* SOS-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SOS-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		704B1ED72A9E3FD6007F9B81 /* SOS_SwiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOS_SwiftApp.swift; sourceTree = "<group>"; };
 		704B1ED92A9E3FD6007F9B81 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -99,12 +103,14 @@
 		704B1ED62A9E3FD6007F9B81 /* SOS-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				702893272AD8995800BEC5CB /* AppFunctions.swift */,
+				702893252AD898E200BEC5CB /* AppClasses.swift */,
 				704B1ED72A9E3FD6007F9B81 /* SOS_SwiftApp.swift */,
-				702892D12AD2023900BEC5CB /* AppData.swift */,
 				704B1ED92A9E3FD6007F9B81 /* ContentView.swift */,
 				704B1EDB2A9E3FD7007F9B81 /* Assets.xcassets */,
 				704B1EE02A9E3FD7007F9B81 /* SOS_Swift.entitlements */,
 				704B1EDD2A9E3FD7007F9B81 /* Preview Content */,
+				702893292AD89E6400BEC5CB /* AppStructs.swift */,
 			);
 			path = "SOS-Swift";
 			sourceTree = "<group>";
@@ -266,7 +272,9 @@
 			files = (
 				704B1EDA2A9E3FD6007F9B81 /* ContentView.swift in Sources */,
 				704B1ED82A9E3FD6007F9B81 /* SOS_SwiftApp.swift in Sources */,
-				702892D22AD2023900BEC5CB /* AppData.swift in Sources */,
+				7028932A2AD89E6400BEC5CB /* AppStructs.swift in Sources */,
+				702893282AD8995800BEC5CB /* AppFunctions.swift in Sources */,
+				702893262AD898E800BEC5CB /* AppClasses.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
