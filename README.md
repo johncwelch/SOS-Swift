@@ -6,6 +6,22 @@ The current iteration as of 5 sept. 2023 solves the basic requirements for the S
 
 The next part, code-wise will be setting up the game board and allowing it to be resized via the dropdown list in the app.
 
+User Storys and status
+	1.1	done
+	1.2	done
+	2.1	done
+	2.2	done
+	2.3	done
+	3.1	done
+	4.1	done
+	4.2
+	5.1	
+	5.2
+	6.1	done
+	6.2
+	6.3
+	7.1
+	
 
 20230907: Cleaned up the text and label formatting code with a couple of ViewModifier structs, basicTextModifierNoFrame and basicTextModifier. The difference is, one modfies frame properties, the other does not. Also moved the three radio button definition structs from ContentView into SOS_SwiftApp.swift, the idea being to have as little as possible code that isn't directly involved with the UI functionality in ContentView.swift
 
@@ -37,3 +53,5 @@ The next part, code-wise will be setting up the game board and allowing it to be
 	so now when you click on a button, it cycles through "", "S", and "O", and when a button is showing "S" or "O", the "Commit Move" button is enabled. I still have to implement locking out other buttons when "S" or "O" is showing so "bad" moves can't be made. Commit move also changes the current player, and sets the background color of the button to the player that made the move. 
 	
 	this was remarkably difficult due to how SwiftUI handles certain things and required me redoing how I create the array that's attached to the buttons completely. But, it's working, each button knows what it is and where it is, which will be critical in calculating "SOS" or not. But the next immediate thing is wiring in the code to prevent more than one button having a title and having new game do its thing. 
+
+20231013 New Game functionality done. This clears user story 3.1 completely
