@@ -55,6 +55,7 @@ func buildStructArray(theGridSize: Int) -> [Cell] {
 	for i in 0...arraySize {
 		myStructArray.append(Cell())
 		myStructArray[i].index = i
+		myStructArray[i].backCol = .gray
 	}
 
 	return myStructArray
@@ -100,8 +101,13 @@ func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: [Cell], myCur
 	return theReturnTuple
 }
 
-func newGame () {
-
+func newGame (myGridArray: Game) {
+	//print("The Size of the grid is: \(myGridArray.gridCellArr.count)")
+	for i in 0..<myGridArray.gridCellArr.count {
+		myGridArray.gridCellArr[i].title = ""
+		myGridArray.gridCellArr[i].backCol = .gray
+		myGridArray.gridCellArr[i].buttonDisabled = false
+	}
 }
 
 //change player on commit move

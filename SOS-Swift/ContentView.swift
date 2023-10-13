@@ -145,18 +145,13 @@ struct ContentView: View {
 			//new game, record and replay buttons
 			VStack(alignment: .leading) {
 				Button("New Game"){
-					//since myTuple technically never changes and is redefined with
-					//every button click, we'll define it as a constant via "let" instead
-					//of the mutable "var"
-					//using a tuple makes passsing multiple vars to getInitVars() in SOS_SwiftApp.swift somewhat easier
-
-					//clears any existing moves, disables board size/game mode/player mode controls
-
-					let myTuple = (theType: gameType, theSize: theGame.gridSize, theBlueType: bluePlayerType, theRedType: redPlayerType, theCurrentPlayer: currentPlayer)
-
-					//function is actually in appData.swift
-					//this lets us put non-ui code in its own class file
-					getInitVars(theType: myTuple.theType, theSize: myTuple.theSize, theBlueType: myTuple.theBlueType, theRedType: myTuple.theRedType, theCurrentPlayer: myTuple.theCurrentPlayer)
+					//newGame clears any existing "S" or "O" text, 
+					//sets all button colors back to gray
+					//the current player to blue
+					//and enables all buttons on the grid.
+					//It doesn't change anything else
+					newGame(myGridArray: theGame)
+					currentPlayer = "Blue"
 				}
 				.padding(.top,5.0)
 
