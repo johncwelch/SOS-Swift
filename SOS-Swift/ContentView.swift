@@ -23,6 +23,8 @@ struct ContentView: View {
 	@State var buttonTextColor: Color = .white
 	@State var buttonBlank: Bool = true
 	@State var theGame = Game(gridSize: 3)
+	//matches array size in theGame, which is initially 9
+	@State var arrayUsedMemberCountdown: Int = 9
 
 
 
@@ -75,6 +77,9 @@ struct ContentView: View {
 					//test func to show size of board based on selection
 					.onChange(of: theGame.gridSize) {
 						    boardSizeSelect(theSelection: theGame.gridSize)
+						print("Old Grid size is:\(arrayUsedMemberCountdown)")
+						arrayUsedMemberCountdown = theGame.gridCellArr.count
+						print("New Grid size is:\(arrayUsedMemberCountdown)")
 					}
 
 				    //put in a row with the current player label and value
@@ -228,45 +233,46 @@ struct ContentView: View {
 								//we're clicking
 								//let myIndex = row * boardSize + col
 								let myIndex = (row * theGame.gridSize) + col
+								//sanity check that avoids out of range errors when downsizing grid
+								if myIndex <= ((theGame.gridSize * theGame.gridSize) - 1) {
+									Button {
+										//this is where we run the core function that does all the work
+										let theTuple = buttonClickStuff(for: theGame.gridCellArr[myIndex].index, theTitle: theGame.gridCellArr[myIndex].title, myArray: theGame.gridCellArr, myCurrentPlayer: currentPlayer)
 
-								Button {
-									//this is where we run the core function that does all the work
-									let theTuple = buttonClickStuff(for: theGame.gridCellArr[myIndex].index, theTitle: theGame.gridCellArr[myIndex].title, myArray: theGame.gridCellArr, myCurrentPlayer: currentPlayer)
+										theGame.gridCellArr[myIndex].title = theTuple.myTitle
+										buttonBlank = theTuple.myCommitButtonStatus
+										lastButtonClickedIndex = theGame.gridCellArr[myIndex].index
 
-									theGame.gridCellArr[myIndex].title = theTuple.myTitle
-									buttonBlank = theTuple.myCommitButtonStatus
-									lastButtonClickedIndex = theGame.gridCellArr[myIndex].index
+										//print("Current button index is: \(theGame.gridCellArr[myIndex].index)")
+										//print("Button Coords are: \(theGame.gridCellArr[myIndex].xCoord),\(theGame.gridCellArr[myIndex].yCoord)")
 
-									//print("Current button index is: \(theGame.gridCellArr[myIndex].index)")
-									//print("Button Coords are: \(theGame.gridCellArr[myIndex].xCoord),\(theGame.gridCellArr[myIndex].yCoord)")
+									} label: {
+										//set the text of the button to be the title of the button
+										Text(theGame.gridCellArr[myIndex].title)
+											//set the font of the button text to be system with a
+											//size of 36, a weight of heavy, and to be a serif font
+											.font(.system(size: 36, weight: .heavy, design: .serif))
 
-								} label: {
-									//set the text of the button to be the title of the button
-									Text(theGame.gridCellArr[myIndex].title)
-										//set the font of the button text to be system with a
-										//size of 36, a weight of heavy, and to be a serif font
-										.font(.system(size: 36, weight: .heavy, design: .serif))
-
-										//this ensures the buttons are always the right size
-										.frame(width: gridCellSize.frame(in: .global).width,height: gridCellSize.frame(in: .global).height, alignment: .center)
+											//this ensures the buttons are always the right size
+											.frame(width: gridCellSize.frame(in: .global).width,height: gridCellSize.frame(in: .global).height, alignment: .center)
+									}
+									//styles button. Since I only have to do this once, here, there's no
+									//real point in building a separate button style
+									//note that .background is necessary to avoid weird button display errors
+									.foregroundStyle(buttonTextColor)
+									//this allows the button color to change on commit
+									.background(theGame.gridCellArr[myIndex].backCol)
+									.border(Color.black)
+									//once a move is committed, buttonDisabled is set to true, and the button is
+									//disabled so it can't be used again
+									.disabled(theGame.gridCellArr[myIndex].buttonDisabled)
+									.onAppear(perform: {
+										//this has each button set its own coordinates as it appears
+										//which is IMPORTANT later on
+										theGame.gridCellArr[myIndex].xCoord = col
+										theGame.gridCellArr[myIndex].yCoord = row
+									})
 								}
-								//styles button. Since I only have to do this once, here, there's no
-								//real point in building a separate button style
-								//note that .background is necessary to avoid weird button display errors
-								.foregroundStyle(buttonTextColor)
-								//this allows the button color to change on commit
-								.background(theGame.gridCellArr[myIndex].backCol)
-								.border(Color.black)
-								//once a move is committed, buttonDisabled is set to true, and the button is
-								//disabled so it can't be used again
-								.disabled(theGame.gridCellArr[myIndex].buttonDisabled)
-								.onAppear(perform: {
-									//this has each button set its own coordinates as it appears
-									//which is IMPORTANT later on
-									theGame.gridCellArr[myIndex].xCoord = col
-									theGame.gridCellArr[myIndex].yCoord = row
-								})
-
 							}
 						}
 					}

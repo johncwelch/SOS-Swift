@@ -54,4 +54,6 @@ User Storys and status
 	
 	this was remarkably difficult due to how SwiftUI handles certain things and required me redoing how I create the array that's attached to the buttons completely. But, it's working, each button knows what it is and where it is, which will be critical in calculating "SOS" or not. But the next immediate thing is wiring in the code to prevent more than one button having a title and having new game do its thing. 
 
-20231013 New Game functionality done. This clears user story 3.1 completely
+20231013 New Game functionality done. This clears user story 3.1 completely 
+
+20231017 added:  if myIndex <= ((theGame.gridSize * theGame.gridSize) - 1) after let myIndex = (row * theGame.gridSize) + col, put all the direct Button() code in that if, to avoid the out of range errors happening when grid size was shrunk. 
