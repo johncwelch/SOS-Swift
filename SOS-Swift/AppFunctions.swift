@@ -66,22 +66,32 @@ func buildStructArray(theGridSize: Int) -> [Cell] {
 //an array of [Cell], and returns a tuple. By returning a tuple, we can pass back multiple values with some kind
 //of usable naming
 
-func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: [Cell], myCurrentPlayer: String) -> (myColor: Color, myTitle:String, myCommitButtonStatus: Bool, myCurrentPlayer: String) {
-	//switch statement to cycle between  titles on the button
-	//print("Index passed is: \(myIndex)")
+func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game, myCurrentPlayer: String, myUnusedButtons: [Int]) -> (myColor: Color, myTitle:String, myCommitButtonStatus: Bool, myCurrentPlayer: String) {
 	var theCommitButtonStatus: Bool = false
 	var theCellTitle: String = ""
 	var theCurrentPlayer: String = ""
+	//we'll need to build an array of already disabled buttons that we can pass
+	//switch statement to cycle between  titles on the button
 	switch theTitle {
+		//button is current blank, click sets it to "S"
 		case "":
 			theCellTitle = "S"
 			theCommitButtonStatus = false
+			//disable all other enabled buttons but the one that you're clicking
+			disableOtherButtonsDuringMove(myGridArray: myArray, currentButtonIndex: myIndex)
+		//button is currently "S", click sets it to "O"
 		case "S":
 			theCellTitle = "O"
 			theCommitButtonStatus = false
+			//disable all other enabled buttons but the one that you're clicking
+			disableOtherButtonsDuringMove(myGridArray: myArray, currentButtonIndex: myIndex)
+		//button is currently "O", click sets it to ""
 		case "O":
 			theCellTitle = ""
 			theCommitButtonStatus = true
+			//enable the other buttons that should be enabled since the button you just clicked
+			//is now blank and you can click the other buttons to change your move
+			enableOtherButtonsDuringMove(myGridArray: myArray, myUnusedButtons: myUnusedButtons)
 		default:
 			print("Something went wrong, try restarting the app")
 	}
@@ -130,4 +140,35 @@ func setButtonColor(myCurrentPlayer: String) -> Color {
 		buttonColor = .red
 	}
 	return buttonColor
+}
+
+//func to disable other buttons when making a move.
+func disableOtherButtonsDuringMove (myGridArray: Game, currentButtonIndex: Int) {
+	//iterate through the array
+	for i in 0..<myGridArray.gridCellArr.count {
+		//look for buttons that are not the current button and are not already disabled
+		if !myGridArray.gridCellArr[i].buttonDisabled && i != currentButtonIndex {
+			myGridArray.gridCellArr[i].buttonDisabled = true
+		}
+	}
+}
+
+//func to enable other buttons when the current button being clicked goes to ""
+func enableOtherButtonsDuringMove (myGridArray: Game, myUnusedButtons: [Int]){
+	for i in 0..<myUnusedButtons.count {
+		myGridArray.gridCellArr[i].buttonDisabled = false
+	}
+}
+
+
+func buildUnusedArray (myGridSize: Int)  -> [Int] {
+	//set up the initial array of unused buttons
+	var theTempArray = [Int]()
+	let theGridSize = myGridSize * myGridSize
+	for i in 0..<theGridSize {
+		theTempArray.append(i)
+	}
+	print("The used buttons array is \(theTempArray)")
+	return theTempArray
+
 }

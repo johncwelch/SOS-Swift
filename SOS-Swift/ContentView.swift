@@ -12,20 +12,34 @@ import Observation
 struct ContentView: View {
 	//vars for controls and current player
 	//by using @State vars, we get a LOT of UI functionality for free
+	//initial game type, always simple on launch, 1 == simple, 2 == general
 	@State var gameType: Int = 1
-	//@State var boardSize: Int = 3
+	//initial player types, always human on launch, 1 == human, 2 == computer
 	@State var bluePlayerType: Int = 1
 	@State var redPlayerType: Int = 1
+	//initial scores, always 0 on launch
 	@State var bluePlayerScore: Int = 0
 	@State var redPlayerScore: Int = 0
+	//initial player, always Blue on launch
 	@State var currentPlayer: String = "Blue"
+	//index of last button clicked
 	@State var lastButtonClickedIndex: Int = 0
+	//color of text in the buttons
 	@State var buttonTextColor: Color = .white
+	//used to change state of commit button, true (disabled) on launch
 	@State var buttonBlank: Bool = true
+	//creates array of classes used to track button behavior and actions
+	//when button grid is attached, each button has its own theGame element
+	//attached
 	@State var theGame = Game(gridSize: 3)
 	//matches array size in theGame, which is initially 9
 	@State var arrayUsedMemberCountdown: Int = 9
+	//array to track used buttons. By default, all arrays in swift are mutable/dynamic
+	//so we don't need to set a specific size. This creates an array of 0 items
+	//we also use the = [Int]() to reinitialize the array for a new game
 
+	//initialize the unused buttons array
+	@State var arrayUsedButtonsList = buildUnusedArray(myGridSize: 3)
 
 
 
@@ -77,9 +91,12 @@ struct ContentView: View {
 					//test func to show size of board based on selection
 					.onChange(of: theGame.gridSize) {
 						    boardSizeSelect(theSelection: theGame.gridSize)
-						print("Old Grid size is:\(arrayUsedMemberCountdown)")
+						//print("Old Grid size is:\(arrayUsedMemberCountdown)")
+						//set the countdown var to match the new size of the grid
 						arrayUsedMemberCountdown = theGame.gridCellArr.count
-						print("New Grid size is:\(arrayUsedMemberCountdown)")
+						//print("New Grid size is:\(arrayUsedMemberCountdown)")
+						//reinitialize the unused array since all the buttons are blanked on a resize
+						arrayUsedButtonsList = buildUnusedArray(myGridSize: theGame.gridSize)
 					}
 
 				    //put in a row with the current player label and value
@@ -152,11 +169,17 @@ struct ContentView: View {
 				Button("New Game"){
 					//newGame clears any existing "S" or "O" text, 
 					//sets all button colors back to gray
-					//the current player to blue
 					//and enables all buttons on the grid.
 					//It doesn't change anything else
 					newGame(myGridArray: theGame)
+					//set the current player to blue
 					currentPlayer = "Blue"
+					//set the countdown to the current size. this is not strictly
+					//necessary, but it makes sure the countdown is what we expect
+					arrayUsedMemberCountdown = theGame.gridCellArr.count
+					//reinitialize the array of used buttons to be empty, in a new game
+					//there are no used buttons
+					arrayUsedButtonsList = buildUnusedArray(myGridSize: theGame.gridSize)
 				}
 				.padding(.top,5.0)
 
@@ -233,11 +256,15 @@ struct ContentView: View {
 								//we're clicking
 								//let myIndex = row * boardSize + col
 								let myIndex = (row * theGame.gridSize) + col
+								//set up the initial array of unused buttons
+								//let arrayUsedButtonslist
+								//print("The used buttons array is \(arrayUsedButtonslist)")
 								//sanity check that avoids out of range errors when downsizing grid
 								if myIndex <= ((theGame.gridSize * theGame.gridSize) - 1) {
 									Button {
 										//this is where we run the core function that does all the work
-										let theTuple = buttonClickStuff(for: theGame.gridCellArr[myIndex].index, theTitle: theGame.gridCellArr[myIndex].title, myArray: theGame.gridCellArr, myCurrentPlayer: currentPlayer)
+										lastButtonClickedIndex = theGame.gridCellArr[myIndex].index
+										let theTuple = buttonClickStuff(for: theGame.gridCellArr[myIndex].index, theTitle: theGame.gridCellArr[myIndex].title, myArray: theGame, myCurrentPlayer: currentPlayer, myUnusedButtons: arrayUsedButtonsList)
 
 										theGame.gridCellArr[myIndex].title = theTuple.myTitle
 										buttonBlank = theTuple.myCommitButtonStatus
@@ -271,6 +298,7 @@ struct ContentView: View {
 										//which is IMPORTANT later on
 										theGame.gridCellArr[myIndex].xCoord = col
 										theGame.gridCellArr[myIndex].yCoord = row
+
 									})
 								}
 							}
