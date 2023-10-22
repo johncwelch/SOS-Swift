@@ -61,6 +61,19 @@ func buildStructArray(theGridSize: Int) -> [Cell] {
 	return myStructArray
 }
 
+//this takes care of creating the array of unused button indices
+func buildUnusedArray (myGridSize: Int)  -> [Int] {
+	//set up the initial array of unused buttons
+	var theTempArray = [Int]()
+	let theGridSize = myGridSize * myGridSize
+	for i in 0..<theGridSize {
+		theTempArray.append(i)
+	}
+	//print("The used buttons array is \(theTempArray)")
+	return theTempArray
+
+}
+
 //this is the function that handles what do to on click i.e. setting the text in the button to be S, O, or blank,
 //and any other needs. it takes the index of the button clicked as an int, and the existing array of cells as
 //an array of [Cell], and returns a tuple. By returning a tuple, we can pass back multiple values with some kind
@@ -70,6 +83,7 @@ func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game, myCurre
 	var theCommitButtonStatus: Bool = false
 	var theCellTitle: String = ""
 	var theCurrentPlayer: String = ""
+	//print("the button clicked was button: \(myIndex)")
 	//we'll need to build an array of already disabled buttons that we can pass
 	//switch statement to cycle between  titles on the button
 	switch theTitle {
@@ -155,20 +169,40 @@ func disableOtherButtonsDuringMove (myGridArray: Game, currentButtonIndex: Int) 
 
 //func to enable other buttons when the current button being clicked goes to ""
 func enableOtherButtonsDuringMove (myGridArray: Game, myUnusedButtons: [Int]){
-	for i in 0..<myUnusedButtons.count {
-		myGridArray.gridCellArr[i].buttonDisabled = false
+	for i in 0..<myGridArray.gridCellArr.count {
+		if myGridArray.gridCellArr[i].title == "" {
+			myGridArray.gridCellArr[i].buttonDisabled = false
+		}
 	}
 }
 
+func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String) -> [Int] {
+	//create temp array that is mutable for the list of unused buttons
+	var theTempArray = myUnusedButtons
 
-func buildUnusedArray (myGridSize: Int)  -> [Int] {
-	//set up the initial array of unused buttons
-	var theTempArray = [Int]()
-	let theGridSize = myGridSize * myGridSize
-	for i in 0..<theGridSize {
-		theTempArray.append(i)
+	print("The coordinates of the button we just commmitted are: \(myGridArray.gridCellArr[myCommittedButtonIndex].xCoord),\(myGridArray.gridCellArr[myCommittedButtonIndex].yCoord)")
+	//remove the button we are committing the move for from the array of unused buttons using the button we just clicked
+	//this helps avoid out of index errors since we can only click enabled buttons
+	
+	//we can't just brute force remove by raw index, since the index of a given button can change, i.e. if button 3 is initially at
+	//index 4 (0,1,2,3) and we remove the butotn at index 1, in this case, button 1, we now have an array that is 0,2,3, in terms of
+	//content, but 0,1,2 in terms of index, so removing index 3 is out of range. So we grab the index of the value via firstIndex(of:)
+	//that way, we don't have issues.
+	let theButtonToBeDisabledIndex = theTempArray.firstIndex(of: myCommittedButtonIndex)
+	//remove the button at theButtonToBeDisabledIndex from the array
+	theTempArray.remove(at: theButtonToBeDisabledIndex!)
+	//set the color for the button we are committing to that of the current player
+	myGridArray.gridCellArr[myCommittedButtonIndex].backCol = setButtonColor(myCurrentPlayer: myCurrentPlayer)
+	//disable the button we are committing so it can't be changed
+	myGridArray.gridCellArr[myCommittedButtonIndex].buttonDisabled = true
+	//re-enable all the existing blank buttons
+	for i in 0..<myGridArray.gridCellArr.count {
+		//if the title is "", reenable it
+		if myGridArray.gridCellArr[i].title == "" {
+			myGridArray.gridCellArr[i].buttonDisabled = false
+		}
 	}
-	print("The used buttons array is \(theTempArray)")
+	//return theTempArray back to ContentView
 	return theTempArray
-
 }
+

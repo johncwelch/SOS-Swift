@@ -189,11 +189,10 @@ struct ContentView: View {
 				//disables itself and changes who the current player is
 				Button {
 					//on commit...
-					//set the background color to that of the current player
-					theGame.gridCellArr[lastButtonClickedIndex].backCol = setButtonColor(myCurrentPlayer: currentPlayer)
-					//disable that button from further use
-					theGame.gridCellArr[lastButtonClickedIndex].buttonDisabled = true
-					//disable the commit button
+					//print("Before commitMove, unused buttons array is: \(arrayUsedButtonsList) and the size of the array is: \(arrayUsedButtonsList.count)")
+					arrayUsedButtonsList = commitMove(myCommittedButtonIndex: lastButtonClickedIndex, myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer)
+					//print("After commitMove, unused buttons array is: \(arrayUsedButtonsList) and the size of the array is: \(arrayUsedButtonsList.count)")
+
 					buttonBlank = true
 					//change the player
 					currentPlayer = changePlayer(myCurrentPlayer: currentPlayer)
