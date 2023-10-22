@@ -6,8 +6,8 @@ The current iteration as of 5 sept. 2023 solves the basic requirements for the S
 
 The next part, code-wise will be setting up the game board and allowing it to be resized via the dropdown list in the app.
 
-User Storys and status
-	1.1	done  
+User Storys and status  
+	&nbsp;1.1	done  
 	1.2	done  
 	2.1	done  
 	2.2	done  
