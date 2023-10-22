@@ -61,5 +61,9 @@ User Storys and status
 20231022 added:  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;func disableOtherButtonsDuringMove (myGridArray: Game, currentButtonIndex: Int), this handles disabling other buttons during a move, so you can't cheat and set multiple buttons.  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;func enableOtherButtonsDuringMove (myGridArray: Game), this handles enabling the other buttons during a move so you can change your mind if you want.  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String) -> [Int], this let us remove some statements out of the Commit Button action in ContentView, and sets up everything in the commit move functionality except for checking for an SOS/game win it sets the color of the button you're committing, removes it from the unused button array, disables it so it can't be changed, and ensures the unused buttons are enable.  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;started on func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: Int), which will check for SOS. the edge detection is done, now to do the searching for "S" and for "O". Will do "S" first, it's more linear
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String) -> [Int], this let us remove some statements out of the Commit Button action in ContentView, and sets up everything in the commit move functionality except for checking for an SOS/game win.  
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It sets the color of the button you're committing.  
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removes it from the unused button array.  
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disables it so it can't be changed.  
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;And ensures the unused buttons are enable.  
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;started on func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: Int), which will check for SOS. the edge detection is done, now to do the searching for "S" and for "O". Will do "S" first, it's more linear
