@@ -105,7 +105,7 @@ func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game, myCurre
 			theCommitButtonStatus = true
 			//enable the other buttons that should be enabled since the button you just clicked
 			//is now blank and you can click the other buttons to change your move
-			enableOtherButtonsDuringMove(myGridArray: myArray, myUnusedButtons: myUnusedButtons)
+			enableOtherButtonsDuringMove(myGridArray: myArray)
 		default:
 			print("Something went wrong, try restarting the app")
 	}
@@ -168,7 +168,7 @@ func disableOtherButtonsDuringMove (myGridArray: Game, currentButtonIndex: Int) 
 }
 
 //func to enable other buttons when the current button being clicked goes to ""
-func enableOtherButtonsDuringMove (myGridArray: Game, myUnusedButtons: [Int]){
+func enableOtherButtonsDuringMove (myGridArray: Game){
 	for i in 0..<myGridArray.gridCellArr.count {
 		if myGridArray.gridCellArr[i].title == "" {
 			myGridArray.gridCellArr[i].buttonDisabled = false
