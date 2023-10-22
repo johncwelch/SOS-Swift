@@ -180,7 +180,8 @@ func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray
 	//create temp array that is mutable for the list of unused buttons
 	var theTempArray = myUnusedButtons
 
-	print("The coordinates of the button we just commmitted are: \(myGridArray.gridCellArr[myCommittedButtonIndex].xCoord),\(myGridArray.gridCellArr[myCommittedButtonIndex].yCoord)")
+	checkForSOS(myGridArray: myGridArray, myLastButtonClickedIndex: myCommittedButtonIndex, myGridSize: myGridArray.gridSize)
+	//print("The coordinates of the button we just commmitted are: \(myGridArray.gridCellArr[myCommittedButtonIndex].xCoord),\(myGridArray.gridCellArr[myCommittedButtonIndex].yCoord)")
 	//remove the button we are committing the move for from the array of unused buttons using the button we just clicked
 	//this helps avoid out of index errors since we can only click enabled buttons
 	
@@ -206,3 +207,41 @@ func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray
 	return theTempArray
 }
 
+func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: Int) {
+	//first we need to set some flags for leftmost/rightmost/topmost/bottommost positions
+	//since that has a lot to do with how we calculate wins
+
+	//we may not need a separate myGridSize
+
+	//if the grid size is 3, the right/bottom row/colum is 2, if 10, then 9, etc.
+	let bottomLeftEdgeCheck = myGridSize - 1
+	//button has an xCoord == 0
+	var buttonLeftmostFlag: Bool = false
+	//button has a yCoord == 0
+	var buttonTopRowFlag: Bool = false
+	//button has an xCoord = gridSize - 1 (so if gridSize is 3, rightMost would be 2)
+	var buttonRightmostFlag: Bool = false
+	//button has a yCoord = gridsize -1 (so if gridSize is 3, bottomMost would be 2)
+	var buttonBottomRowFlag: Bool = false
+
+	//check for xCoord edges
+	switch myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord {
+		case 0:
+			buttonLeftmostFlag = true
+		case bottomLeftEdgeCheck:
+			buttonRightmostFlag = true
+		default:
+			buttonLeftmostFlag = false
+			buttonRightmostFlag = false
+	}
+	//check for yCoord edges
+	switch myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord {
+		case 0:
+			buttonTopRowFlag = true
+		case bottomLeftEdgeCheck:
+			buttonBottomRowFlag = true
+		default:
+			buttonTopRowFlag = false
+			buttonBottomRowFlag = false
+	}
+}
