@@ -92,4 +92,10 @@ User Storys and status
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Horizontal  
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Diag Up  
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Diag Down  
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So now all checks for S buttons are done. Next is "O", which will require less checks because O is in the middle of SOS, so only 3 checks needed not 8
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So now all checks for S buttons are done. Next is "O", which will require less checks because O is in the middle of SOS, so only 4 checks needed not 8:  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;horizontal  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vertical    
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;diag up   
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;diag down  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Horzontal O Check  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vertical O Check  

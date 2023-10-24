@@ -258,13 +258,13 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 	//get the title of the last button clicked
 	var theCurrentButtonTitle = myGridArray.gridCellArr[myLastButtonClickedIndex].title
 	var theCurrentButtonIndex = myGridArray.gridCellArr[myLastButtonClickedIndex].index
+
+	//set up checks for at least 2 from bottom/right edge for L -> R horizontal, diag down, diag up checks.
+	var distanceFromRight = buttonRightEdgeCheck - myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord
+	var distanceFromBottom = buttonBottomEdgeCheck - myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord
 	//all the S checks here
 	if theCurrentButtonTitle == "S" {
 		//L - R horizontal, X goes up, Y is constant
-		//set up checks for at least 2 from bottom/right edge for L -> R horizontal, diag down, diag up checks.
-		var distanceFromRight = buttonRightEdgeCheck - myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord
-		var distanceFromBottom = buttonBottomEdgeCheck - myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord
-
 		//we aren't on the far right edge
 		//set of LTR checks
 		if !buttonRightmostFlag {
@@ -354,7 +354,6 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 						SOSFlag = true
 					}
 				}
-
 				//RTL Diag Up
 				//need to be at least 2 from the top
 				if myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 2 {
@@ -369,5 +368,37 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				}
 			}
 		}
+	}
+	//all the "O" checks here
+	if theCurrentButtonTitle == "O" {
+		print("commited an O!")
+		//horizontal first. Needs to be both 1 away from the right (xCoord >= 1) AND one away from the left (xCoord <= right edge - 1)
+		if (myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord >= 1) && (distanceFromRight >= 1) {
+			print("check O horizontal")
+			//cell to the right
+			var rightAdjacentCellIndex = myLastButtonClickedIndex + 1
+			//cell to the left
+			var leftAdjacentCellInded = myLastButtonClickedIndex - 1
+			//check cells on either side horizontal are "S"
+			if (myGridArray.gridCellArr[rightAdjacentCellIndex].title == "S") && (myGridArray.gridCellArr[leftAdjacentCellInded].title == "S") {
+				print("Horizontal O SOS!")
+				SOSFlag = true
+			}
+
+		}
+		//vertical O
+		//check for at least 1 from top and bottom
+		if (myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 1) && (distanceFromBottom >= 1) {
+			print("check O vertical")
+			//next cell up
+			var topAdjacentCellIndex = myLastButtonClickedIndex - myGridSize
+			var bottomAdjacentCellIndex = myLastButtonClickedIndex + myGridSize
+			//check cells above and below are "S"
+			if (myGridArray.gridCellArr[topAdjacentCellIndex].title == "S") && (myGridArray.gridCellArr[bottomAdjacentCellIndex].title == "S") {
+				print("Vertical O SOS!")
+				SOSFlag = true
+			}
+		}
+
 	}
 }
