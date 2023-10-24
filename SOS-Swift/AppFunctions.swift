@@ -270,7 +270,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 		if !buttonRightmostFlag {
 			//check all LTR options
 			if distanceFromRight >= 2 {
-				print("check LTR horizontal!")
+				print("check LTR horizontal")
 				//look for next adjacent cell, current index + 1, because horizontal LTR, SOS would be current index +1, current index +2
 				var nextCellIndex = myLastButtonClickedIndex + 1
 				var secondCellIndex = myLastButtonClickedIndex + 2
@@ -399,6 +399,24 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				SOSFlag = true
 			}
 		}
-
+		//for diags, we have to be 1 from top and bottom AND one from left and right, so four ands:
+		//may be able to check both diags in one try
+		if (myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord >= 1) && (distanceFromRight >= 1) && (myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 1) && (distanceFromBottom >= 1) {
+			print("check O diags")
+			//check left high/right low diag (rtl up for high, ltr down for low)
+			var highLeftAdjacentCell = (myLastButtonClickedIndex) - (myGridSize + 1)
+			var lowRightAdjacentCell = (myLastButtonClickedIndex) + (myGridSize + 1)
+			if (myGridArray.gridCellArr[highLeftAdjacentCell].title == "S") && (myGridArray.gridCellArr[lowRightAdjacentCell].title == "S") {
+				print("high left/low right diag O SOS!")
+				SOSFlag = true
+			}
+			//check left low/right high diag (rtl down for low, ltr up for high
+			var lowLeftAdjacentCell = (myLastButtonClickedIndex) + (myGridSize - 1)
+			var highRightAdjacentCell = (myLastButtonClickedIndex) - (myGridSize - 1)
+			if (myGridArray.gridCellArr[lowLeftAdjacentCell].title == "S") && (myGridArray.gridCellArr[highRightAdjacentCell].title == "S") {
+				print("low left/high right diag O SOS!")
+				SOSFlag = true
+			}
+		}
 	}
 }

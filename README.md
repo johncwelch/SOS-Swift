@@ -99,3 +99,9 @@ User Storys and status
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;diag down  
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Implemented Horizontal O Check  
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Implemented Vertical O Check  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Implemented Both Diagonal O Checks  
+			to do:  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color all three cells on SOS  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Winner functionality (pop alert, all buttons disabled, must change grid size or new game to play again)  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Game over with no winner  
+  
