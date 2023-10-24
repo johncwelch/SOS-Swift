@@ -67,3 +67,20 @@ User Storys and status
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disables it so it can't be changed.  
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;And ensures the unused buttons are enable.  
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;started on func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: Int), which will check for SOS. the edge detection is done, now to do the searching for "S" and for "O". Will do "S" first, it's more linear
+
+20231022 added:  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: Int)   
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eventually this will return a "game won" flag if the game is won  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currently implementing "S" checks:  
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LTR up diag  
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LTR down diag  
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LTR uorizontal  
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vertical up  
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vertical down  
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are done. There's also a curious bug related to resizing the grid to the same size causing the coords and indices to blow the fuck up. No idea yet, but will troubleshoot if we've time.  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Also figured out quick formula for checks that doesn't require array traversal:  
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LTR Horizontal is index + 1 for next square  
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LTR Diag Down is (index) + (gridsize + 1)  
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LTR Diag Up is (index) - (gridsize -1)  
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vertical Up is index - gridsize
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vertical Down is index + gridsize

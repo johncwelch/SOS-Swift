@@ -179,7 +179,7 @@ func enableOtherButtonsDuringMove (myGridArray: Game){
 func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String) -> [Int] {
 	//create temp array that is mutable for the list of unused buttons
 	var theTempArray = myUnusedButtons
-
+	print("the y coord is: \(myGridArray.gridCellArr[myCommittedButtonIndex].yCoord)")
 	checkForSOS(myGridArray: myGridArray, myLastButtonClickedIndex: myCommittedButtonIndex, myGridSize: myGridArray.gridSize)
 	//print("The coordinates of the button we just commmitted are: \(myGridArray.gridCellArr[myCommittedButtonIndex].xCoord),\(myGridArray.gridCellArr[myCommittedButtonIndex].yCoord)")
 	//remove the button we are committing the move for from the array of unused buttons using the button we just clicked
@@ -210,11 +210,18 @@ func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray
 func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: Int) {
 	//first we need to set some flags for leftmost/rightmost/topmost/bottommost positions
 	//since that has a lot to do with how we calculate wins
-
 	//we may not need a separate myGridSize
+	//print("the index is: \(myLastButtonClickedIndex) the y coord is: \(myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord)")
+	//hopefully these is obvious
+	var adjacentCellTitle = ""
+	var nextAdjacentCellTitle = ""
 
 	//if the grid size is 3, the right/bottom row/colum is 2, if 10, then 9, etc.
-	let bottomLeftEdgeCheck = myGridSize - 1
+	//leftmost column, x = 0, rightmost column, buttonRightEdgeCheck
+	let buttonRightEdgeCheck = myGridSize - 1
+	//topmost row, y = 0, bottom row, buttonBottomEdgeCheck
+	//technically, both high row/colum are the same.
+	let buttonBottomEdgeCheck = myGridSize - 1
 	//button has an xCoord == 0
 	var buttonLeftmostFlag: Bool = false
 	//button has a yCoord == 0
@@ -223,12 +230,14 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 	var buttonRightmostFlag: Bool = false
 	//button has a yCoord = gridsize -1 (so if gridSize is 3, bottomMost would be 2)
 	var buttonBottomRowFlag: Bool = false
-
+	
+	//there's an SOS
+	var SOSFlag: Bool = false
 	//check for xCoord edges
 	switch myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord {
 		case 0:
 			buttonLeftmostFlag = true
-		case bottomLeftEdgeCheck:
+		case buttonRightEdgeCheck:
 			buttonRightmostFlag = true
 		default:
 			buttonLeftmostFlag = false
@@ -238,10 +247,92 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 	switch myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord {
 		case 0:
 			buttonTopRowFlag = true
-		case bottomLeftEdgeCheck:
+		case buttonBottomEdgeCheck:
 			buttonBottomRowFlag = true
 		default:
 			buttonTopRowFlag = false
 			buttonBottomRowFlag = false
+	}
+
+
+	//get the title of the last button clicked
+	var theCurrentButtonTitle = myGridArray.gridCellArr[myLastButtonClickedIndex].title
+	var theCurrentButtonIndex = myGridArray.gridCellArr[myLastButtonClickedIndex].index
+	//all the S checks here
+	if theCurrentButtonTitle == "S" {
+		//L - R horizontal, X goes up, Y is constant
+		//set up checks for at least 2 from bottom/right edge for L -> R horizontal, diag down, diag up checks.
+		var distanceFromRight = buttonRightEdgeCheck - myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord
+		var distanceFromBottom = buttonBottomEdgeCheck - myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord
+
+		//we aren't on the far right edge
+		//set of LTR checks
+		if !buttonRightmostFlag {
+			//check all LTR options
+			if distanceFromRight >= 2 {
+				print("check LTR horizontal!")
+				//L -> R horizontal SOS possible
+				//look for next adjacent cell, current index + 1, because horizontal LTR, SOS would be current index +1, current index +2
+				//no array traversal needed
+				var nextCellIndex = myLastButtonClickedIndex + 1
+				var secondCellIndex = myLastButtonClickedIndex + 2
+				if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
+					print("LTR horizontal SOS!")
+					SOSFlag = true
+				}
+				//L -> R horizontal didn't have SOS, now do L -> R diags
+				//nested if already checked for proper distance from right edge, for the diags, we only care about y distance
+				if distanceFromBottom >= 2 {
+					print("check LTR diag down")
+					//safe to check L -> R diag down
+					//in the grids, the diag down index is the current index + (gridsize + 1) so for 3x3, it'd be current + 4, 5x5 would be
+					//current + 6. the second adjacent cell is the adjacentcell index + (gridsize + 1)
+					var nextCellIndex = (myLastButtonClickedIndex) + (myGridSize + 1)
+					var secondCellIndex = (nextCellIndex) + (myGridSize + 1)
+					if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
+						print("LTR Diag down SOS!")
+						SOSFlag = true
+					}
+					//can't do LTR down, so let's do LTR up!
+					//the y coord has to be at least 2 or there's no point in going L -> R diag up, since SOS is 3 buttons, so 2,1,0 for SOS
+				}
+				
+				//check both diag and vertical up
+				if myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 2 {
+					print("check LTR diag up")
+					//safe to check L -> R diag up
+					//check diag up
+					var nextCellIndex = (myLastButtonClickedIndex) - (myGridSize - 1)
+					var secondCellIndex = (nextCellIndex) - (myGridSize - 1)
+					if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
+						print("LTR Diag up SOS!")
+						SOSFlag = true
+					}
+				}
+			}
+		}
+		//vertical up check, can't combine it with diag check because horizontal position causes problems
+		//all we care about here is that the y coord of the button clicked is at least 2
+		if myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 2 {
+			print("check vertical up")
+			var nextCellIndex = myLastButtonClickedIndex - myGridSize
+			var secondCellIndex = nextCellIndex - myGridSize
+			if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
+				print("vertical up SOS!")
+				SOSFlag = true
+			}
+
+		}
+		//vertical down check, separate for same reasons as vertical up check
+		//all we care about here is that distance from the bottom is at least 2
+		if distanceFromBottom >= 2 {
+			print("check vertical down")
+			var nextCellIndex = myLastButtonClickedIndex + myGridSize
+			var secondCellIndex = nextCellIndex + myGridSize
+			if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
+				print("vertical down SOS!")
+				SOSFlag = true
+			}
+		}
 	}
 }
