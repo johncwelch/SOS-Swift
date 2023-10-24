@@ -88,7 +88,7 @@ User Storys and status
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Diag Down is (index) + (gridsize - 1)  
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Diag Up is (index) - (gridsize + 1)  
   
-20231023 added:
+20231023 added:  
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Horizontal  
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Diag Up  
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Diag Down  
