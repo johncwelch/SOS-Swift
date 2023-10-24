@@ -179,7 +179,7 @@ func enableOtherButtonsDuringMove (myGridArray: Game){
 func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String) -> [Int] {
 	//create temp array that is mutable for the list of unused buttons
 	var theTempArray = myUnusedButtons
-	print("the y coord is: \(myGridArray.gridCellArr[myCommittedButtonIndex].yCoord)")
+	//print("the y coord is: \(myGridArray.gridCellArr[myCommittedButtonIndex].yCoord)")
 	checkForSOS(myGridArray: myGridArray, myLastButtonClickedIndex: myCommittedButtonIndex, myGridSize: myGridArray.gridSize)
 	//print("The coordinates of the button we just commmitted are: \(myGridArray.gridCellArr[myCommittedButtonIndex].xCoord),\(myGridArray.gridCellArr[myCommittedButtonIndex].yCoord)")
 	//remove the button we are committing the move for from the array of unused buttons using the button we just clicked
@@ -271,9 +271,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 			//check all LTR options
 			if distanceFromRight >= 2 {
 				print("check LTR horizontal!")
-				//L -> R horizontal SOS possible
 				//look for next adjacent cell, current index + 1, because horizontal LTR, SOS would be current index +1, current index +2
-				//no array traversal needed
 				var nextCellIndex = myLastButtonClickedIndex + 1
 				var secondCellIndex = myLastButtonClickedIndex + 2
 				if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
@@ -284,7 +282,6 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				//nested if already checked for proper distance from right edge, for the diags, we only care about y distance
 				if distanceFromBottom >= 2 {
 					print("check LTR diag down")
-					//safe to check L -> R diag down
 					//in the grids, the diag down index is the current index + (gridsize + 1) so for 3x3, it'd be current + 4, 5x5 would be
 					//current + 6. the second adjacent cell is the adjacentcell index + (gridsize + 1)
 					var nextCellIndex = (myLastButtonClickedIndex) + (myGridSize + 1)
@@ -296,11 +293,9 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 					//can't do LTR down, so let's do LTR up!
 					//the y coord has to be at least 2 or there's no point in going L -> R diag up, since SOS is 3 buttons, so 2,1,0 for SOS
 				}
-				
 				//check both diag and vertical up
 				if myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 2 {
 					print("check LTR diag up")
-					//safe to check L -> R diag up
 					//check diag up
 					var nextCellIndex = (myLastButtonClickedIndex) - (myGridSize - 1)
 					var secondCellIndex = (nextCellIndex) - (myGridSize - 1)
@@ -321,7 +316,6 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				print("vertical up SOS!")
 				SOSFlag = true
 			}
-
 		}
 		//vertical down check, separate for same reasons as vertical up check
 		//all we care about here is that distance from the bottom is at least 2
@@ -332,6 +326,47 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 			if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
 				print("vertical down SOS!")
 				SOSFlag = true
+			}
+		}
+		//start RTL checks
+		//horizontal first, we need to care about are we at zero and are we at least 2 from left
+		//check for zer
+		if !buttonLeftmostFlag {
+			//check for at least two in the xCoord
+			if myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord >= 2 {
+				print("Check RTL horizontal")
+				//check R -> L horizontal, current index - 1 for next cell
+				var nextCellIndex = myLastButtonClickedIndex - 1
+				var secondCellIndex = nextCellIndex - 1
+				if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
+					print("RTL Horizontal SOS!")
+					SOSFlag = true
+				}
+				//RTL Diag Down
+				//since going down, we need to be at least two from the bottom
+				if distanceFromBottom >= 2 {
+					print("Check RTL diag down")
+					//check R -> L diag down, (current index) + (gridsize - 1)
+					var nextCellIndex = (myLastButtonClickedIndex) + (myGridSize - 1)
+					var secondCellIndex = (nextCellIndex) + (myGridSize - 1)
+					if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
+						print("RTL Diag Down SOS!")
+						SOSFlag = true
+					}
+				}
+
+				//RTL Diag Up
+				//need to be at least 2 from the top
+				if myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 2 {
+					print("Check RTL diag up")
+					//check R -> L diag up, (current index) - (gridSize + 1)
+					var nextCellIndex = (myLastButtonClickedIndex) - (myGridSize + 1)
+					var secondCellIndex = (nextCellIndex) - (myGridSize + 1)
+					if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
+						print("RTL Diag Up SOS!")
+						SOSFlag = true
+					}
+				}
 			}
 		}
 	}

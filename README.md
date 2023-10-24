@@ -74,13 +74,22 @@ User Storys and status
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currently implementing "S" checks:  
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LTR up diag  
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LTR down diag  
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LTR uorizontal  
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LTR horizontal  
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vertical up  
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vertical down  
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are done. There's also a curious bug related to resizing the grid to the same size causing the coords and indices to blow the fuck up. No idea yet, but will troubleshoot if we've time.  
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Also figured out quick formula for checks that doesn't require array traversal:  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Also figured out quick formula for S term checks that doesn't require array traversal:  
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LTR Horizontal is index + 1 for next square  
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LTR Diag Down is (index) + (gridsize + 1)  
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LTR Diag Up is (index) - (gridsize -1)  
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vertical Up is index - gridsize  
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vertical Down is index + gridsize
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vertical Down is index + gridsize  
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Horizontal is index - 1  
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Diag Down is (index) + (gridsize - 1)  
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Diag Up is (index) - (gridsize + 1)  
+  
+20231023 added:
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Horizontal  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Diag Up  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Diag Down  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So now all checks for S buttons are done. Next is "O", which will require less checks because O is in the middle of SOS, so only 3 checks needed not 8
