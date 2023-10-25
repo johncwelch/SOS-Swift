@@ -88,7 +88,7 @@ User Storys and status
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Diag Down is (index) + (gridsize - 1)  
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Diag Up is (index) - (gridsize + 1)  
   
-20231023 added:  
+20231024 added:  
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Horizontal  
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Diag Up  
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTL Diag Down  
@@ -101,7 +101,10 @@ User Storys and status
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Implemented Vertical O Check  
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Implemented Both Diagonal O Checks  
 			to do:  
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color all three cells on SOS  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color all three cells on SOS, done via func setSOSButtonColor(myCurrentPlayer: String, myFirstIndex: Int, mySecondIndex: Int, myThirdIndex: Int, myGridArray: Game)  
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Winner functionality (pop alert, all buttons disabled, must change grid size or new game to play again)  
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Game over with no winner  
+			  
+			modified commitMove() to not color the button if mySOSFlag is true (not false)  
+			modified checkForSOS() to return a bool, SOSFlag  
   
