@@ -107,6 +107,6 @@ User Storys and status
 			modified commitMove() to not color the button if mySOSFlag is true (not false)  
 			modified checkForSOS() to return a bool, SOSFlag  
 			added func gameOverAlert(myPlayerColor: String) -> Alert which will display appropriate alert when game is over  
-			added func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: Game, mySOSFlag: Bool) -> Bool which checks to see if game is over
+			added func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: Game, mySOSFlag: Bool) -> Bool which checks to see if game is over  
 			added .alert(isPresented: $playerWon, content: { gameOverAlert(myPlayerColor: currentPlayer) }) for commit move button which displays game over alert if playerWon is true. (yeah, less than amazing varname, we may even fix it)
   
