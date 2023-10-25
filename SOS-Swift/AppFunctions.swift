@@ -191,13 +191,13 @@ func enableOtherButtonsDuringMove (myGridArray: Game){
 	}
 }
 
-func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String) -> [Int] {
+func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> (myUnusedButtonArray: [Int], myCountDownInt: Int, mySOSFlag: Bool) {
 	//create temp array that is mutable for the list of unused buttons
 	var theTempArray = myUnusedButtons
-	
+	var theTempCounter = myArrayUsedMemberCountdown
 	//did the commit result in an SOS? returns Bool
-	let mySOSFlag = checkForSOS(myGridArray: myGridArray, myLastButtonClickedIndex: myCommittedButtonIndex, myGridSize: myGridArray.gridSize, myCurrentPlayer: myCurrentPlayer)
-	print("My SOS flag is: \(mySOSFlag)")
+	let theSOSFlag = checkForSOS(myGridArray: myGridArray, myLastButtonClickedIndex: myCommittedButtonIndex, myGridSize: myGridArray.gridSize, myCurrentPlayer: myCurrentPlayer)
+	print("My SOS flag is: \(theSOSFlag)")
 
 	//remove the button we are committing the move for from the array of unused buttons using the button we just clicked
 	//this helps avoid out of index errors since we can only click enabled buttons
@@ -210,7 +210,7 @@ func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray
 	//remove the button at theButtonToBeDisabledIndex from the array
 	theTempArray.remove(at: theButtonToBeDisabledIndex!)
 	//set the color for the button we are committing to that of the current player only if there wasn't an SOS
-	if !mySOSFlag {
+	if !theSOSFlag {
 		myGridArray.gridCellArr[myCommittedButtonIndex].backCol = setButtonColor(myCurrentPlayer: myCurrentPlayer)
 	}
 	//disable the button we are committing so it can't be changed
@@ -223,7 +223,9 @@ func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray
 		}
 	}
 	//return theTempArray back to ContentView
-	return theTempArray
+	theTempCounter -= 1
+	let theReturnTuple = (myUnusedButtonArray: theTempArray, myCountDownInt: theTempCounter, mySOSFlag: theSOSFlag)
+	return theReturnTuple
 }
 
 func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: Int, myCurrentPlayer: String) -> Bool {
@@ -460,4 +462,46 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 		}
 	}
 	return SOSFlag
+}
+
+func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: Game, mySOSFlag: Bool) -> Bool {
+
+	var gameIsOver: Bool = false
+	//we'll need this lateer
+	var gridCountdown = myArrayUsedMemberCountdown
+	
+	//check to see if gridCountDown is zero. If it is, game is over no matter what
+	if gridCountdown > 0 {
+		//grid countdown is not zero, check for other things
+		if myGameType == 1 {
+			//simple game
+			if mySOSFlag {
+				//there's an SOS, game is over
+				//grid countdown to zero
+				//gridCountdown = 0
+				//disable all the buttons
+				for i in 0..<myGridArray.gridCellArr.count {
+					myGridArray.gridCellArr[i].buttonDisabled = true
+				}
+				//set the game over flag
+				gameIsOver = true
+				print("game is over!")
+			} else {
+				//mySOSFlag is not true, game is not over
+				gameIsOver = false
+			}
+		}
+	} //eventually put stuff here for grid countdown == 0
+
+	//return game is over
+	return gameIsOver
+}
+
+func gameOverAlert(myPlayerColor: String) -> Alert {
+	var myAlert = Alert(
+		title: Text("We have a winner!"),
+		message: Text("\(myPlayerColor) Player Won! Click New Game or resize grid to play again"),
+		dismissButton: .default(Text("Okay"))
+	)
+	return myAlert
 }

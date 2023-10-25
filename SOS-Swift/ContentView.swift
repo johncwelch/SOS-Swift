@@ -40,7 +40,8 @@ struct ContentView: View {
 
 	//initialize the unused buttons array
 	@State var arrayUsedButtonsList = buildUnusedArray(myGridSize: 3)
-
+	//this ends up making popping a "you won!" alert much easier
+	@State var playerWon: Bool = false
 
 
 	var body: some View {
@@ -59,7 +60,7 @@ struct ContentView: View {
 					.modifier(basicTextModifier())
 					.accessibilityLabel("Game Type label")
 					.accessibilityIdentifier("gameTypeLabel")
-				    //this actually draws the buttons
+				    //this actually draws the buttons, simple = 1, general = 2
 				gameTypeRadioButtonView(index: 1, selectedIndex: $gameType)
 				gameTypeRadioButtonView(index: 2, selectedIndex: $gameType)
 					//
@@ -97,6 +98,8 @@ struct ContentView: View {
 						//print("New Grid size is:\(arrayUsedMemberCountdown)")
 						//reinitialize the unused array since all the buttons are blanked on a resize
 						arrayUsedButtonsList = buildUnusedArray(myGridSize: theGame.gridSize)
+						//reset playerwon to false since new game
+						playerWon = false
 					}
 
 				    //put in a row with the current player label and value
@@ -180,6 +183,8 @@ struct ContentView: View {
 					//reinitialize the array of used buttons to be empty, in a new game
 					//there are no used buttons
 					arrayUsedButtonsList = buildUnusedArray(myGridSize: theGame.gridSize)
+					//reset playerWon to false since new game
+					playerWon = false
 				}
 				.padding(.top,5.0)
 
@@ -188,18 +193,26 @@ struct ContentView: View {
 				//also changes color of the button to reflect the player who made the move
 				//disables itself and changes who the current player is
 				Button {
-					//on commit...
-					//print("Before commitMove, unused buttons array is: \(arrayUsedButtonsList) and the size of the array is: \(arrayUsedButtonsList.count)")
-					arrayUsedButtonsList = commitMove(myCommittedButtonIndex: lastButtonClickedIndex, myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer)
-					//print("After commitMove, unused buttons array is: \(arrayUsedButtonsList) and the size of the array is: \(arrayUsedButtonsList.count)")
 
+					//on commit...
+					//call commitMove() which alwasy calls checkForSOS() which may call setSOSButtonColor() (if there is an SOS)
+					let theCommitTuple = commitMove(myCommittedButtonIndex: lastButtonClickedIndex, myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
+					arrayUsedButtonsList = theCommitTuple.myUnusedButtonArray
+					arrayUsedMemberCountdown = theCommitTuple.myCountDownInt
+					let SOSFlag = theCommitTuple.mySOSFlag
 					buttonBlank = true
-					//change the player
-					currentPlayer = changePlayer(myCurrentPlayer: currentPlayer)
+					playerWon = isGameOver(myArrayUsedMemberCountdown: arrayUsedMemberCountdown, myGameType: gameType, myGridArray: theGame, mySOSFlag: SOSFlag)
+
+					//change the player only if playerWon is false
+					if !playerWon {
+						currentPlayer = changePlayer(myCurrentPlayer: currentPlayer)
+					}
+
 				} label: {
 					Text("Commit Move")					
 				}
 				.disabled(buttonBlank)
+				.alert(isPresented: $playerWon, content: { gameOverAlert(myPlayerColor: currentPlayer) })
 
 				Button("Record Game") {
 

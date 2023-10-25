@@ -1,5 +1,20 @@
 {
   "source": "/Users/jwelch/Desktop/School Project/SOS-Swift/SOS-Swift/AppFunctions.swift",
-  "tables": {},
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "We have a winner!"
+      },
+      {
+        "comment": "",
+        "key": "%@ Player Won! Click New Game or resize grid to play again"
+      },
+      {
+        "comment": "",
+        "key": "Okay"
+      }
+    ]
+  },
   "version": 1
 }
