@@ -15,8 +15,8 @@ The next part, code-wise will be setting up the game board and allowing it to be
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.1	done  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.1	done  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.2  done  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.1  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.2  
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.1  done  
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.2  done  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.1	done  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.2  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.3  done  
@@ -119,4 +119,11 @@ added:
 			added func gameOverAlert(myPlayerColor: String) -> Alert which will display appropriate alert when game is over  
 			added func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: Game, mySOSFlag: Bool) -> Bool which checks to see if game is over  
 			added .alert(isPresented: $playerWon, content: { gameOverAlert(myPlayerColor: currentPlayer) }) for commit move button which displays game over alert if playerWon is true. (yeah, less than amazing varname, we may even fix it)
+			
+##20231025  
+updated the alert to .alert(isPresented: $playerWon, content: { gameOverAlert(myPlayerColor: currentPlayer, myGameIsDraw: gameWasDraw) }), which passes the gameDraw status to gameOverAlert() so we can alternate game over messages based on if the game is a draw (no winner) or not (winner.)  
+
+updated gameOverAlert() to add game draw bool, and set title and message vars based on gamedraw status, so we can alternate between different messages. for general game, may update to show score in alert, but maybe not. This completes all simple game user stories for human players
+
+
   

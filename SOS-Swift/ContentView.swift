@@ -42,6 +42,8 @@ struct ContentView: View {
 	@State var arrayUsedButtonsList = buildUnusedArray(myGridSize: 3)
 	//this ends up making popping a "you won!" alert much easier
 	@State var playerWon: Bool = false
+	//needed to have multiple game over alert states in the alert func
+	@State var gameWasDraw: Bool = false
 
 
 	var body: some View {
@@ -201,7 +203,9 @@ struct ContentView: View {
 					arrayUsedMemberCountdown = theCommitTuple.myCountDownInt
 					let SOSFlag = theCommitTuple.mySOSFlag
 					buttonBlank = true
-					playerWon = isGameOver(myArrayUsedMemberCountdown: arrayUsedMemberCountdown, myGameType: gameType, myGridArray: theGame, mySOSFlag: SOSFlag)
+					var gameOverTuple  = isGameOver(myArrayUsedMemberCountdown: arrayUsedMemberCountdown, myGameType: gameType, myGridArray: theGame, mySOSFlag: SOSFlag)
+					playerWon = gameOverTuple.myGameIsOver
+					gameWasDraw = gameOverTuple.myGameIsDraw
 
 					//change the player only if playerWon is false
 					if !playerWon {
@@ -212,7 +216,7 @@ struct ContentView: View {
 					Text("Commit Move")					
 				}
 				.disabled(buttonBlank)
-				.alert(isPresented: $playerWon, content: { gameOverAlert(myPlayerColor: currentPlayer) })
+				.alert(isPresented: $playerWon, content: { gameOverAlert(myPlayerColor: currentPlayer, myGameIsDraw: gameWasDraw) })
 
 				Button("Record Game") {
 

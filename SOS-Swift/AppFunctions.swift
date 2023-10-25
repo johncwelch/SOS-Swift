@@ -464,9 +464,10 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 	return SOSFlag
 }
 
-func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: Game, mySOSFlag: Bool) -> Bool {
+func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: Game, mySOSFlag: Bool) -> (myGameIsOver: Bool, myGameIsDraw: Bool) {
 
 	var gameIsOver: Bool = false
+	var gameIsDraw: Bool = false
 	//we'll need this lateer
 	var gridCountdown = myArrayUsedMemberCountdown
 	
@@ -485,23 +486,54 @@ func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: G
 				}
 				//set the game over flag
 				gameIsOver = true
+				gameIsDraw = false
 				print("game is over!")
 			} else {
 				//mySOSFlag is not true, game is not over
 				gameIsOver = false
+				gameIsDraw = false
 			}
 		}
-	} //eventually put stuff here for grid countdown == 0
+	} else if gridCountdown <= 0 {
+		//0 or less the game is over regardless of winner or not
+		//disable the game board
+		for i in 0..<myGridArray.gridCellArr.count {
+			myGridArray.gridCellArr[i].buttonDisabled = true
+		}
 
-	//return game is over
-	return gameIsOver
+		if mySOSFlag {
+			//there's a winner, so not a draw
+			gameIsOver = true
+			gameIsDraw = false
+		} else {
+			//no winner, is a draw
+			gameIsOver = true
+			gameIsDraw = true
+		}
+	}
+
+	let gameIsOverTuple = (myGameIsOver: gameIsOver, myGameIsDraw: gameIsDraw)
+
+	return gameIsOverTuple
 }
 
-func gameOverAlert(myPlayerColor: String) -> Alert {
+func gameOverAlert(myPlayerColor: String, myGameIsDraw: Bool) -> Alert {
+	var alertTitle: String = ""
+	var alertMessage: String = ""
+
+	if myGameIsDraw {
+		alertTitle = "Game was a Draw"
+		alertMessage = "No one won! Click New Game or resize grid to play again"
+	} else {
+		alertTitle = "We have a winner!"
+		alertMessage = "\(myPlayerColor) Player Won! Click New Game or resize grid to play again"
+	}
+
 	var myAlert = Alert(
-		title: Text("We have a winner!"),
-		message: Text("\(myPlayerColor) Player Won! Click New Game or resize grid to play again"),
+		title: Text(alertTitle),
+		message: Text(alertMessage),
 		dismissButton: .default(Text("Okay"))
 	)
+
 	return myAlert
 }
