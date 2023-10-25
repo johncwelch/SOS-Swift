@@ -104,7 +104,6 @@ User Storys and status
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color all three cells on SOS, done via func setSOSButtonColor(myCurrentPlayer: String, myFirstIndex: Int, mySecondIndex: Int, myThirdIndex: Int, myGridArray: Game)  
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Winner functionality (pop alert, all buttons disabled, must change grid size or new game to play again)  
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Game over with no winner  
-			  
 			modified commitMove() to not color the button if mySOSFlag is true (not false)  
 			modified checkForSOS() to return a bool, SOSFlag  
   
