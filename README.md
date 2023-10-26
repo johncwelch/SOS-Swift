@@ -147,3 +147,7 @@ Commit Move button action code:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;updated calls to isGameOver() and gameOverAlert()  
 	  
 this completes user stories 6.2 and 7.1. All that's left for the homework is generate some unit tests
+
+##20231026  
+  
+figured out unit tests for this stuff. Lord. Anyway, SO MANY UNIT TESTS  
