@@ -191,6 +191,7 @@ func enableOtherButtonsDuringMove (myGridArray: Game){
 	}
 }
 
+//function to commit a move
 func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> (myUnusedButtonArray: [Int], myCountDownInt: Int, mySOSFlag: Bool) {
 	//create temp array that is mutable for the list of unused buttons
 	var theTempArray = myUnusedButtons
@@ -226,6 +227,7 @@ func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray
 	return theReturnTuple
 }
 
+//funciton to check for SOS
 func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: Int, myCurrentPlayer: String) -> Bool {
 	//first we need to set some flags for leftmost/rightmost/topmost/bottommost positions
 	//since that has a lot to do with how we calculate wins
@@ -438,6 +440,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 	return SOSFlag
 }
 
+//function to manage checking for game over and handling if it is
 func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: Game, mySOSFlag: Bool) -> (myGameIsOver: Bool, myGameIsDraw: Bool) {
 
 	var gameIsOver: Bool = false
@@ -467,6 +470,8 @@ func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: G
 				gameIsOver = false
 				gameIsDraw = false
 			}
+		} else {
+			//game type is general
 		}
 	} else if gridCountdown <= 0 {
 		//0 or less the game is over regardless of winner or not
@@ -491,6 +496,7 @@ func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: G
 	return gameIsOverTuple
 }
 
+//function to manage game over alert messages
 func gameOverAlert(myPlayerColor: String, myGameIsDraw: Bool) -> Alert {
 	var alertTitle: String = ""
 	var alertMessage: String = ""
@@ -510,4 +516,19 @@ func gameOverAlert(myPlayerColor: String, myGameIsDraw: Bool) -> Alert {
 	)
 
 	return myAlert
+}
+
+//function to increment score in general game
+func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayerScore: Int) -> (myRedPlayerScore: Int, myBluePlayerScore: Int){
+	var bluePlayerScore = myBluePlayerScore
+	var redPlayerScore = myRedPlayerScore
+
+	if myCurrentPlayer == "Blue" {
+		bluePlayerScore += 1
+	} else {
+		redPlayerScore += 1
+	}
+
+	let playerScoreTuple = (myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore)
+	return playerScoreTuple
 }

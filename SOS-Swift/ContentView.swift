@@ -70,6 +70,8 @@ struct ContentView: View {
 					//
 			}
 			.padding(.leading, 20.0)
+			//so what we're doing is technically disabling the Vstack the radio buttons are contained in
+			//but that has the desired effect and we don't have to have one .disabled() method per radio button this way.
 			.disabled(gamePlayerTypeDisabled)
 
 			//select board size
@@ -107,6 +109,9 @@ struct ContentView: View {
 						playerWon = false
 						//enable the game and player type radio buttons
 						gamePlayerTypeDisabled = false
+						//set scores to zero
+						bluePlayerScore = 0
+						redPlayerScore = 0
 					}
 
 				    //put in a row with the current player label and value
@@ -196,6 +201,9 @@ struct ContentView: View {
 					playerWon = false
 					//enable the game and player type radio buttons
 					gamePlayerTypeDisabled = false
+					//set scores to zero
+					bluePlayerScore = 0
+					redPlayerScore = 0
 				} label: {
 					Text("New Game")
 				}
@@ -217,11 +225,20 @@ struct ContentView: View {
 					let SOSFlag = theCommitTuple.mySOSFlag
 					buttonBlank = true
 					var gameOverTuple  = isGameOver(myArrayUsedMemberCountdown: arrayUsedMemberCountdown, myGameType: gameType, myGridArray: theGame, mySOSFlag: SOSFlag)
+					//get is game over/player won flag
 					playerWon = gameOverTuple.myGameIsOver
+					//get is game a draw flag
 					gameWasDraw = gameOverTuple.myGameIsDraw
 
-					//change the player only if playerWon is false
+					//change the player/increment score only if playerWon is false and gameType is general
 					if !playerWon {
+						//no one has won, and general game so increment score if SOS
+						if (gameType == 2) && (SOSFlag) {
+							var incrementScoreTuple = incrementScore(myCurrentPlayer: currentPlayer, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore)
+							redPlayerScore = incrementScoreTuple.myRedPlayerScore
+							bluePlayerScore = incrementScoreTuple.myBluePlayerScore
+						}
+						//regardless of game type, we still change the player because no one won
 						currentPlayer = changePlayer(myCurrentPlayer: currentPlayer)
 					}
 

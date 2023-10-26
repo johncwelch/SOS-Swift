@@ -125,5 +125,6 @@ updated the alert to .alert(isPresented: $playerWon, content: { gameOverAlert(my
 
 updated gameOverAlert() to add game draw bool, and set title and message vars based on gamedraw status, so we can alternate between different messages. for general game, may update to show score in alert, but maybe not. This completes all simple game user stories for human players  
 
-added gamePlayerTypeDisabled state var so we can disable the game type and player type controls once a move is committed. They're re-enabled for new game or grid resize, which is effectively a new game.
+added gamePlayerTypeDisabled state var so we can disable the game type and player type controls once a move is committed. They're re-enabled for new game or grid resize, which is effectively a new game.  
   
+added func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayerScore: Int) -> (myRedPlayerScore: Int, myBluePlayerScore: Int) to handle score incrementing during a game. also updated new game and grid size change to set scores back to 0
