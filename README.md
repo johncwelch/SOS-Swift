@@ -123,7 +123,7 @@ added:
 ##20231025  
 updated the alert to .alert(isPresented: $playerWon, content: { gameOverAlert(myPlayerColor: currentPlayer, myGameIsDraw: gameWasDraw) }), which passes the gameDraw status to gameOverAlert() so we can alternate game over messages based on if the game is a draw (no winner) or not (winner.)  
 
-updated gameOverAlert() to add game draw bool, and set title and message vars based on gamedraw status, so we can alternate between different messages. for general game, may update to show score in alert, but maybe not. This completes all simple game user stories for human players
+updated gameOverAlert() to add game draw bool, and set title and message vars based on gamedraw status, so we can alternate between different messages. for general game, may update to show score in alert, but maybe not. This completes all simple game user stories for human players  
 
-
+added gamePlayerTypeDisabled state var so we can disable the game type and player type controls once a move is committed. They're re-enabled for new game or grid resize, which is effectively a new game.
   

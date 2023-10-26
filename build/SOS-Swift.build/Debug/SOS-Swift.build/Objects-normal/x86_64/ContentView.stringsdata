@@ -88,15 +88,15 @@
       },
       {
         "comment": "",
-        "key": "New Game"
-      },
-      {
-        "comment": "",
         "key": "Record Game"
       },
       {
         "comment": "",
         "key": "Replay Game"
+      },
+      {
+        "comment": "",
+        "key": "New Game"
       },
       {
         "comment": "",

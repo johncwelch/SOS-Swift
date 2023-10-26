@@ -77,7 +77,7 @@ func buildUnusedArray (myGridSize: Int)  -> [Int] {
 //this is the function that handles what do to on click i.e. setting the text in the button to be S, O, or blank,
 //and any other needs. it takes the index of the button clicked as an int, and the existing array of cells as
 //an array of [Cell], and returns a tuple. By returning a tuple, we can pass back multiple values with some kind
-//of usable naming
+//of usable naming.
 
 func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game, myCurrentPlayer: String, myUnusedButtons: [Int]) -> (myColor: Color, myTitle:String, myCommitButtonStatus: Bool, myCurrentPlayer: String) {
 	var theCommitButtonStatus: Bool = false
@@ -197,8 +197,6 @@ func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray
 	var theTempCounter = myArrayUsedMemberCountdown
 	//did the commit result in an SOS? returns Bool
 	let theSOSFlag = checkForSOS(myGridArray: myGridArray, myLastButtonClickedIndex: myCommittedButtonIndex, myGridSize: myGridArray.gridSize, myCurrentPlayer: myCurrentPlayer)
-	print("My SOS flag is: \(theSOSFlag)")
-
 	//remove the button we are committing the move for from the array of unused buttons using the button we just clicked
 	//this helps avoid out of index errors since we can only click enabled buttons
 	
@@ -222,8 +220,8 @@ func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray
 			myGridArray.gridCellArr[i].buttonDisabled = false
 		}
 	}
-	//return theTempArray back to ContentView
 	theTempCounter -= 1
+	//return theTempArray, countdownInt, and SOSflag back to ContentView
 	let theReturnTuple = (myUnusedButtonArray: theTempArray, myCountDownInt: theTempCounter, mySOSFlag: theSOSFlag)
 	return theReturnTuple
 }
@@ -291,12 +289,10 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 		if !buttonRightmostFlag {
 			//check all LTR options
 			if distanceFromRight >= 2 {
-				print("check LTR horizontal")
 				//look for next adjacent cell, current index + 1, because horizontal LTR, SOS would be current index +1, current index +2
 				var nextCellIndex = myLastButtonClickedIndex + 1
 				var secondCellIndex = myLastButtonClickedIndex + 2
 				if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
-					print("LTR horizontal SOS!")
 					//set colors for all three buttons
 					setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 					SOSFlag = true
@@ -304,13 +300,11 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				//L -> R horizontal didn't have SOS, now do L -> R diags
 				//nested if already checked for proper distance from right edge, for the diags, we only care about y distance
 				if distanceFromBottom >= 2 {
-					print("check LTR diag down")
 					//in the grids, the diag down index is the current index + (gridsize + 1) so for 3x3, it'd be current + 4, 5x5 would be
 					//current + 6. the second adjacent cell is the adjacentcell index + (gridsize + 1)
 					var nextCellIndex = (myLastButtonClickedIndex) + (myGridSize + 1)
 					var secondCellIndex = (nextCellIndex) + (myGridSize + 1)
 					if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
-						print("LTR Diag down SOS!")
 						//set colors for all three buttons
 						setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 						SOSFlag = true
@@ -320,12 +314,10 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				}
 				//check both diag and vertical up
 				if myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 2 {
-					print("check LTR diag up")
 					//check diag up
 					var nextCellIndex = (myLastButtonClickedIndex) - (myGridSize - 1)
 					var secondCellIndex = (nextCellIndex) - (myGridSize - 1)
 					if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
-						print("LTR Diag up SOS!")
 						//set colors for all three buttons
 						setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 						SOSFlag = true
@@ -336,11 +328,9 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 		//vertical up check, can't combine it with diag check because horizontal position causes problems
 		//all we care about here is that the y coord of the button clicked is at least 2
 		if myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 2 {
-			print("check vertical up")
 			var nextCellIndex = myLastButtonClickedIndex - myGridSize
 			var secondCellIndex = nextCellIndex - myGridSize
 			if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
-				print("vertical up SOS!")
 				//set colors for all three buttons
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 				SOSFlag = true
@@ -349,11 +339,9 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 		//vertical down check, separate for same reasons as vertical up check
 		//all we care about here is that distance from the bottom is at least 2
 		if distanceFromBottom >= 2 {
-			print("check vertical down")
 			var nextCellIndex = myLastButtonClickedIndex + myGridSize
 			var secondCellIndex = nextCellIndex + myGridSize
 			if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
-				print("vertical down SOS!")
 				//set colors for all three buttons
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 				SOSFlag = true
@@ -365,12 +353,10 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 		if !buttonLeftmostFlag {
 			//check for at least two in the xCoord
 			if myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord >= 2 {
-				print("Check RTL horizontal")
 				//check R -> L horizontal, current index - 1 for next cell
 				var nextCellIndex = myLastButtonClickedIndex - 1
 				var secondCellIndex = nextCellIndex - 1
 				if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
-					print("RTL Horizontal SOS!")
 					//set colors for all three buttons
 					setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 					SOSFlag = true
@@ -378,12 +364,10 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				//RTL Diag Down
 				//since going down, we need to be at least two from the bottom
 				if distanceFromBottom >= 2 {
-					print("Check RTL diag down")
 					//check R -> L diag down, (current index) + (gridsize - 1)
 					var nextCellIndex = (myLastButtonClickedIndex) + (myGridSize - 1)
 					var secondCellIndex = (nextCellIndex) + (myGridSize - 1)
 					if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
-						print("RTL Diag Down SOS!")
 						//set colors for all three buttons
 						setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 						SOSFlag = true
@@ -392,12 +376,10 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				//RTL Diag Up
 				//need to be at least 2 from the top
 				if myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 2 {
-					print("Check RTL diag up")
 					//check R -> L diag up, (current index) - (gridSize + 1)
 					var nextCellIndex = (myLastButtonClickedIndex) - (myGridSize + 1)
 					var secondCellIndex = (nextCellIndex) - (myGridSize + 1)
 					if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
-						print("RTL Diag Up SOS!")
 						//set colors for all three buttons
 						setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 						SOSFlag = true
@@ -408,17 +390,14 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 	}
 	//all the "O" checks here
 	if theCurrentButtonTitle == "O" {
-		print("commited an O!")
 		//horizontal first. Needs to be both 1 away from the right (xCoord >= 1) AND one away from the left (xCoord <= right edge - 1)
 		if (myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord >= 1) && (distanceFromRight >= 1) {
-			print("check O horizontal")
 			//cell to the right
 			var rightAdjacentCellIndex = myLastButtonClickedIndex + 1
 			//cell to the left
 			var leftAdjacentCellInded = myLastButtonClickedIndex - 1
 			//check cells on either side horizontal are "S"
 			if (myGridArray.gridCellArr[rightAdjacentCellIndex].title == "S") && (myGridArray.gridCellArr[leftAdjacentCellInded].title == "S") {
-				print("Horizontal O SOS!")
 				//set colors for all three buttons
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: rightAdjacentCellIndex, myThirdIndex: leftAdjacentCellInded, myGridArray: myGridArray)
 				SOSFlag = true
@@ -428,13 +407,11 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 		//vertical O
 		//check for at least 1 from top and bottom
 		if (myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 1) && (distanceFromBottom >= 1) {
-			print("check O vertical")
 			//next cell up
 			var topAdjacentCellIndex = myLastButtonClickedIndex - myGridSize
 			var bottomAdjacentCellIndex = myLastButtonClickedIndex + myGridSize
 			//check cells above and below are "S"
 			if (myGridArray.gridCellArr[topAdjacentCellIndex].title == "S") && (myGridArray.gridCellArr[bottomAdjacentCellIndex].title == "S") {
-				print("Vertical O SOS!")
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: topAdjacentCellIndex, myThirdIndex: bottomAdjacentCellIndex, myGridArray: myGridArray)
 				SOSFlag = true
 			}
@@ -442,12 +419,10 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 		//for diags, we have to be 1 from top and bottom AND one from left and right, so four ands:
 		//may be able to check both diags in one try
 		if (myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord >= 1) && (distanceFromRight >= 1) && (myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 1) && (distanceFromBottom >= 1) {
-			print("check O diags")
 			//check left high/right low diag (rtl up for high, ltr down for low)
 			var highLeftAdjacentCell = (myLastButtonClickedIndex) - (myGridSize + 1)
 			var lowRightAdjacentCell = (myLastButtonClickedIndex) + (myGridSize + 1)
 			if (myGridArray.gridCellArr[highLeftAdjacentCell].title == "S") && (myGridArray.gridCellArr[lowRightAdjacentCell].title == "S") {
-				print("high left/low right diag O SOS!")
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: highLeftAdjacentCell, myThirdIndex: lowRightAdjacentCell, myGridArray: myGridArray)
 				SOSFlag = true
 			}
@@ -455,7 +430,6 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 			var lowLeftAdjacentCell = (myLastButtonClickedIndex) + (myGridSize - 1)
 			var highRightAdjacentCell = (myLastButtonClickedIndex) - (myGridSize - 1)
 			if (myGridArray.gridCellArr[lowLeftAdjacentCell].title == "S") && (myGridArray.gridCellArr[highRightAdjacentCell].title == "S") {
-				print("low left/high right diag O SOS!")
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: lowLeftAdjacentCell, myThirdIndex: highRightAdjacentCell, myGridArray: myGridArray)
 				SOSFlag = true
 			}

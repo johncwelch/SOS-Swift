@@ -14,6 +14,8 @@ struct ContentView: View {
 	//by using @State vars, we get a LOT of UI functionality for free
 	//initial game type, always simple on launch, 1 == simple, 2 == general
 	@State var gameType: Int = 1
+	//var to disable the game type & player type radio buttons so you can't change game type in the middle of playing
+	@State var gamePlayerTypeDisabled: Bool = false
 	//initial player types, always human on launch, 1 == human, 2 == computer
 	@State var bluePlayerType: Int = 1
 	@State var redPlayerType: Int = 1
@@ -68,6 +70,7 @@ struct ContentView: View {
 					//
 			}
 			.padding(.leading, 20.0)
+			.disabled(gamePlayerTypeDisabled)
 
 			//select board size
 			VStack(alignment: .leading) {
@@ -102,6 +105,8 @@ struct ContentView: View {
 						arrayUsedButtonsList = buildUnusedArray(myGridSize: theGame.gridSize)
 						//reset playerwon to false since new game
 						playerWon = false
+						//enable the game and player type radio buttons
+						gamePlayerTypeDisabled = false
 					}
 
 				    //put in a row with the current player label and value
@@ -147,6 +152,7 @@ struct ContentView: View {
 
 			}
 			.padding(.leading, 20.0)
+			.disabled(gamePlayerTypeDisabled)
 
 			//select red player type
 			VStack(alignment: .leading) {
@@ -168,11 +174,12 @@ struct ContentView: View {
 				.frame(width: 105, height: 22, alignment: .leading)
 			}
 			.padding(.leading, 20.0)
+			.disabled(gamePlayerTypeDisabled)
 
 			//new game, record and replay buttons
 			VStack(alignment: .leading) {
-				Button("New Game"){
-					//newGame clears any existing "S" or "O" text, 
+				Button {
+					//newGame clears any existing "S" or "O" text,
 					//sets all button colors back to gray
 					//and enables all buttons on the grid.
 					//It doesn't change anything else
@@ -187,6 +194,10 @@ struct ContentView: View {
 					arrayUsedButtonsList = buildUnusedArray(myGridSize: theGame.gridSize)
 					//reset playerWon to false since new game
 					playerWon = false
+					//enable the game and player type radio buttons
+					gamePlayerTypeDisabled = false
+				} label: {
+					Text("New Game")
 				}
 				.padding(.top,5.0)
 
@@ -195,8 +206,10 @@ struct ContentView: View {
 				//also changes color of the button to reflect the player who made the move
 				//disables itself and changes who the current player is
 				Button {
-
 					//on commit...
+					//once you commit a move, we set the game type and player type buttons to disabled. the only way they re-enable
+					//is for new game or grid size change which is effectively a new game
+					gamePlayerTypeDisabled = true
 					//call commitMove() which alwasy calls checkForSOS() which may call setSOSButtonColor() (if there is an SOS)
 					let theCommitTuple = commitMove(myCommittedButtonIndex: lastButtonClickedIndex, myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
 					arrayUsedButtonsList = theCommitTuple.myUnusedButtonArray
