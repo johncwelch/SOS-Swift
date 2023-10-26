@@ -143,7 +143,7 @@ commitMove() since this is what calls checkForSOS(), added a counter var to pull
   
 Commit Move button action code:  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;added call to incrementScore() before game over check, so if the game is over, the score is corret. Called when   gameType is general AND SOSFlag is true  
-	  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;updated calls to isGameOver() and gameOverAlert()  
+  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;updated calls to isGameOver() and gameOverAlert()  
 	  
 this completes user stories 6.2 and 7.1. All that's left for the homework is generate some unit tests
