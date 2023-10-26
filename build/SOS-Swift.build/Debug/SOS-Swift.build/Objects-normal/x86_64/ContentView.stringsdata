@@ -12,6 +12,14 @@
       },
       {
         "comment": "",
+        "key": "gameTypeSimple"
+      },
+      {
+        "comment": "",
+        "key": "gameTypeGeneral"
+      },
+      {
+        "comment": "",
         "key": "Board Size"
       },
       {
@@ -72,7 +80,23 @@
       },
       {
         "comment": "",
+        "key": "Blue Player Human"
+      },
+      {
+        "comment": "",
+        "key": "Blue Player Computer"
+      },
+      {
+        "comment": "",
         "key": "Blue Score"
+      },
+      {
+        "comment": "",
+        "key": "bluePlayerScoreLabel"
+      },
+      {
+        "comment": "",
+        "key": "bluePlayerScore"
       },
       {
         "comment": "",
@@ -84,7 +108,27 @@
       },
       {
         "comment": "",
+        "key": "Red Player Human"
+      },
+      {
+        "comment": "",
+        "key": "Red Player Computer"
+      },
+      {
+        "comment": "",
         "key": "Red Score"
+      },
+      {
+        "comment": "",
+        "key": "redPlayerScoreLabel"
+      },
+      {
+        "comment": "",
+        "key": "redPlayerScore"
+      },
+      {
+        "comment": "",
+        "key": "commitButton"
       },
       {
         "comment": "",

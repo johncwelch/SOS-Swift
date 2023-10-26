@@ -68,7 +68,9 @@ struct ContentView: View {
 					.accessibilityIdentifier("gameTypeLabel")
 				    //this actually draws the buttons, simple = 1, general = 2
 				gameTypeRadioButtonView(index: 1, selectedIndex: $gameType)
+					.accessibilityLabel("gameTypeSimple")
 				gameTypeRadioButtonView(index: 2, selectedIndex: $gameType)
+					.accessibilityLabel("gameTypeGeneral")
 					//
 			}
 			.padding(.leading, 20.0)
@@ -100,7 +102,7 @@ struct ContentView: View {
 					//this is how you initiate actions based on a change event
 					//test func to show size of board based on selection
 					.onChange(of: theGame.gridSize) {
-						    boardSizeSelect(theSelection: theGame.gridSize)
+						//boardSizeSelect(theSelection: theGame.gridSize)
 						//print("Old Grid size is:\(arrayUsedMemberCountdown)")
 						//set the countdown var to match the new size of the grid
 						arrayUsedMemberCountdown = theGame.gridCellArr.count
@@ -140,19 +142,27 @@ struct ContentView: View {
 					.accessibilityIdentifier("bluePlayerLabel")
 				//radio buttons to chose between human and computer
 				bluePlayerTypeRadioButton(index: 1, selectedIndex: $bluePlayerType)
+					.accessibilityLabel("Blue Player Human")
 				bluePlayerTypeRadioButton(index: 2, selectedIndex: $bluePlayerType)
+					.accessibilityLabel("Blue Player Computer")
 				//this Hstack only displays its contents if the gameType is not 1 (simple)
 				//because gameType is a state variable, the refresh happens automatically
 				//we don't have to do any extra work.
 				HStack(alignment: .center) {
 					//in an if statement, we don't use the $varname, just the varname
+					//if the game is simple, (1) then don't show the score
 					if gameType != 1 {
 						Text("Blue Score")
+							//used for unit tests
+							.accessibilityLabel("bluePlayerScoreLabel")
+						//since score is an int, we coerce it to a string to display it
 						Text(String(bluePlayerScore))
+							.accessibilityLabel("bluePlayerScore")
 						/*TextField(text: $bluePlayerScore) {
 							Text("")
 						}*/
 						.frame(width: 25, height: 22, alignment: .center)
+
 					}
 				}
 				.frame(width: 105, height: 22, alignment: .leading)
@@ -169,12 +179,16 @@ struct ContentView: View {
 					.accessibilityIdentifier("redPlayerLabel")
 				//radio buttons to chose between human and computer
 				redPlayerTypeRadioButton(index: 1, selectedIndex: $redPlayerType)
+					.accessibilityLabel("Red Player Human")
 				redPlayerTypeRadioButton(index: 2, selectedIndex: $redPlayerType)
+					.accessibilityLabel("Red Player Computer")
 				HStack(alignment: .center) {
 					//in an if statement, we don't use the $varname, just the varname
 					if gameType != 1 {
 						Text("Red Score")
+							.accessibilityLabel("redPlayerScoreLabel")
 						Text(String(redPlayerScore))
+							.accessibilityLabel("redPlayerScore")
 						.frame(width: 25, height: 22, alignment: .center)
 					}
 				}
@@ -253,6 +267,7 @@ struct ContentView: View {
 					Text("Commit Move")					
 				}
 				.disabled(buttonBlank)
+				.accessibilityLabel("commitButton")
 				.alert(isPresented: $playerWon, content: { gameOverAlert(myPlayerColor: currentPlayer, myGameIsDraw: gameWasDraw, myGeneralGameWinner: generalGameWinner, myGameType: gameType) })
 
 				Button("Record Game") {

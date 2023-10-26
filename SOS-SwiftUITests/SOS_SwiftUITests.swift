@@ -48,13 +48,105 @@ final class SOS_SwiftUITests: XCTestCase {
 	//test new game button
 	//this tests that once the application has launched, the "new game"button responds to a click
 	func testNewGameButton() {
+		let SOSApp = XCUIApplication()
 		//launch application for button click test
-		XCUIApplication().launch()
+		SOSApp.launch()
+		let myCommitButton = SOSApp.buttons["commitButton"]
+		let myGameTypeSimpleButton = SOSApp.buttons["gameTypeSimple"]
+		let myGameTypeGeneralButton = SOSApp.buttons["gameTypeGeneral"]
+		let myBluePlayerTypeHuman = SOSApp.buttons["Blue Player Human"]
+		let myBluePlayerTypeComputer = SOSApp.buttons["Blue Player Computer"]
+		let myRedPlayerTypeHuman = SOSApp.buttons["Red Player Human"]
+		let myRedPlayerTypeComputer = SOSApp.buttons["Red Player Computer"]
+		let myCurrentPlayer = SOSApp.staticTexts["Current Player"]
 		//click the button
 		XCUIApplication()/*@START_MENU_TOKEN@*/.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].buttons["New Game"]/*[[".windows[\"SOS-Swift\"]",".groups.buttons[\"New Game\"]",".buttons[\"New Game\"]",".windows[\"SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1\"]"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.click()
-
+		//states that should be a specific way after clicking new game:
+		XCTAssertFalse(myCommitButton.isEnabled)
+		XCTAssertTrue(myGameTypeSimpleButton.isEnabled)
+		XCTAssertTrue(myGameTypeGeneralButton.isEnabled)
+		XCTAssertTrue(myBluePlayerTypeHuman.isEnabled)
+		XCTAssertTrue(myBluePlayerTypeComputer.isEnabled)
+		XCTAssertTrue(myRedPlayerTypeHuman.isEnabled)
+		XCTAssertTrue(myRedPlayerTypeComputer.isEnabled)
 	}
 
+	func testCommitButton() {
+		let SOSApp = XCUIApplication()
+		SOSApp.launch()
+		let myCommitButton = SOSApp.buttons["commitButton"]
+		let myGameTypeSimpleButton = SOSApp.buttons["gameTypeSimple"]
+		let myGameTypeGeneralButton = SOSApp.buttons["gameTypeGeneral"]
+		let myBluePlayerTypeHuman = SOSApp.buttons["Blue Player Human"]
+		let myBluePlayerTypeComputer = SOSApp.buttons["Blue Player Computer"]
+		let myRedPlayerTypeHuman = SOSApp.buttons["Red Player Human"]
+		let myRedPlayerTypeComputer = SOSApp.buttons["Red Player Computer"]
+		//should be disabled before a button has an s or o
+		XCTAssertFalse(myCommitButton.isEnabled)
+		//should be enabled before commit is clicked
+		XCTAssertTrue(myGameTypeSimpleButton.isEnabled)
+		XCTAssertTrue(myGameTypeGeneralButton.isEnabled)
+		XCTAssertTrue(myBluePlayerTypeHuman.isEnabled)
+		XCTAssertTrue(myBluePlayerTypeComputer.isEnabled)
+		XCTAssertTrue(myRedPlayerTypeHuman.isEnabled)
+		XCTAssertTrue(myRedPlayerTypeComputer.isEnabled)
+		//XCTAssertTrue()
+		let swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window = SOSApp.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"]
+		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window/*@START_MENU_TOKEN@*/.groups.containing(.staticText, identifier:"gameTypeLabel")/*[[".groups.containing(.button, identifier:\"Computer\")",".groups.containing(.button, identifier:\"gameTypeGeneral\")",".groups.containing(.button, identifier:\"Commit Move\")",".groups.containing(.button, identifier:\"Human\")",".groups.containing(.staticText, identifier:\"currentPlayer\")",".groups.containing(.staticText, identifier:\"currentPlayerLabel\")",".groups.containing(.button, identifier:\"gameTypeSimple\")",".groups.containing(.button, identifier:\"New Game\")",".groups.containing(.staticText, identifier:\"redPlayerLabel\")",".groups.containing(.staticText, identifier:\"bluePlayerLabel\")",".groups.containing(.popUpButton, identifier:\"Board Size Dropdown\")",".groups.containing(.popUpButton, identifier:\"boardSizeDropdown\")",".groups.containing(.staticText, identifier:\"Board Size\")",".groups.containing(.staticText, identifier:\"gameTypeLabel\")"],[[[-1,13],[-1,12],[-1,11],[-1,10],[-1,9],[-1,8],[-1,7],[-1,6],[-1,5],[-1,4],[-1,3],[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.children(matching: .button).element(boundBy: 8).click()
+		//button was clicked from blank, commit button is enabled
+		XCTAssertTrue(myCommitButton.isEnabled)
+		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window.buttons["commitButton"].click()
+		//after commit button click, game type and player type radio buttons should be disabled
+		XCTAssertFalse(myGameTypeSimpleButton.isEnabled)
+		XCTAssertFalse(myGameTypeGeneralButton.isEnabled)
+		XCTAssertFalse(myBluePlayerTypeHuman.isEnabled)
+		XCTAssertFalse(myBluePlayerTypeComputer.isEnabled)
+		XCTAssertFalse(myRedPlayerTypeHuman.isEnabled)
+		XCTAssertFalse(myRedPlayerTypeComputer.isEnabled)
+	}
+
+	//test simple game selection
+	func testSimpleGame() {
+		//launch the app
+		let SOSApp = XCUIApplication()
+		SOSApp.launch()
+		//click the "simple" radio button
+		SOSApp.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].buttons["gameTypeSimple"].click()
+
+		//neither scores should exist for a simple game
+		let myBluePlayerScoreLabel = SOSApp.staticTexts["bluePlayerScoreLabel"]
+		let myBluePlayerScore = SOSApp.staticTexts["bluePlayerScore"]
+		//this should be false when simple game seleected exists
+		XCTAssertFalse(myBluePlayerScoreLabel.exists)
+		XCTAssertFalse(myBluePlayerScore.exists)
+
+		//verify the red player score and label
+		let myRedPlayerScoreLabel = SOSApp.staticTexts["redPlayerScoreLabel"]
+		let myRedPlayerScore = SOSApp.staticTexts["redPlayerScore"]
+		XCTAssertFalse(myRedPlayerScoreLabel.exists)
+		XCTAssertFalse(myRedPlayerScore.exists)
+	}
+	//test general game selection
+	func testGeneralGame() {
+		let SOSApp = XCUIApplication()
+		SOSApp.launch()
+		//Click the "general" radio button
+		SOSApp.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].buttons["gameTypeGeneral"].click()
+
+		//verify the blue player score and label
+		let myBluePlayerScoreLabel = SOSApp.staticTexts["bluePlayerScoreLabel"]
+		let myBluePlayerScore = SOSApp.staticTexts["bluePlayerScore"]
+		//this should be true when general game seleected exists
+		XCTAssertTrue(myBluePlayerScoreLabel.exists)
+		XCTAssertTrue(myBluePlayerScore.exists)
+
+		//verify the red player score and label
+		let myRedPlayerScoreLabel = SOSApp.staticTexts["redPlayerScoreLabel"]
+		let myRedPlayerScore = SOSApp.staticTexts["redPlayerScore"]
+		XCTAssertTrue(myRedPlayerScoreLabel.exists)
+		XCTAssertTrue(myRedPlayerScore.exists)
+
+	}
 	//test picker
 	//verifies that you can change the value in the board size picker
 
@@ -73,5 +165,10 @@ final class SOS_SwiftUITests: XCTestCase {
 		boardsizedropdownPopUpButton2.click()
 		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window/*@START_MENU_TOKEN@*/.menuItems["3"]/*[[".groups",".popUpButtons[\"boardSizeDropdown\"]",".menus.menuItems[\"3\"]",".menuItems[\"3\"]"],[[[-1,3],[-1,2],[-1,1,2],[-1,0,1]],[[-1,3],[-1,2],[-1,1,2]],[[-1,3],[-1,2]]],[0]]@END_MENU_TOKEN@*/.click()
 	}
+
 }
+
+
+
+
 
