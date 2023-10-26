@@ -132,12 +132,18 @@ added func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBlue
 updated the following to handle general game, especially the case where one move creates multiple SOS's:  
   
 incrementScore() with an SOScounter that is added to the current player score so that a correct score is given  
+  
 gameOverAlert() with a general game winner string and game type. If it's a simple game, then the current player is the winner (since that doesn't change for a simple game getting an SOS), if it's a general game, then the general Game winner is used. Draws are still draws  
+   
 isGameOver() added general game code, mostly for the "countdown is <= 0" parts, since the only way to win a general game or finish it at all is to fill in every square. It uses the scores passed to it to set the game winner string used by gameOverAlert()  
+  
 checkForSOS() added an SOS counter that is incremented for every case of the SOS flag being set true. This allows for cases where you have *multiple* SOS's created by a single move in a general game.  
+  
 commitMove() since this is what calls checkForSOS(), added a counter var to pull from the tuple checkForSOS() returns and added that to the return tuple for commitMove()  
+  
 Commit Move button action code:  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;added call to incrementScore() before game over check, so if the game is over, the score is corret. Called when gameType is general AND SOSFlag is true  
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;added call to incrementScore() before game over check, so if the game is over, the score is corret. Called when   gameType is general AND SOSFlag is true  
+	  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;updated calls to isGameOver() and gameOverAlert()  
 	  
 this completes user stories 6.2 and 7.1. All that's left for the homework is generate some unit tests
