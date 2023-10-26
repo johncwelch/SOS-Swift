@@ -47,6 +47,8 @@ struct ContentView: View {
 	//needed to have multiple game over alert states in the alert func
 	@State var gameWasDraw: Bool = false
 
+	@State var generalGameWinner: String = ""
+
 
 	var body: some View {
 		//@State var gridCellArr = buildCellArray(theGridSize: boardSize)
@@ -223,21 +225,26 @@ struct ContentView: View {
 					arrayUsedButtonsList = theCommitTuple.myUnusedButtonArray
 					arrayUsedMemberCountdown = theCommitTuple.myCountDownInt
 					let SOSFlag = theCommitTuple.mySOSFlag
+					//used for incrementing scores in general game because you can have one move create multiple SOS's
+					let SOSCounter = theCommitTuple.mySOSCounter
 					buttonBlank = true
-					var gameOverTuple  = isGameOver(myArrayUsedMemberCountdown: arrayUsedMemberCountdown, myGameType: gameType, myGridArray: theGame, mySOSFlag: SOSFlag)
+					//no one has won, and general game and SOS, increment score
+					if (gameType == 2) && (SOSFlag) {
+						var incrementScoreTuple = incrementScore(myCurrentPlayer: currentPlayer, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore, mySOSCounter: SOSCounter)
+						redPlayerScore = incrementScoreTuple.myRedPlayerScore
+						bluePlayerScore = incrementScoreTuple.myBluePlayerScore
+					}
+
+					var gameOverTuple  = isGameOver(myArrayUsedMemberCountdown: arrayUsedMemberCountdown, myGameType: gameType, myGridArray: theGame, mySOSFlag: SOSFlag, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore)
 					//get is game over/player won flag
 					playerWon = gameOverTuple.myGameIsOver
 					//get is game a draw flag
 					gameWasDraw = gameOverTuple.myGameIsDraw
-
+					//winner of general game
+					generalGameWinner = gameOverTuple.myGeneralGameWinner
+					
 					//change the player/increment score only if playerWon is false and gameType is general
 					if !playerWon {
-						//no one has won, and general game so increment score if SOS
-						if (gameType == 2) && (SOSFlag) {
-							var incrementScoreTuple = incrementScore(myCurrentPlayer: currentPlayer, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore)
-							redPlayerScore = incrementScoreTuple.myRedPlayerScore
-							bluePlayerScore = incrementScoreTuple.myBluePlayerScore
-						}
 						//regardless of game type, we still change the player because no one won
 						currentPlayer = changePlayer(myCurrentPlayer: currentPlayer)
 					}
@@ -246,7 +253,7 @@ struct ContentView: View {
 					Text("Commit Move")					
 				}
 				.disabled(buttonBlank)
-				.alert(isPresented: $playerWon, content: { gameOverAlert(myPlayerColor: currentPlayer, myGameIsDraw: gameWasDraw) })
+				.alert(isPresented: $playerWon, content: { gameOverAlert(myPlayerColor: currentPlayer, myGameIsDraw: gameWasDraw, myGeneralGameWinner: generalGameWinner, myGameType: gameType) })
 
 				Button("Record Game") {
 

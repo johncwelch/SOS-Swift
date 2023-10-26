@@ -18,9 +18,9 @@ The next part, code-wise will be setting up the game board and allowing it to be
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.1  done  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.2  done  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.1	done  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.2  
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.2  done  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.3  done  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.1  
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.1  done  
 	
 
 ##20230907:  
@@ -128,3 +128,16 @@ updated gameOverAlert() to add game draw bool, and set title and message vars ba
 added gamePlayerTypeDisabled state var so we can disable the game type and player type controls once a move is committed. They're re-enabled for new game or grid resize, which is effectively a new game.  
   
 added func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayerScore: Int) -> (myRedPlayerScore: Int, myBluePlayerScore: Int) to handle score incrementing during a game. also updated new game and grid size change to set scores back to 0
+
+updated the following to handle general game, especially the case where one move creates multiple SOS's:  
+  
+incrementScore() with an SOScounter that is added to the current player score so that a correct score is given  
+gameOverAlert() with a general game winner string and game type. If it's a simple game, then the current player is the winner (since that doesn't change for a simple game getting an SOS), if it's a general game, then the general Game winner is used. Draws are still draws  
+isGameOver() added general game code, mostly for the "countdown is <= 0" parts, since the only way to win a general game or finish it at all is to fill in every square. It uses the scores passed to it to set the game winner string used by gameOverAlert()  
+checkForSOS() added an SOS counter that is incremented for every case of the SOS flag being set true. This allows for cases where you have *multiple* SOS's created by a single move in a general game.  
+commitMove() since this is what calls checkForSOS(), added a counter var to pull from the tuple checkForSOS() returns and added that to the return tuple for commitMove()  
+Commit Move button action code:  
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;added call to incrementScore() before game over check, so if the game is over, the score is corret. Called when gameType is general AND SOSFlag is true  
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;updated calls to isGameOver() and gameOverAlert()  
+	  
+this completes user stories 6.2 and 7.1. All that's left for the homework is generate some unit tests

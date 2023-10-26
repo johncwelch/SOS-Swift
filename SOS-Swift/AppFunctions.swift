@@ -192,12 +192,15 @@ func enableOtherButtonsDuringMove (myGridArray: Game){
 }
 
 //function to commit a move
-func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> (myUnusedButtonArray: [Int], myCountDownInt: Int, mySOSFlag: Bool) {
+func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> (myUnusedButtonArray: [Int], myCountDownInt: Int, mySOSFlag: Bool, mySOSCounter: Int) {
 	//create temp array that is mutable for the list of unused buttons
 	var theTempArray = myUnusedButtons
 	var theTempCounter = myArrayUsedMemberCountdown
 	//did the commit result in an SOS? returns Bool
-	let theSOSFlag = checkForSOS(myGridArray: myGridArray, myLastButtonClickedIndex: myCommittedButtonIndex, myGridSize: myGridArray.gridSize, myCurrentPlayer: myCurrentPlayer)
+	let theSOSTuple = checkForSOS(myGridArray: myGridArray, myLastButtonClickedIndex: myCommittedButtonIndex, myGridSize: myGridArray.gridSize, myCurrentPlayer: myCurrentPlayer)
+	let theSOSFlag = theSOSTuple.mySOSFlag
+	//for general game
+	let theSOSCounter = theSOSTuple.mySOSCounter
 	//remove the button we are committing the move for from the array of unused buttons using the button we just clicked
 	//this helps avoid out of index errors since we can only click enabled buttons
 	
@@ -223,19 +226,21 @@ func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray
 	}
 	theTempCounter -= 1
 	//return theTempArray, countdownInt, and SOSflag back to ContentView
-	let theReturnTuple = (myUnusedButtonArray: theTempArray, myCountDownInt: theTempCounter, mySOSFlag: theSOSFlag)
-	return theReturnTuple
+	let theCommitMoveTuple = (myUnusedButtonArray: theTempArray, myCountDownInt: theTempCounter, mySOSFlag: theSOSFlag, mySOSCounter: theSOSCounter)
+	return theCommitMoveTuple
 }
 
 //funciton to check for SOS
-func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: Int, myCurrentPlayer: String) -> Bool {
+func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: Int, myCurrentPlayer: String) -> (mySOSFlag: Bool, mySOSCounter: Int) {
 	//first we need to set some flags for leftmost/rightmost/topmost/bottommost positions
 	//since that has a lot to do with how we calculate wins
 	//we may not need a separate myGridSize
 	//print("the index is: \(myLastButtonClickedIndex) the y coord is: \(myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord)")
 	//hopefully these is obvious
-	var adjacentCellTitle = ""
-	var nextAdjacentCellTitle = ""
+	//var adjacentCellTitle = ""
+	//var nextAdjacentCellTitle = ""
+	//needed to count multiple SOS's for general game
+	var SOSCounter: Int = 0
 
 	//if the grid size is 3, the right/bottom row/colum is 2, if 10, then 9, etc.
 	//leftmost column, x = 0, rightmost column, buttonRightEdgeCheck
@@ -298,6 +303,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 					//set colors for all three buttons
 					setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 					SOSFlag = true
+					SOSCounter += 1
 				}
 				//L -> R horizontal didn't have SOS, now do L -> R diags
 				//nested if already checked for proper distance from right edge, for the diags, we only care about y distance
@@ -310,6 +316,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 						//set colors for all three buttons
 						setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 						SOSFlag = true
+						SOSCounter += 1
 					}
 					//can't do LTR down, so let's do LTR up!
 					//the y coord has to be at least 2 or there's no point in going L -> R diag up, since SOS is 3 buttons, so 2,1,0 for SOS
@@ -323,6 +330,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 						//set colors for all three buttons
 						setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 						SOSFlag = true
+						SOSCounter += 1
 					}
 				}
 			}
@@ -336,6 +344,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				//set colors for all three buttons
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 				SOSFlag = true
+				SOSCounter += 1
 			}
 		}
 		//vertical down check, separate for same reasons as vertical up check
@@ -347,6 +356,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				//set colors for all three buttons
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 				SOSFlag = true
+				SOSCounter += 1
 			}
 		}
 		//start RTL checks
@@ -362,6 +372,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 					//set colors for all three buttons
 					setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 					SOSFlag = true
+					SOSCounter += 1
 				}
 				//RTL Diag Down
 				//since going down, we need to be at least two from the bottom
@@ -373,6 +384,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 						//set colors for all three buttons
 						setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 						SOSFlag = true
+						SOSCounter += 1
 					}
 				}
 				//RTL Diag Up
@@ -385,6 +397,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 						//set colors for all three buttons
 						setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
 						SOSFlag = true
+						SOSCounter += 1
 					}
 				}
 			}
@@ -403,6 +416,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				//set colors for all three buttons
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: rightAdjacentCellIndex, myThirdIndex: leftAdjacentCellInded, myGridArray: myGridArray)
 				SOSFlag = true
+				SOSCounter += 1
 			}
 
 		}
@@ -416,6 +430,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 			if (myGridArray.gridCellArr[topAdjacentCellIndex].title == "S") && (myGridArray.gridCellArr[bottomAdjacentCellIndex].title == "S") {
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: topAdjacentCellIndex, myThirdIndex: bottomAdjacentCellIndex, myGridArray: myGridArray)
 				SOSFlag = true
+				SOSCounter += 1
 			}
 		}
 		//for diags, we have to be 1 from top and bottom AND one from left and right, so four ands:
@@ -427,6 +442,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 			if (myGridArray.gridCellArr[highLeftAdjacentCell].title == "S") && (myGridArray.gridCellArr[lowRightAdjacentCell].title == "S") {
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: highLeftAdjacentCell, myThirdIndex: lowRightAdjacentCell, myGridArray: myGridArray)
 				SOSFlag = true
+				SOSCounter += 1
 			}
 			//check left low/right high diag (rtl down for low, ltr up for high
 			var lowLeftAdjacentCell = (myLastButtonClickedIndex) + (myGridSize - 1)
@@ -434,20 +450,23 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 			if (myGridArray.gridCellArr[lowLeftAdjacentCell].title == "S") && (myGridArray.gridCellArr[highRightAdjacentCell].title == "S") {
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: lowLeftAdjacentCell, myThirdIndex: highRightAdjacentCell, myGridArray: myGridArray)
 				SOSFlag = true
+				SOSCounter += 1
 			}
 		}
 	}
-	return SOSFlag
+	let myCheckForSOSTuple = (mySOSFlag: SOSFlag, mySOSCounter: SOSCounter)
+	return myCheckForSOSTuple
 }
 
 //function to manage checking for game over and handling if it is
-func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: Game, mySOSFlag: Bool) -> (myGameIsOver: Bool, myGameIsDraw: Bool) {
+func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: Game, mySOSFlag: Bool, myRedPlayerScore: Int, myBluePlayerScore: Int) -> (myGameIsOver: Bool, myGameIsDraw: Bool, myGeneralGameWinner: String) {
 
 	var gameIsOver: Bool = false
 	var gameIsDraw: Bool = false
 	//we'll need this lateer
 	var gridCountdown = myArrayUsedMemberCountdown
-	
+	var gameWinner: String = ""
+
 	//check to see if gridCountDown is zero. If it is, game is over no matter what
 	if gridCountdown > 0 {
 		//grid countdown is not zero, check for other things
@@ -464,52 +483,77 @@ func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: G
 				//set the game over flag
 				gameIsOver = true
 				gameIsDraw = false
-				print("game is over!")
 			} else {
 				//mySOSFlag is not true, game is not over
 				gameIsOver = false
 				gameIsDraw = false
 			}
-		} else {
-			//game type is general
+		//we may not have to do anything here for a general game, since the SOS flag being true and game over being false runs the
+		//score increment outside of this function
 		}
 	} else if gridCountdown <= 0 {
-		//0 or less the game is over regardless of winner or not
+		//0 or less the game is over regardless of winner or not or game type
 		//disable the game board
+		//also, you CAN'T win a general game until all the squares are filled
 		for i in 0..<myGridArray.gridCellArr.count {
 			myGridArray.gridCellArr[i].buttonDisabled = true
 		}
-
-		if mySOSFlag {
-			//there's a winner, so not a draw
-			gameIsOver = true
-			gameIsDraw = false
+		//simple game draw
+		if myGameType == 1 {
+			if mySOSFlag {
+				//there's a winner, so not a draw
+				gameIsOver = true
+				gameIsDraw = false
+			} else {
+				//no winner, is a draw
+				gameIsOver = true
+				gameIsDraw = true
+			}
 		} else {
-			//no winner, is a draw
+			//general game all squares are filled is different
+			//regardless of who won, game is over
 			gameIsOver = true
-			gameIsDraw = true
+			//red won
+			if myRedPlayerScore > myBluePlayerScore {
+				gameWinner = "Red"
+				gameIsDraw = false
+				//blue won
+			} else if myBluePlayerScore > myRedPlayerScore {
+				gameWinner = "Blue"
+				gameIsDraw = false
+				//Draw/no one won
+			} else {
+				gameWinner = "Draw"
+				gameIsDraw = true
+			}
 		}
 	}
-
-	let gameIsOverTuple = (myGameIsOver: gameIsOver, myGameIsDraw: gameIsDraw)
-
+	let gameIsOverTuple = (myGameIsOver: gameIsOver, myGameIsDraw: gameIsDraw, myGeneralGameWinner: gameWinner)
 	return gameIsOverTuple
 }
 
 //function to manage game over alert messages
-func gameOverAlert(myPlayerColor: String, myGameIsDraw: Bool) -> Alert {
+func gameOverAlert(myPlayerColor: String, myGameIsDraw: Bool, myGeneralGameWinner: String, myGameType: Int) -> Alert {
 	var alertTitle: String = ""
 	var alertMessage: String = ""
+	var winningPlayer: String = ""
 
 	if myGameIsDraw {
 		alertTitle = "Game was a Draw"
 		alertMessage = "No one won! Click New Game or resize grid to play again"
 	} else {
+		if myGameType == 1 {
+			//simple game
+			winningPlayer = myPlayerColor
+		} else {
+			//general game
+			winningPlayer = myGeneralGameWinner
+		}
 		alertTitle = "We have a winner!"
-		alertMessage = "\(myPlayerColor) Player Won! Click New Game or resize grid to play again"
+		alertMessage = "\(winningPlayer) Player Won! Click New Game or resize grid to play again"
 	}
 
-	var myAlert = Alert(
+	let myAlert = Alert(
 		title: Text(alertTitle),
 		message: Text(alertMessage),
 		dismissButton: .default(Text("Okay"))
@@ -519,14 +563,15 @@ func gameOverAlert(myPlayerColor: String, myGameIsDraw: Bool) -> Alert {
 }
 
 //function to increment score in general game
-func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayerScore: Int) -> (myRedPlayerScore: Int, myBluePlayerScore: Int){
+func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayerScore: Int, mySOSCounter: Int) -> (myRedPlayerScore: Int, myBluePlayerScore: Int){
 	var bluePlayerScore = myBluePlayerScore
 	var redPlayerScore = myRedPlayerScore
 
 	if myCurrentPlayer == "Blue" {
-		bluePlayerScore += 1
+		//incrementing by number of SOS's created, not just by one no matter what
+		bluePlayerScore = bluePlayerScore + mySOSCounter
 	} else {
-		redPlayerScore += 1
+		redPlayerScore = redPlayerScore + mySOSCounter
 	}
 
 	let playerScoreTuple = (myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore)
