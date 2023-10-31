@@ -48,8 +48,10 @@ struct ContentView: View {
 	@State var gameWasDraw: Bool = false
 	//used to store game winner for general game for alert pop
 	@State var generalGameWinner: String = ""
-	//used to enable/disable Start Game Button
+	//used to show/hide Start Game Button
 	@State var showStartGameButton: Bool = false
+	//for when the button is visible but needs to be disabled
+	@State var disableStartGameButton: Bool = false
 
 
 	var body: some View {
@@ -115,6 +117,8 @@ struct ContentView: View {
 						playerWon = false
 						//enable the game and player type radio buttons
 						gamePlayerTypeDisabled = false
+						//enable the start game button if it is visible
+						disableStartGameButton = false
 						//set scores to zero
 						bluePlayerScore = 0
 						redPlayerScore = 0
@@ -179,6 +183,7 @@ struct ContentView: View {
 
 			}
 			.padding(.leading, 20.0)
+			.disabled(gamePlayerTypeDisabled)
 
 
 			//select red player type
@@ -213,7 +218,7 @@ struct ContentView: View {
 				.frame(width: 105, height: 22, alignment: .leading)
 			}
 			.padding(.leading, 20.0)
-
+			.disabled(gamePlayerTypeDisabled)
 
 			//new game, record and replay buttons
 			VStack(alignment: .leading) {
@@ -235,6 +240,7 @@ struct ContentView: View {
 					playerWon = false
 					//enable the game and player type radio buttons
 					gamePlayerTypeDisabled = false
+					disableStartGameButton = false
 					//set scores to zero
 					bluePlayerScore = 0
 					redPlayerScore = 0
@@ -259,7 +265,11 @@ struct ContentView: View {
 					let SOSFlag = theCommitTuple.mySOSFlag
 					//used for incrementing scores in general game because you can have one move create multiple SOS's
 					let SOSCounter = theCommitTuple.mySOSCounter
+					//once we click commit, we want it to be disabled
 					buttonBlank = true
+					//once we start the game manually, we don't need start game to be usable
+					//since we can't change the player type mid game anyway
+					disableStartGameButton = true
 					//no one has won, and general game and SOS, increment score
 					if (gameType == 2) && (SOSFlag) {
 						var incrementScoreTuple = incrementScore(myCurrentPlayer: currentPlayer, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore, mySOSCounter: SOSCounter)
@@ -270,6 +280,7 @@ struct ContentView: View {
 					var gameOverTuple  = isGameOver(myArrayUsedMemberCountdown: arrayUsedMemberCountdown, myGameType: gameType, myGridArray: theGame, mySOSFlag: SOSFlag, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore)
 					//get is game over/player won flag
 					playerWon = gameOverTuple.myGameIsOver
+
 					//get is game a draw flag
 					gameWasDraw = gameOverTuple.myGameIsDraw
 					//winner of general game
@@ -293,6 +304,11 @@ struct ContentView: View {
 					Button("Start Game") {
 
 					}
+					.onAppear(perform: {
+						//enable the start game button if it is visible
+						disableStartGameButton = false
+					})
+					.disabled(disableStartGameButton)
 				}
 
 
@@ -346,16 +362,32 @@ struct ContentView: View {
 								if myIndex <= ((theGame.gridSize * theGame.gridSize) - 1) {
 									Button {
 										//this is where we run the core function that does all the work
+										//if the current player is a computer type
+										//ignore the manual click
+										if (currentPlayer == "Blue") && (bluePlayerType == 2) {
+											return
+										}
+
+										if (currentPlayer == "Red") && (redPlayerType == 2) {
+											return
+										}
+										
+										//set lastButtonClickedIndex to index of button that was clicked
 										lastButtonClickedIndex = theGame.gridCellArr[myIndex].index
+										//send the current button title, the game array,
+										//the current player and the unused buttons array
+										//to buttonClickStuff
+
+										//we get back a tuple with the color for the button
+										//the title for the button, the commit button
+										//disable status, and the current player
 										let theTuple = buttonClickStuff(for: theGame.gridCellArr[myIndex].index, theTitle: theGame.gridCellArr[myIndex].title, myArray: theGame, myCurrentPlayer: currentPlayer, myUnusedButtons: arrayUsedButtonsList)
-
+										//set the current button title to the correct title
 										theGame.gridCellArr[myIndex].title = theTuple.myTitle
+										//set the commit button status
 										buttonBlank = theTuple.myCommitButtonStatus
+										//update lastButtonClickedInded
 										lastButtonClickedIndex = theGame.gridCellArr[myIndex].index
-
-										//print("Current button index is: \(theGame.gridCellArr[myIndex].index)")
-										//print("Button Coords are: \(theGame.gridCellArr[myIndex].xCoord),\(theGame.gridCellArr[myIndex].yCoord)")
-
 									} label: {
 										//set the text of the button to be the title of the button
 										Text(theGame.gridCellArr[myIndex].title)

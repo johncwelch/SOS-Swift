@@ -577,3 +577,7 @@ func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayer
 	let playerScoreTuple = (myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore)
 	return playerScoreTuple
 }
+
+func startGame() {
+	//placeholder
+}
