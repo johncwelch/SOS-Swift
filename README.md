@@ -156,7 +156,7 @@ figured out unit tests for this stuff. Lord. Anyway, SO MANY UNIT TESTS
 added a "start game" button to better deal with setting computer opponents. We still only allow this at the beginning of a game, to avoid switching mid stream. Created showStartGameButton bool state var to manage showing the start game button. If both player types are human, it's hidden. If either one is computer, it shows.  
   
 added manual click sink in game button click to disallow manual button clicks for a computer on game start. Added for both players, probably will only ever need for blue. Basically:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (currentPlayer == "<color>") && (<color>PlayerType == 2) {  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (currentPlayer == "\<color\>") && (\<color\>PlayerType == 2) {  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}  
 added shell for start game function (really only used for blue player being computer)
