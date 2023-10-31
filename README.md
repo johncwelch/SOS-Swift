@@ -35,7 +35,7 @@ Added the grid into the app. We get resizing for free. Notes from grid comments.
 Added in Htstack with score text fields and "Cancel Game" button (nothing hooked up yet. hidden for now because we may not actually need it) Set up if statement to use gameType state var to hide and show fields within the hstack for the score fields. If it's a simple game, there's no score shown. If a general game, there's a score. By hooking this to the state var, when you choose between simple and general, the fields automatically show and hide. To simplify things, the only way to switch states once a game is started is to click new game button.
 
 ##20230919:  
-GOT THE BUTTONS IN!!!! the hard part was getting the size to match the cell. Answer? GeometryReader! So we enclose the Rectangle() for each cell in GeometryReader{}, and then using the <var> in variable for GR, we add a button with the frame for the label text set to using the GeometryReader data:
+GOT THE BUTTONS IN!!!! the hard part was getting the size to match the cell. Answer? GeometryReader! So we enclose the Rectangle() for each cell in GeometryReader{}, and then using the \<var\> in variable for GR, we add a button with the frame for the label text set to using the GeometryReader data:
 		
 		GeometryReader { gridCellSize in
 			Rectangle()
@@ -63,13 +63,13 @@ GOT THE RESIZING WORKING WITH THE BUTTON TITLE CHANGES!!
 New Game functionality done. This clears user story 3.1 completely 
 
 ##20231017  
-added:  if myIndex <= ((theGame.gridSize * theGame.gridSize) - 1) after let myIndex = (row * theGame.gridSize) + col, put all the direct Button() code in that if, to avoid the out of range errors happening when grid size was shrunk. 
+added:  if myIndex \<= ((theGame.gridSize * theGame.gridSize) - 1) after let myIndex = (row * theGame.gridSize) + col, put all the direct Button() code in that if, to avoid the out of range errors happening when grid size was shrunk. 
 
 ##20231022  
 added:  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;func disableOtherButtonsDuringMove (myGridArray: Game, currentButtonIndex: Int), this handles disabling other buttons during a move, so you can't cheat and set multiple buttons.  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;func enableOtherButtonsDuringMove (myGridArray: Game), this handles enabling the other buttons during a move so you can change your mind if you want.  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String) -> [Int], this let us remove some statements out of the Commit Button action in ContentView, and sets up everything in the commit move functionality except for checking for an SOS/game win.  
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String) \-\> [Int], this let us remove some statements out of the Commit Button action in ContentView, and sets up everything in the commit move functionality except for checking for an SOS/game win.  
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It sets the color of the button you're committing.  
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removes it from the unused button array.  
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disables it so it can't be changed.  
@@ -116,8 +116,8 @@ added:
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Game over with no winner  
 			modified commitMove() to not color the button if mySOSFlag is true (not false)  
 			modified checkForSOS() to return a bool, SOSFlag  
-			added func gameOverAlert(myPlayerColor: String) -> Alert which will display appropriate alert when game is over  
-			added func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: Game, mySOSFlag: Bool) -> Bool which checks to see if game is over  
+			added func gameOverAlert(myPlayerColor: String) \-\> Alert which will display appropriate alert when game is over  
+			added func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: Game, mySOSFlag: Bool) \-\> Bool which checks to see if game is over  
 			added .alert(isPresented: $playerWon, content: { gameOverAlert(myPlayerColor: currentPlayer) }) for commit move button which displays game over alert if playerWon is true. (yeah, less than amazing varname, we may even fix it)
 			
 ##20231025  
@@ -127,7 +127,7 @@ updated gameOverAlert() to add game draw bool, and set title and message vars ba
 
 added gamePlayerTypeDisabled state var so we can disable the game type and player type controls once a move is committed. They're re-enabled for new game or grid resize, which is effectively a new game.  
   
-added func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayerScore: Int) -> (myRedPlayerScore: Int, myBluePlayerScore: Int) to handle score incrementing during a game. also updated new game and grid size change to set scores back to 0
+added func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayerScore: Int) \-\> (myRedPlayerScore: Int, myBluePlayerScore: Int) to handle score incrementing during a game. also updated new game and grid size change to set scores back to 0
 
 updated the following to handle general game, especially the case where one move creates multiple SOS's:  
   
@@ -135,7 +135,7 @@ incrementScore() with an SOScounter that is added to the current player score so
   
 gameOverAlert() with a general game winner string and game type. If it's a simple game, then the current player is the winner (since that doesn't change for a simple game getting an SOS), if it's a general game, then the general Game winner is used. Draws are still draws  
    
-isGameOver() added general game code, mostly for the "countdown is <= 0" parts, since the only way to win a general game or finish it at all is to fill in every square. It uses the scores passed to it to set the game winner string used by gameOverAlert()  
+isGameOver() added general game code, mostly for the "countdown is \<= 0" parts, since the only way to win a general game or finish it at all is to fill in every square. It uses the scores passed to it to set the game winner string used by gameOverAlert()  
   
 checkForSOS() added an SOS counter that is incremented for every case of the SOS flag being set true. This allows for cases where you have *multiple* SOS's created by a single move in a general game.  
   
