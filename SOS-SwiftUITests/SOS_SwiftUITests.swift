@@ -60,7 +60,7 @@ final class SOS_SwiftUITests: XCTestCase {
 		let myRedPlayerTypeComputer = SOSApp.buttons["Red Player Computer"]
 		let myCurrentPlayer = SOSApp.staticTexts["Current Player"]
 		//click the button
-		XCUIApplication()/*@START_MENU_TOKEN@*/.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].buttons["New Game"]/*[[".windows[\"SOS-Swift\"]",".groups.buttons[\"New Game\"]",".buttons[\"New Game\"]",".windows[\"SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1\"]"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.click()
+		SOSApp.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].buttons["New Game"].click()
 		//states that should be a specific way after clicking new game:
 		XCTAssertFalse(myCommitButton.isEnabled)
 		XCTAssertTrue(myGameTypeSimpleButton.isEnabled)

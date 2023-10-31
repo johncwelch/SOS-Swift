@@ -151,3 +151,7 @@ this completes user stories 6.2 and 7.1. All that's left for the homework is gen
 ##20231026  
   
 figured out unit tests for this stuff. Lord. Anyway, SO MANY UNIT TESTS  
+
+##20231031  
+added a "start game" button to better deal with setting computer opponents. We still only allow this at the beginning of a game, to avoid switching mid stream. Created showStartGameButton bool state var to manage showing the start game button. If both player types are human, it's hidden. If either one is computer, it shows.
+

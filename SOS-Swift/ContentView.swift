@@ -46,8 +46,10 @@ struct ContentView: View {
 	@State var playerWon: Bool = false
 	//needed to have multiple game over alert states in the alert func
 	@State var gameWasDraw: Bool = false
-
+	//used to store game winner for general game for alert pop
 	@State var generalGameWinner: String = ""
+	//used to enable/disable Start Game Button
+	@State var showStartGameButton: Bool = false
 
 
 	var body: some View {
@@ -145,6 +147,14 @@ struct ContentView: View {
 					.accessibilityLabel("Blue Player Human")
 				bluePlayerTypeRadioButton(index: 2, selectedIndex: $bluePlayerType)
 					.accessibilityLabel("Blue Player Computer")
+					.onChange(of: bluePlayerType) {
+						//we only hide when BOTH players are human
+						if (bluePlayerType == 1) && (redPlayerType == 1) {
+							showStartGameButton = false
+						} else if (bluePlayerType == 2) || (redPlayerType == 2) {
+							showStartGameButton = true
+						}
+					}
 				//this Hstack only displays its contents if the gameType is not 1 (simple)
 				//because gameType is a state variable, the refresh happens automatically
 				//we don't have to do any extra work.
@@ -169,7 +179,7 @@ struct ContentView: View {
 
 			}
 			.padding(.leading, 20.0)
-			.disabled(gamePlayerTypeDisabled)
+
 
 			//select red player type
 			VStack(alignment: .leading) {
@@ -182,6 +192,14 @@ struct ContentView: View {
 					.accessibilityLabel("Red Player Human")
 				redPlayerTypeRadioButton(index: 2, selectedIndex: $redPlayerType)
 					.accessibilityLabel("Red Player Computer")
+					.onChange(of: redPlayerType) {
+						//we only hide when BOTH players are human
+						if (bluePlayerType == 1) && (redPlayerType == 1) {
+							showStartGameButton = false
+						} else if (bluePlayerType == 2) || (redPlayerType == 2) {
+							showStartGameButton = true
+						}
+					}
 				HStack(alignment: .center) {
 					//in an if statement, we don't use the $varname, just the varname
 					if gameType != 1 {
@@ -195,7 +213,7 @@ struct ContentView: View {
 				.frame(width: 105, height: 22, alignment: .leading)
 			}
 			.padding(.leading, 20.0)
-			.disabled(gamePlayerTypeDisabled)
+
 
 			//new game, record and replay buttons
 			VStack(alignment: .leading) {
@@ -269,19 +287,16 @@ struct ContentView: View {
 				.disabled(buttonBlank)
 				.accessibilityLabel("commitButton")
 				.alert(isPresented: $playerWon, content: { gameOverAlert(myPlayerColor: currentPlayer, myGameIsDraw: gameWasDraw, myGeneralGameWinner: generalGameWinner, myGameType: gameType) })
+				
+				//only show button if true
+				if showStartGameButton {
+					Button("Start Game") {
 
-				Button("Record Game") {
-
+					}
 				}
-				//hiding for now, this is an extra goal anyway
-				.hidden()
 
 
-				Button("Replay Game") {
-					//only enable this if "record" is enabled.
-				}
-				//hiding for now, this is an extra goal anyway
-				.hidden()
+
 
 			}
 			.padding(.leading, 10.0)
@@ -384,25 +399,3 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
-
-
-//keeping this for now in case we need to use it later
-//but not required for this stage
-
-/*if (row + col).isMultiple(of: 2) {
-//the overlay is how you add text
-//the border is how you set up grid lines
-Rectangle()
-//the order is important. if foreground color comes after overlay, it covers the overlay
-	.foregroundColor(.teal)
-	//this will eventually go away when we add buttons,
-	//but for now, we keep the formatting props in the
-	//overlay properties
-	.overlay(Text("\(row),\(col)").fontWeight(.heavy))
-	.border(Color.black )
-} else {
-Rectangle()
-	.foregroundColor(.teal)
-	.overlay(Text("\(row),\(col)").fontWeight(.heavy))
-	.border(Color.black)
-}*/
