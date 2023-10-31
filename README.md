@@ -159,4 +159,5 @@ added manual click sink in game button click to disallow manual button clicks fo
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (currentPlayer == "\<color\>") && (\<color\>PlayerType == 2) {  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}  
-added shell for start game function (really only used for blue player being computer)
+added shell for start game function (really only used for blue player being computer)  
+Cleaned up buttonClickStuff() to remove unused button color set code and entry in return tuple

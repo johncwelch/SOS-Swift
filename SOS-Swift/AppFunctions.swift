@@ -79,7 +79,8 @@ func buildUnusedArray (myGridSize: Int)  -> [Int] {
 //an array of [Cell], and returns a tuple. By returning a tuple, we can pass back multiple values with some kind
 //of usable naming.
 
-func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game, myCurrentPlayer: String, myUnusedButtons: [Int]) -> (myColor: Color, myTitle:String, myCommitButtonStatus: Bool, myCurrentPlayer: String) {
+func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game, myCurrentPlayer: String, myUnusedButtons: [Int]) -> (myTitle:String, myCommitButtonStatus: Bool, myCurrentPlayer: String) {
+
 	var theCommitButtonStatus: Bool = false
 	var theCellTitle: String = ""
 	var theCurrentPlayer: String = ""
@@ -109,19 +110,13 @@ func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game, myCurre
 		default:
 			print("Something went wrong, try restarting the app")
 	}
-	//testing print statements
-	//print("cell button lable is: \(theCellTitle)")
-	//bprint("cell button commit status is: \(theCommitButtonStatus)")
-	//sets up the values so that the button color can be changed to be correct
-
 	if myCurrentPlayer == "Blue" {
 		theCurrentPlayer = "Red"
 	} else {
 		theCurrentPlayer = "Blue"
 	}
 
-	let theColor: Color = Color.blue
-	let theReturnTuple = (myColor: theColor, myTitle: theCellTitle, myCommitButtonStatus: theCommitButtonStatus, myCurrentPlayer: theCurrentPlayer)
+	let theReturnTuple = (myTitle: theCellTitle, myCommitButtonStatus: theCommitButtonStatus, myCurrentPlayer: theCurrentPlayer)
 	return theReturnTuple
 }
 
@@ -578,6 +573,11 @@ func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayer
 	return playerScoreTuple
 }
 
-func startGame() {
-	//placeholder
+//we need the list of unused buttons, the game array, the current player, the used member countdown
+//this is where we'll figure out what button we want to use, so we can set that as myCommittedButtonIndex
+func startGame(myUnusedButtons: [Int]) {
+	//create title array, shuffle it, and set the first element to be the new button title
+	let buttonTitles = ["S","O"]
+	let shuffledArray = buttonTitles.shuffled()
+	let buttonTitle = shuffledArray[0]
 }
