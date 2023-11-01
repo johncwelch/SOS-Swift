@@ -163,7 +163,9 @@ added shell for start game function (really only used for blue player being comp
 Cleaned up buttonClickStuff() to remove unused button color set code and entry in return tuple  
   
 startGame() now takes the same args as commitMove(), because we're going to call commitMove() from within startGame(). No idea on the complete return of startGame() yet. But, it's going to do a LOT of what commitMove() does. as of now, startGame():  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creates a string array of S and O  
+  
+* creates a string array of S and O  
+  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shuffles that array, then puts the first element of the shuffled array into a string var  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it then grabs a random index out of the unused button array via Int.random()  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it sets the title of the button at the random index to whatever value it got from the  
