@@ -160,4 +160,15 @@ added manual click sink in game button click to disallow manual button clicks fo
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}  
 added shell for start game function (really only used for blue player being computer)  
-Cleaned up buttonClickStuff() to remove unused button color set code and entry in return tuple
+Cleaned up buttonClickStuff() to remove unused button color set code and entry in return tuple  
+  
+startGame() now takes the same args as commitMove(), because we're going to call commitMove() from within startGame(). No idea on the complete return of startGame() yet. But, it's going to do a LOT of what commitMove() does. as of now, startGame():  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creates a string array of S and O  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shuffles that array, then puts the first element of the shuffled array into a string var  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it then grabs a random index out of the unused button array via Int.random()  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it sets the title of the button at the random index to whatever value it got from the  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shuffled string array. that's working! Next we do the code for calling commitMove() and  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;managing the return from that correctly. Basically, that will just get passed back out of  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;startGame() to ContentView and run from there. Once that's done, if there's no win, we  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;change players and go from there. First will deal with the other player being human. Then  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; we deal with both players being computer.  

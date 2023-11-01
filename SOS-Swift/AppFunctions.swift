@@ -573,11 +573,29 @@ func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayer
 	return playerScoreTuple
 }
 
-//we need the list of unused buttons, the game array, the current player, the used member countdown
+//we need the array of unused buttons as a parameter
 //this is where we'll figure out what button we want to use, so we can set that as myCommittedButtonIndex
-func startGame(myUnusedButtons: [Int]) {
+//we return an int that will be myCommittedButtonIndex in commitMove() and a title that will be the new title of the button
+//may do that here, since we can.
+//check to see if we need to yoink the clicked button here or if that happens in commitMove()
+func startGame(myUnusedButtons: [Int], myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> (myButtonTitle: String, myButtonToClick: Int){
 	//create title array, shuffle it, and set the first element to be the new button title
 	let buttonTitles = ["S","O"]
 	let shuffledArray = buttonTitles.shuffled()
 	let buttonTitle = shuffledArray[0]
+	//get the size of the unused button array
+	let sizeOfUnusedButtons = myUnusedButtons.count
+	//get a random number from 0 to last element of the array
+	//this becomes myCommittedButtonIndex for when we call commitbutton from here
+	let buttonToClick = Int.random(in: 0..<sizeOfUnusedButtons)
+	
+	//we'll need to set the title. we can ignore the commit button status for now, we're not using it
+	//once we set the title, we call commitMove()
+	//set the title
+	myGridArray.gridCellArr[buttonToClick].title = buttonTitle
+
+
+	//set the return tuple
+	let computerPlayerTuple = (myButtonTitle: buttonTitle, myButtonToClick: buttonToClick)
+	return computerPlayerTuple
 }

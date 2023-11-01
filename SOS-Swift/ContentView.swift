@@ -303,13 +303,16 @@ struct ContentView: View {
 				if showStartGameButton {
 					Button("Start Game") {
 						if (currentPlayer == "Blue") && (bluePlayerType == 2) {
-							//startGame()
+							//the return value is a dummy for the moment
+							//it works!
+							let theTestTuple = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
 						}
 						//I almost guarantee this will never be used
 						//because red never goes first, and that's the only
 						//case where this matters
 						if (currentPlayer == "Red") && (redPlayerType == 2) {
-							//startGame()
+							//the return value is a dummy for the moment
+							let theTestTuple = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
 						}
 					}
 					.onAppear(perform: {
