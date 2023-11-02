@@ -188,6 +188,7 @@ func enableOtherButtonsDuringMove (myGridArray: Game){
 
 //function to commit a move
 func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> (myUnusedButtonArray: [Int], myCountDownInt: Int, mySOSFlag: Bool, mySOSCounter: Int) {
+
 	//create temp array that is mutable for the list of unused buttons
 	var theTempArray = myUnusedButtons
 	var theTempCounter = myArrayUsedMemberCountdown
@@ -200,11 +201,12 @@ func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray
 	//this helps avoid out of index errors since we can only click enabled buttons
 	
 	//we can't just brute force remove by raw index, since the index of a given button can change, i.e. if button 3 is initially at
-	//index 4 (0,1,2,3) and we remove the butotn at index 1, in this case, button 1, we now have an array that is 0,2,3, in terms of
+	//index 4 (0,1,2,3) and we remove the button at index 1, in this case, button 1, we now have an array that is 0,2,3, in terms of
 	//content, but 0,1,2 in terms of index, so removing index 3 is out of range. So we grab the index of the value via firstIndex(of:)
 	//that way, we don't have issues.
 	let theButtonToBeDisabledIndex = theTempArray.firstIndex(of: myCommittedButtonIndex)
 	//remove the button at theButtonToBeDisabledIndex from the array
+
 	theTempArray.remove(at: theButtonToBeDisabledIndex!)
 	//set the color for the button we are committing to that of the current player only if there wasn't an SOS
 	if !theSOSFlag {
@@ -586,16 +588,19 @@ func startGame(myUnusedButtons: [Int], myGridArray: Game, myCurrentPlayer: Strin
 	//get the size of the unused button array
 	let sizeOfUnusedButtons = myUnusedButtons.count
 	//get a random number from 0 to last element of the array
-	//this becomes myCommittedButtonIndex for when we call commitbutton from here
-	let buttonToClick = Int.random(in: 0..<sizeOfUnusedButtons)
-	
+	//get the Index of the button we want to click
+	let buttonToClickIndex = Int.random(in: 0..<sizeOfUnusedButtons)
+	//this is necessary to avoid some gnarly out of range errors. Basically, the button uses the raw number to determine which one is getting modified
+	//so if the size of the array is say 6, then index 5 is a valid choice. But, if there's no button with an index of 5, BOOM. So this ensures the value
+	//of the array at the index is what is used, not the raw index itself:
+	//if index is [0,1,3,4,6,7], the value at index 5 is 7, but there's now no available button with an index of 5, so if we use 5, it's bad.
+	//this prevents that.
+	let buttonToClick = myUnusedButtons[buttonToClickIndex]
 	//we'll need to set the title. we can ignore the commit button status for now, we're not using it
-	//once we set the title, we call commitMove()
+	//once we set the title, we call commitMove() once we exit this function
 	//set the title
 	myGridArray.gridCellArr[buttonToClick].title = buttonTitle
 
-
-	//set the return tuple
 	let computerPlayerTuple = (myButtonTitle: buttonTitle, myButtonToClick: buttonToClick)
 	return computerPlayerTuple
 }

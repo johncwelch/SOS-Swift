@@ -182,4 +182,5 @@ Start Game button works correctly, calls commitMove() correctly, does not check 
 
 next is to check for a robot player or human. If new player is human, then wait for button click like we do now. if the new player is a robot, then call commitMove() from inside itself. This could get ugly, since there's no real elegant way to do this. We always have to call commitMove(), even if from a separate function. So we'll go with the dumb way first and hope it works.  
   
-Added test for next player being a computer. adding in commitMove() related code. It will be fugly, but work.
+modified start game to not pass the raw index for 0..\<unusedbuttonarray.count but rather the value at that index, avoids some nasty out of bounds issues that way  
+starting with blue as computer player and red human works! We still have to disallow clicks for when blue is set to computer at start as first move.

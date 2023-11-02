@@ -3,4 +3,69 @@
    uuid = "829D8A47-E00C-46D7-890D-1B108B2C560D"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "40EBE048-34BF-4250-8DC2-4CFD0AEA1CE7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SOS-Swift/AppFunctions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
+            landmarkName = "commitMove(myCommittedButtonIndex:myUnusedButtons:myGridArray:myCurrentPlayer:myArrayUsedMemberCountdown:)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "40EBE048-34BF-4250-8DC2-4CFD0AEA1CE7 - 69359dba6147c9e0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SOS_Swift.commitMove(myCommittedButtonIndex: Swift.Int, myUnusedButtons: Swift.Array&lt;Swift.Int&gt;, myGridArray: SOS_Swift.Game, myCurrentPlayer: Swift.String, myArrayUsedMemberCountdown: Swift.Int) -&gt; (myUnusedButtonArray: Swift.Array&lt;Swift.Int&gt;, myCountDownInt: Swift.Int, mySOSFlag: Swift.Bool, mySOSCounter: Swift.Int)"
+                  moduleName = "SOS-Swift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jwelch/Desktop/School%20Project/SOS-Swift/SOS-Swift/AppFunctions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "192"
+                  endingLineNumber = "192"
+                  offsetFromSymbolStart = "371">
+               </Location>
+               <Location
+                  uuid = "40EBE048-34BF-4250-8DC2-4CFD0AEA1CE7 - 69359dba6147c9ae"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SOS_Swift.commitMove(myCommittedButtonIndex: Swift.Int, myUnusedButtons: Swift.Array&lt;Swift.Int&gt;, myGridArray: SOS_Swift.Game, myCurrentPlayer: Swift.String, myArrayUsedMemberCountdown: Swift.Int) -&gt; (myUnusedButtonArray: Swift.Array&lt;Swift.Int&gt;, myCountDownInt: Swift.Int, mySOSFlag: Swift.Bool, mySOSCounter: Swift.Int)"
+                  moduleName = "SOS-Swift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jwelch/Desktop/School%20Project/SOS-Swift/SOS-Swift/AppFunctions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "194"
+                  endingLineNumber = "194"
+                  offsetFromSymbolStart = "942">
+               </Location>
+               <Location
+                  uuid = "40EBE048-34BF-4250-8DC2-4CFD0AEA1CE7 - 69359dba6147c9ae"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SOS_Swift.commitMove(myCommittedButtonIndex: Swift.Int, myUnusedButtons: Swift.Array&lt;Swift.Int&gt;, myGridArray: SOS_Swift.Game, myCurrentPlayer: Swift.String, myArrayUsedMemberCountdown: Swift.Int) -&gt; (myUnusedButtonArray: Swift.Array&lt;Swift.Int&gt;, myCountDownInt: Swift.Int, mySOSFlag: Swift.Bool, mySOSCounter: Swift.Int)"
+                  moduleName = "SOS-Swift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jwelch/Desktop/School%20Project/SOS-Swift/SOS-Swift/AppFunctions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "194"
+                  endingLineNumber = "194"
+                  offsetFromSymbolStart = "1039">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
