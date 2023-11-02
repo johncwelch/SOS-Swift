@@ -254,6 +254,8 @@ struct ContentView: View {
 				//also changes color of the button to reflect the player who made the move
 				//disables itself and changes who the current player is
 				Button {
+					//used for computer moves
+					var buttonTitle: String = ""
 					//on commit...
 					//once you commit a move, we set the game type and player type buttons to disabled. the only way they re-enable
 					//is for new game or grid size change which is effectively a new game
@@ -286,10 +288,54 @@ struct ContentView: View {
 					//winner of general game
 					generalGameWinner = gameOverTuple.myGeneralGameWinner
 					
+					//if the game is over, exit the code here, because we don't want to
+					//deal with the game making a computer move after it's been won
+					//this is important since the computer player doesn't "click" the button
+					//but rather just runs commitMove()
+					if playerWon {
+						return
+					}
+
 					//change the player/increment score only if playerWon is false and gameType is general
 					if !playerWon {
 						//regardless of game type, we still change the player because no one won
 						currentPlayer = changePlayer(myCurrentPlayer: currentPlayer)
+					}
+
+					//check to see if the next player is human or not. If human, then we don't do anything and wait
+					//for the button click. If the next player is a computer, we call commitMove as with start button
+					//but now we check for a win since we have to
+					
+					//first, make sure the game isn't over. doing this separately, may combine it with the player
+					//change if later
+					if !playerWon {
+						//check for blue computer
+						//right now the else is there as a test statement, will be removed
+						if (currentPlayer == "Blue") && (bluePlayerType == 2) {
+							print("Next player is \(currentPlayer) and is a computer player")
+
+							//make the computer move
+							let theStartGameTuple = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
+							buttonTitle = theStartGameTuple.myButtonTitle
+							lastButtonClickedIndex = theStartGameTuple.myButtonToClick
+
+
+						} else if (currentPlayer == "Blue") && (bluePlayerType == 1) {
+							print("Next player is \(currentPlayer) and is a human player")
+						}
+						//check for red computer
+						if (currentPlayer == "Red") && (redPlayerType == 2) {
+							print("Next player is \(currentPlayer) and is a computer player")
+
+							//make the computer move
+							let theStartGameTuple = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
+							buttonTitle = theStartGameTuple.myButtonTitle
+							lastButtonClickedIndex = theStartGameTuple.myButtonToClick
+
+						} else if (currentPlayer == "Red") && (redPlayerType == 1) {
+							print("Next player is \(currentPlayer) and is a human player")
+						}
+
 					}
 
 				} label: {
