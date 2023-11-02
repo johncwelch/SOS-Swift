@@ -184,3 +184,5 @@ next is to check for a robot player or human. If new player is human, then wait 
   
 modified start game to not pass the raw index for 0..\<unusedbuttonarray.count but rather the value at that index, avoids some nasty out of bounds issues that way  
 starting with blue as computer player and red human works! We still have to disallow clicks for when blue is set to computer at start as first move.
+
+works with blue as human and red as computer, no changes!
