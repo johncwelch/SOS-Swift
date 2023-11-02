@@ -132,7 +132,7 @@
       },
       {
         "comment": "",
-        "key": "Start Game"
+        "key": "startButton"
       },
       {
         "comment": "",
@@ -141,6 +141,10 @@
       {
         "comment": "",
         "key": "Commit Move"
+      },
+      {
+        "comment": "",
+        "key": "Start Game"
       }
     ]
   },

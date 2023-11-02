@@ -176,3 +176,8 @@ Once that's done, if there's no win, we change players and go from there.
 First we'll deal with the other player being human.  
   
 Then we deal with both players being computer.  
+
+##20231102  
+Start Game button works correctly, calls commitMove() correctly, does not check for a win since it can't, it's only used for the first move  
+
+next is to check for a robot player or human. If new player is human, then wait for button click like we do now. if the new player is a robot, then call commitMove() from inside itself. This could get ugly, since there's no real elegant way to do this. We always have to call commitMove(), even if from a separate function. So we'll go with the dumb way first and hope it works.

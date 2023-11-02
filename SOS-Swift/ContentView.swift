@@ -301,33 +301,68 @@ struct ContentView: View {
 				
 				//only show button if true
 				if showStartGameButton {
-					Button("Start Game") {
+					var buttonTitle: String = ""
+					Button {
+						//since we are effectively starting the game, and we don't actually click the commit move
+						//button, we replicate much of that here
+						//disable things
+						gamePlayerTypeDisabled = true
+						
 						if (currentPlayer == "Blue") && (bluePlayerType == 2) {
 							//the return value is a dummy for the moment
 							//it works!
-							let theTestTuple = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
+							let theStartGameTuple = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
+							buttonTitle = theStartGameTuple.myButtonTitle
+							lastButtonClickedIndex = theStartGameTuple.myButtonToClick
+
 						}
 						//I almost guarantee this will never be used
 						//because red never goes first, and that's the only
 						//case where this matters
 						if (currentPlayer == "Red") && (redPlayerType == 2) {
 							//the return value is a dummy for the moment
-							let theTestTuple = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
+							let theStartGameTuple = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
+							buttonTitle = theStartGameTuple.myButtonTitle
+							lastButtonClickedIndex = theStartGameTuple.myButtonToClick
 						}
+						//so now we have a title and a button clicked, let's call commit move
+						let theCommitTuple = commitMove(myCommittedButtonIndex: lastButtonClickedIndex, myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
+
+						let SOSFlag = theCommitTuple.mySOSFlag
+						//used for incrementing scores in general game because you can have one move create multiple SOS's
+						let SOSCounter = theCommitTuple.mySOSCounter
+						//even though we didn't "click" commit move, we want the commit button to be disabled
+						buttonBlank = true
+						//once we start the game regardless of how, we don't need start game to be usable
+						//since we can't change the player type mid game anyway
+						disableStartGameButton = true
+						//no one has won, and general game and SOS, increment score. note a win is impossible
+						//for start button since it can only be used as the first move
+						if (gameType == 2) && (SOSFlag) {
+							var incrementScoreTuple = incrementScore(myCurrentPlayer: currentPlayer, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore, mySOSCounter: SOSCounter)
+							redPlayerScore = incrementScoreTuple.myRedPlayerScore
+							bluePlayerScore = incrementScoreTuple.myBluePlayerScore
+						}
+						//we don't check for winning game here, the button isn't enabled for that
+						//get is game over/player won flag
+
+						//change the player
+						currentPlayer = changePlayer(myCurrentPlayer: currentPlayer)
+
+					} label: {
+						Text("Start Game")
 					}
 					.onAppear(perform: {
 						//enable the start game button if it is visible
 						disableStartGameButton = false
 					})
 					.disabled(disableStartGameButton)
+					.accessibilityLabel("startButton")
+					//since the only condition the start button is used is as a first move in a game, we don't need the
+					//game won alert
 				}
-
-
-
-
 			}
 			.padding(.leading, 10.0)
-
 		}
 		//this forces the hstack to be the width of the window
 		.frame(maxWidth: .infinity)
