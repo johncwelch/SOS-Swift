@@ -185,4 +185,10 @@ next is to check for a robot player or human. If new player is human, then wait 
 modified start game to not pass the raw index for 0..\<unusedbuttonarray.count but rather the value at that index, avoids some nasty out of bounds issues that way  
 starting with blue as computer player and red human works! We still have to disallow clicks for when blue is set to computer at start as first move.
 
-works with blue as human and red as computer, no changes!
+works with blue as human and red as computer, no changes!  
+  
+Got computer v. computer working by putting the code from the commit move button action section into the start game section (since the game never leaves that code for computer v. computer) and changed the if !playerWon to while !playerWon. It runs the initial move code for start game just the same, but the last statement before the loop changes the player from blue to red. At that point, if the red player is a computer too, then it just loops until playerWon is true. Side benefit to @State vars: the alert function attached to the Commit Move button ALSO works for the game ending in Start Game, so W00T! Less work!  
+  
+Yes, I know, code duplication between commit move and start move, but fixing that is probably more trouble than it is worth, and I didn't have to change any of the actual functions, just the way I'm using them in ContentView, so FUCK YEAH!!!  
+
+The last thing to do is clean up the initial state code so you can't click a button if you start a game with blue as the computer, and start game doesn't appear if blue is human and red is a computer.
