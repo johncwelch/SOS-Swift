@@ -191,4 +191,11 @@ Got computer v. computer working by putting the code from the commit move button
   
 Yes, I know, code duplication between commit move and start move, but fixing that is probably more trouble than it is worth, and I didn't have to change any of the actual functions, just the way I'm using them in ContentView, so FUCK YEAH!!!  
 
-The last thing to do is clean up the initial state code so you can't click a button if you start a game with blue as the computer, and start game doesn't appear if blue is human and red is a computer.
+The last thing to do is clean up the initial state code so you can't click a button if you start a game with blue as the computer, and start game doesn't appear if blue is human and red is a computer.  
+  
+Got the initial state cleaned up for starting the game. Added func disableAllButtonsForBlueComputerPlayerStart (myGridArray: Game) which is only run when the blue player is set to computer. it does two things:  
+  
+* sets the title of every button to ""
+* disables every button  
+
+if blue is changed back to human, then enableOtherButtonsDuringMove(myGridArray: theGame) is run and all the buttons are re-enabled. we also run disableAllButtonsForBlueComputerPlayerStart() for a new game (if blue is set to computer) and for resizing, which is also a form of new game. since you can only set the player types before the first move is made, this works rather nicely. now all i need is a unit test or two for the new stuff and this sprint is done.

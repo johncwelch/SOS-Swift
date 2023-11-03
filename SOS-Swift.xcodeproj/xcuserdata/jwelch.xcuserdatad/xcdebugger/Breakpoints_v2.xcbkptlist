@@ -7,69 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "40EBE048-34BF-4250-8DC2-4CFD0AEA1CE7"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SOS-Swift/AppFunctions.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
-            landmarkName = "commitMove(myCommittedButtonIndex:myUnusedButtons:myGridArray:myCurrentPlayer:myArrayUsedMemberCountdown:)"
-            landmarkType = "9">
-            <Locations>
-               <Location
-                  uuid = "40EBE048-34BF-4250-8DC2-4CFD0AEA1CE7 - 69359dba6147c9e0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SOS_Swift.commitMove(myCommittedButtonIndex: Swift.Int, myUnusedButtons: Swift.Array&lt;Swift.Int&gt;, myGridArray: SOS_Swift.Game, myCurrentPlayer: Swift.String, myArrayUsedMemberCountdown: Swift.Int) -&gt; (myUnusedButtonArray: Swift.Array&lt;Swift.Int&gt;, myCountDownInt: Swift.Int, mySOSFlag: Swift.Bool, mySOSCounter: Swift.Int)"
-                  moduleName = "SOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jwelch/Desktop/School%20Project/SOS-Swift/SOS-Swift/AppFunctions.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "192"
-                  endingLineNumber = "192"
-                  offsetFromSymbolStart = "371">
-               </Location>
-               <Location
-                  uuid = "40EBE048-34BF-4250-8DC2-4CFD0AEA1CE7 - 69359dba6147c9ae"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SOS_Swift.commitMove(myCommittedButtonIndex: Swift.Int, myUnusedButtons: Swift.Array&lt;Swift.Int&gt;, myGridArray: SOS_Swift.Game, myCurrentPlayer: Swift.String, myArrayUsedMemberCountdown: Swift.Int) -&gt; (myUnusedButtonArray: Swift.Array&lt;Swift.Int&gt;, myCountDownInt: Swift.Int, mySOSFlag: Swift.Bool, mySOSCounter: Swift.Int)"
-                  moduleName = "SOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jwelch/Desktop/School%20Project/SOS-Swift/SOS-Swift/AppFunctions.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "194"
-                  endingLineNumber = "194"
-                  offsetFromSymbolStart = "942">
-               </Location>
-               <Location
-                  uuid = "40EBE048-34BF-4250-8DC2-4CFD0AEA1CE7 - 69359dba6147c9ae"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SOS_Swift.commitMove(myCommittedButtonIndex: Swift.Int, myUnusedButtons: Swift.Array&lt;Swift.Int&gt;, myGridArray: SOS_Swift.Game, myCurrentPlayer: Swift.String, myArrayUsedMemberCountdown: Swift.Int) -&gt; (myUnusedButtonArray: Swift.Array&lt;Swift.Int&gt;, myCountDownInt: Swift.Int, mySOSFlag: Swift.Bool, mySOSCounter: Swift.Int)"
-                  moduleName = "SOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jwelch/Desktop/School%20Project/SOS-Swift/SOS-Swift/AppFunctions.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "194"
-                  endingLineNumber = "194"
-                  offsetFromSymbolStart = "1039">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "131C23D1-47AA-4AE2-A4A3-CA73722AEEEF"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -77,8 +14,8 @@
             filePath = "SOS-Swift/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "376"
-            endingLineNumber = "376"
+            startingLineNumber = "390"
+            endingLineNumber = "390"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -93,8 +30,24 @@
             filePath = "SOS-Swift/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
+            startingLineNumber = "316"
+            endingLineNumber = "316"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "695AB62B-8081-4BFC-9A1D-0E77DB3841C1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SOS-Swift/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "429"
+            endingLineNumber = "429"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>

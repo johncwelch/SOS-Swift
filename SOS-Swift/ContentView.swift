@@ -122,6 +122,10 @@ struct ContentView: View {
 						//set scores to zero
 						bluePlayerScore = 0
 						redPlayerScore = 0
+						//disable the buttons if the blue player is a computer, since blue always goes first
+						if bluePlayerType == 2 {
+							disableAllButtonsForBlueComputerPlayerStart(myGridArray: theGame)
+						}
 					}
 
 				    //put in a row with the current player label and value
@@ -155,8 +159,13 @@ struct ContentView: View {
 						//we only hide when BOTH players are human
 						if (bluePlayerType == 1) && (redPlayerType == 1) {
 							showStartGameButton = false
-						} else if (bluePlayerType == 2) || (redPlayerType == 2) {
+							//if they change blue back to human, re-enable all the buttons
+							enableOtherButtonsDuringMove(myGridArray: theGame)
+							//modifying this because we don't need the start game button for the red player
+							//only the blue, since blue ALWAYS goes first in a new game.
+						} else if (bluePlayerType == 2) {
 							showStartGameButton = true
+							disableAllButtonsForBlueComputerPlayerStart(myGridArray: theGame)
 						}
 					}
 				//this Hstack only displays its contents if the gameType is not 1 (simple)
@@ -201,7 +210,8 @@ struct ContentView: View {
 						//we only hide when BOTH players are human
 						if (bluePlayerType == 1) && (redPlayerType == 1) {
 							showStartGameButton = false
-						} else if (bluePlayerType == 2) || (redPlayerType == 2) {
+							//this may not be needed, we'll clean it up in the "make it pretty" spring
+						} else if (bluePlayerType == 2) {
 							showStartGameButton = true
 						}
 					}
@@ -244,6 +254,10 @@ struct ContentView: View {
 					//set scores to zero
 					bluePlayerScore = 0
 					redPlayerScore = 0
+					//disable the buttons if the blue player is a computer, since blue always goes first
+					if bluePlayerType == 2 {
+						disableAllButtonsForBlueComputerPlayerStart(myGridArray: theGame)
+					}
 				} label: {
 					Text("New Game")
 				}
@@ -414,8 +428,16 @@ struct ContentView: View {
 						//change the player
 						currentPlayer = changePlayer(myCurrentPlayer: currentPlayer)
 						
+						//if both players aren't computer, we want to bug out here. This button only gets clicked if
+						//both players are computer, so we can cheat with this:
+						//red is a human, bug out of this code
+						if (currentPlayer == "Red") && (redPlayerType == 1) {
+							return
+						}
+
 						//this is a while because when we start with both players as computers, we never really leave
 						//the start game click code. So for that, it all happens here.
+
 						while !playerWon {
 							//check for computer player. Since there's no real difference in the code other than the test,
 							//we can collapse this into a single thing.

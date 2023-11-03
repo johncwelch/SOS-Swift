@@ -186,6 +186,17 @@ func enableOtherButtonsDuringMove (myGridArray: Game){
 	}
 }
 
+//kind of a dupe, but only used for start game where blue is the computer player
+//we only care about the grid array because NOTHING has been clicked and we want to keep it that way
+//this will also erase any button that's been clicked and changed, but only at the beginning of a game.
+//it's a bit of an edge case, but still
+func disableAllButtonsForBlueComputerPlayerStart (myGridArray: Game) {
+	for i in 0..<myGridArray.gridCellArr.count {
+		myGridArray.gridCellArr[i].title = ""
+		myGridArray.gridCellArr[i].buttonDisabled = true
+	}
+}
+
 //function to commit a move
 func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> (myUnusedButtonArray: [Int], myCountDownInt: Int, mySOSFlag: Bool, mySOSCounter: Int) {
 
@@ -583,7 +594,9 @@ func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayer
 func startGame(myUnusedButtons: [Int], myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> (myButtonTitle: String, myButtonToClick: Int){
 	//create title array, shuffle it, and set the first element to be the new button title
 	let buttonTitles = ["S","O"]
+	//shuffle the array to get as random a result as we can
 	let shuffledArray = buttonTitles.shuffled()
+	//always use the first item in this array
 	let buttonTitle = shuffledArray[0]
 	//get the size of the unused button array
 	let sizeOfUnusedButtons = myUnusedButtons.count
@@ -600,7 +613,8 @@ func startGame(myUnusedButtons: [Int], myGridArray: Game, myCurrentPlayer: Strin
 	//once we set the title, we call commitMove() once we exit this function
 	//set the title
 	myGridArray.gridCellArr[buttonToClick].title = buttonTitle
-
+	//build the return. Note, we don't seem to use the button title we return, think about dumping it.
 	let computerPlayerTuple = (myButtonTitle: buttonTitle, myButtonToClick: buttonToClick)
+	//return the tuple
 	return computerPlayerTuple
 }
