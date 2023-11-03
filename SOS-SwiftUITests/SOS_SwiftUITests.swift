@@ -147,6 +147,34 @@ final class SOS_SwiftUITests: XCTestCase {
 		XCTAssertTrue(myRedPlayerScore.exists)
 
 	}
+	//this tests the appearance of the start game button when you click on blue computer as computer and that it is enabled
+	func testStartGameButtonEnableBluePlayerComputer() {
+		let SOSApp = XCUIApplication()
+		SOSApp.launch()
+		SOSApp/*@START_MENU_TOKEN@*/.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].buttons["Blue Player Computer"]/*[[".windows[\"SOS-Swift\"]",".groups.buttons[\"Blue Player Computer\"]",".buttons[\"Blue Player Computer\"]",".windows[\"SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1\"]"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.click()
+		let startButton = SOSApp.buttons["startButton"]
+		XCTAssertTrue(startButton.exists)
+		XCTAssertTrue(startButton.isEnabled)
+	}
+	//test that start button does NOT appear if only red player is computer
+	func testStartGameButtonEnableRedPlayerComputer() {
+		let SOSApp = XCUIApplication()
+		SOSApp.launch()
+		SOSApp.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].buttons["Red Player Computer"].click()
+		let startButton = SOSApp.buttons["startButton"]
+		XCTAssertFalse(startButton.exists)
+	}
+	//test that start button appears when both players are computer
+	func testStartGameButtonEnableBothPlayersComputer() {
+		let SOSApp = XCUIApplication()
+		SOSApp.launch()
+		SOSApp.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].buttons["Red Player Computer"].click()
+		SOSApp/*@START_MENU_TOKEN@*/.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].buttons["Blue Player Computer"]/*[[".windows[\"SOS-Swift\"]",".groups.buttons[\"Blue Player Computer\"]",".buttons[\"Blue Player Computer\"]",".windows[\"SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1\"]"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.click()
+		let startButton = SOSApp.buttons["startButton"]
+		XCTAssertTrue(startButton.exists)
+		XCTAssertTrue(startButton.isEnabled)
+	}
+
 	//test picker
 	//verifies that you can change the value in the board size picker
 

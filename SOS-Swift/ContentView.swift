@@ -389,7 +389,7 @@ struct ContentView: View {
 						//disable things
 						gamePlayerTypeDisabled = true
 						
-						//since ths only works on the first move, which is always blue, there's no point in caring
+						//since this only works on the first move, which is always blue, there's no point in caring
 						//about red, but it literally takes half a line of code to set it up, so why not?
 						if ((currentPlayer == "Blue") && (bluePlayerType == 2)) || ((currentPlayer == "Red") && (redPlayerType == 2)) {
 							//the return value is a dummy for the moment
@@ -482,7 +482,7 @@ struct ContentView: View {
 								}
 
 							} else if ((currentPlayer == "Blue") && (bluePlayerType == 1)) || ((currentPlayer == "Red") && (redPlayerType == 1))  {
-								print("Next player is \(currentPlayer) and is a human player")
+								//print("Next player is \(currentPlayer) and is a human player")
 							}
 						}
 
