@@ -283,12 +283,12 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 	}
 
 	//get the title of the last button clicked
-	var theCurrentButtonTitle = myGridArray.gridCellArr[myLastButtonClickedIndex].title
-	var theCurrentButtonIndex = myGridArray.gridCellArr[myLastButtonClickedIndex].index
+	let theCurrentButtonTitle = myGridArray.gridCellArr[myLastButtonClickedIndex].title
+	//var theCurrentButtonIndex = myGridArray.gridCellArr[myLastButtonClickedIndex].index
 
 	//set up checks for at least 2 from bottom/right edge for L -> R horizontal, diag down, diag up checks.
-	var distanceFromRight = buttonRightEdgeCheck - myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord
-	var distanceFromBottom = buttonBottomEdgeCheck - myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord
+	let distanceFromRight = buttonRightEdgeCheck - myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord
+	let distanceFromBottom = buttonBottomEdgeCheck - myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord
 	//all the S checks here
 	if theCurrentButtonTitle == "S" {
 		//L - R horizontal, X goes up, Y is constant
@@ -298,8 +298,8 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 			//check all LTR options
 			if distanceFromRight >= 2 {
 				//look for next adjacent cell, current index + 1, because horizontal LTR, SOS would be current index +1, current index +2
-				var nextCellIndex = myLastButtonClickedIndex + 1
-				var secondCellIndex = myLastButtonClickedIndex + 2
+				let nextCellIndex = myLastButtonClickedIndex + 1
+				let secondCellIndex = myLastButtonClickedIndex + 2
 				if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
 					//set colors for all three buttons
 					setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
@@ -311,8 +311,8 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				if distanceFromBottom >= 2 {
 					//in the grids, the diag down index is the current index + (gridsize + 1) so for 3x3, it'd be current + 4, 5x5 would be
 					//current + 6. the second adjacent cell is the adjacentcell index + (gridsize + 1)
-					var nextCellIndex = (myLastButtonClickedIndex) + (myGridSize + 1)
-					var secondCellIndex = (nextCellIndex) + (myGridSize + 1)
+					let nextCellIndex = (myLastButtonClickedIndex) + (myGridSize + 1)
+					let secondCellIndex = (nextCellIndex) + (myGridSize + 1)
 					if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
 						//set colors for all three buttons
 						setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
@@ -325,8 +325,8 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				//check both diag and vertical up
 				if myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 2 {
 					//check diag up
-					var nextCellIndex = (myLastButtonClickedIndex) - (myGridSize - 1)
-					var secondCellIndex = (nextCellIndex) - (myGridSize - 1)
+					let nextCellIndex = (myLastButtonClickedIndex) - (myGridSize - 1)
+					let secondCellIndex = (nextCellIndex) - (myGridSize - 1)
 					if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
 						//set colors for all three buttons
 						setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
@@ -339,8 +339,8 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 		//vertical up check, can't combine it with diag check because horizontal position causes problems
 		//all we care about here is that the y coord of the button clicked is at least 2
 		if myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 2 {
-			var nextCellIndex = myLastButtonClickedIndex - myGridSize
-			var secondCellIndex = nextCellIndex - myGridSize
+			let nextCellIndex = myLastButtonClickedIndex - myGridSize
+			let secondCellIndex = nextCellIndex - myGridSize
 			if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
 				//set colors for all three buttons
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
@@ -351,8 +351,8 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 		//vertical down check, separate for same reasons as vertical up check
 		//all we care about here is that distance from the bottom is at least 2
 		if distanceFromBottom >= 2 {
-			var nextCellIndex = myLastButtonClickedIndex + myGridSize
-			var secondCellIndex = nextCellIndex + myGridSize
+			let nextCellIndex = myLastButtonClickedIndex + myGridSize
+			let secondCellIndex = nextCellIndex + myGridSize
 			if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
 				//set colors for all three buttons
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
@@ -367,8 +367,8 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 			//check for at least two in the xCoord
 			if myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord >= 2 {
 				//check R -> L horizontal, current index - 1 for next cell
-				var nextCellIndex = myLastButtonClickedIndex - 1
-				var secondCellIndex = nextCellIndex - 1
+				let nextCellIndex = myLastButtonClickedIndex - 1
+				let secondCellIndex = nextCellIndex - 1
 				if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
 					//set colors for all three buttons
 					setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
@@ -379,8 +379,8 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				//since going down, we need to be at least two from the bottom
 				if distanceFromBottom >= 2 {
 					//check R -> L diag down, (current index) + (gridsize - 1)
-					var nextCellIndex = (myLastButtonClickedIndex) + (myGridSize - 1)
-					var secondCellIndex = (nextCellIndex) + (myGridSize - 1)
+					let nextCellIndex = (myLastButtonClickedIndex) + (myGridSize - 1)
+					let secondCellIndex = (nextCellIndex) + (myGridSize - 1)
 					if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
 						//set colors for all three buttons
 						setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
@@ -392,8 +392,8 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				//need to be at least 2 from the top
 				if myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 2 {
 					//check R -> L diag up, (current index) - (gridSize + 1)
-					var nextCellIndex = (myLastButtonClickedIndex) - (myGridSize + 1)
-					var secondCellIndex = (nextCellIndex) - (myGridSize + 1)
+					let nextCellIndex = (myLastButtonClickedIndex) - (myGridSize + 1)
+					let secondCellIndex = (nextCellIndex) - (myGridSize + 1)
 					if (myGridArray.gridCellArr[nextCellIndex].title == "O") && (myGridArray.gridCellArr[secondCellIndex].title == "S") {
 						//set colors for all three buttons
 						setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: nextCellIndex, myThirdIndex: secondCellIndex, myGridArray: myGridArray)
@@ -409,9 +409,9 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 		//horizontal first. Needs to be both 1 away from the right (xCoord >= 1) AND one away from the left (xCoord <= right edge - 1)
 		if (myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord >= 1) && (distanceFromRight >= 1) {
 			//cell to the right
-			var rightAdjacentCellIndex = myLastButtonClickedIndex + 1
+			let rightAdjacentCellIndex = myLastButtonClickedIndex + 1
 			//cell to the left
-			var leftAdjacentCellInded = myLastButtonClickedIndex - 1
+			let leftAdjacentCellInded = myLastButtonClickedIndex - 1
 			//check cells on either side horizontal are "S"
 			if (myGridArray.gridCellArr[rightAdjacentCellIndex].title == "S") && (myGridArray.gridCellArr[leftAdjacentCellInded].title == "S") {
 				//set colors for all three buttons
@@ -425,8 +425,8 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 		//check for at least 1 from top and bottom
 		if (myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 1) && (distanceFromBottom >= 1) {
 			//next cell up
-			var topAdjacentCellIndex = myLastButtonClickedIndex - myGridSize
-			var bottomAdjacentCellIndex = myLastButtonClickedIndex + myGridSize
+			let topAdjacentCellIndex = myLastButtonClickedIndex - myGridSize
+			let bottomAdjacentCellIndex = myLastButtonClickedIndex + myGridSize
 			//check cells above and below are "S"
 			if (myGridArray.gridCellArr[topAdjacentCellIndex].title == "S") && (myGridArray.gridCellArr[bottomAdjacentCellIndex].title == "S") {
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: topAdjacentCellIndex, myThirdIndex: bottomAdjacentCellIndex, myGridArray: myGridArray)
@@ -438,16 +438,16 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 		//may be able to check both diags in one try
 		if (myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord >= 1) && (distanceFromRight >= 1) && (myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 1) && (distanceFromBottom >= 1) {
 			//check left high/right low diag (rtl up for high, ltr down for low)
-			var highLeftAdjacentCell = (myLastButtonClickedIndex) - (myGridSize + 1)
-			var lowRightAdjacentCell = (myLastButtonClickedIndex) + (myGridSize + 1)
+			let highLeftAdjacentCell = (myLastButtonClickedIndex) - (myGridSize + 1)
+			let lowRightAdjacentCell = (myLastButtonClickedIndex) + (myGridSize + 1)
 			if (myGridArray.gridCellArr[highLeftAdjacentCell].title == "S") && (myGridArray.gridCellArr[lowRightAdjacentCell].title == "S") {
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: highLeftAdjacentCell, myThirdIndex: lowRightAdjacentCell, myGridArray: myGridArray)
 				SOSFlag = true
 				SOSCounter += 1
 			}
 			//check left low/right high diag (rtl down for low, ltr up for high
-			var lowLeftAdjacentCell = (myLastButtonClickedIndex) + (myGridSize - 1)
-			var highRightAdjacentCell = (myLastButtonClickedIndex) - (myGridSize - 1)
+			let lowLeftAdjacentCell = (myLastButtonClickedIndex) + (myGridSize - 1)
+			let highRightAdjacentCell = (myLastButtonClickedIndex) - (myGridSize - 1)
 			if (myGridArray.gridCellArr[lowLeftAdjacentCell].title == "S") && (myGridArray.gridCellArr[highRightAdjacentCell].title == "S") {
 				setSOSButtonColor(myCurrentPlayer: myCurrentPlayer, myFirstIndex: myLastButtonClickedIndex, mySecondIndex: lowLeftAdjacentCell, myThirdIndex: highRightAdjacentCell, myGridArray: myGridArray)
 				SOSFlag = true
@@ -466,7 +466,7 @@ func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: G
 	var gameIsOver: Bool = false
 	var gameIsDraw: Bool = false
 	//we'll need this lateer
-	var gridCountdown = myArrayUsedMemberCountdown
+	let gridCountdown = myArrayUsedMemberCountdown
 	var gameWinner: String = ""
 
 	//check to see if gridCountDown is zero. If it is, game is over no matter what

@@ -214,3 +214,4 @@ Code Cleanup Phase:
 		Honestly, no one has time for that kind of obfuscatory nonsense.  
 * removed player change code from buttonClickStuff(), it wasn't used at all
 * got rid of buttonTopRowFlag and buttonTopRowFlag and entire swith/case in checkForSOS(), they weren't used/needed
+* converted unmutated var's to let's, the compiler is much happier, and really, that's what's important
