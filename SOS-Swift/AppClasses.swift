@@ -13,6 +13,7 @@ import Observation
 
 //this is the class we use to modify the buttons on click. This avoids having to sling actual buttons back and forth
 //makes memory usage smaller, and our lives more sane
+//as well, since classes are all pass by reference, using them for this instead of structs makes life SO MUCH BETTER
 @Observable
 class Cell: Identifiable {
 	let id = UUID()
@@ -31,6 +32,7 @@ class Cell: Identifiable {
 	var gridSize: Int {
 		didSet {
 			//builds the array based on the int passed in which is set in the picker
+			//note that buildStructArray is an external func
 			gridCellArr = buildStructArray(theGridSize: gridSize)
 		}
 	}

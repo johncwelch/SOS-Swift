@@ -15,12 +15,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			return true
 	}
 
-	func applicationWillTerminate(_ notification: Notification) {
+	/*func applicationWillTerminate(_ notification: Notification) {
 		//this prevents the window size from being saved. we don't want that, it gets weird
 		if let bundleID = Bundle.main.bundleIdentifier {
 			UserDefaults.standard.removePersistentDomain(forName: bundleID)
 		}
-	}
+	}*/
 }
 
 @main

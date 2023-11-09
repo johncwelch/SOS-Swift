@@ -215,3 +215,5 @@ Code Cleanup Phase:
 * removed player change code from buttonClickStuff(), it wasn't used at all
 * got rid of buttonTopRowFlag and buttonTopRowFlag and entire swith/case in checkForSOS(), they weren't used/needed
 * converted unmutated var's to let's, the compiler is much happier, and really, that's what's important
+* removed the applicationWillTerminate function that deleted app settings on quit, we don't need it anymore (left it there, just commented out, it's kind of useful at times)
+* Cleaned up comments, ensured all functions have what calls them and what they return listed in the comments

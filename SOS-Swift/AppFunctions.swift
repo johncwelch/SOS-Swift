@@ -12,7 +12,7 @@ import Observation
 
 //basic functions
 //collect the initial setup for new game and print them, mostly to show things are actually set right
-//like unit tests without the overhead
+//like unit tests without the overhead, also way more flexible
 func getInitVars(theType: Int, theSize: Int, theBlueType: Int, theRedType: Int, theCurrentPlayer: String) {
 	var gameType: String = ""
 	var bluePlayerType: String = ""
@@ -49,6 +49,7 @@ func boardSizeSelect(theSelection: Int) {
 
 //this builds an array of Cell that gets attached to each button in the game. It's kind of important
 //takes in the grid size set in the UI, and then returns an array of cells
+//this is only called by the class constructor
 func buildStructArray(theGridSize: Int) -> [Cell] {
 	//we do this because as passed, [Cell] is a constant
 	var myStructArray: [Cell] = []
@@ -67,17 +68,18 @@ func buildStructArray(theGridSize: Int) -> [Cell] {
 //this takes care of creating the array of unused button indices
 //important for tracking which buttons are available for use
 //takes a size int and returns an int array
-//this is used on game start
-func buildUnusedArray (myGridSize: Int)  -> [Int] {
+//this is used on game start, by "New Game" and when resizing the grid via the picker
+func buildUnusedArray(myGridSize: Int)  -> [Int] {
 	//set up the initial array of unused buttons
 	var theTempArray = [Int]()
+	//build the array bounds
 	let theGridSize = myGridSize * myGridSize
+	//build the array
 	for i in 0..<theGridSize {
 		theTempArray.append(i)
 	}
-	//print("The used buttons array is \(theTempArray)")
+	//return the array
 	return theTempArray
-
 }
 
 //this is the function that handles what do to on click i.e. setting the text in the button to be S, O, or blank,
@@ -86,8 +88,9 @@ func buildUnusedArray (myGridSize: Int)  -> [Int] {
 //of usable naming.
 //called whenever a game grid button is clicked
 func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game, myCurrentPlayer: String, myUnusedButtons: [Int]) -> Bool {
-	
 	//old tuple return (myTitle:String, myCommitButtonStatus: Bool, myCurrentPlayer: String)
+
+	//mutable vars
 	var theCommitButtonStatus: Bool = false
 	var theCellTitle: String = ""
 
@@ -116,16 +119,15 @@ func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game, myCurre
 		default:
 			print("Something went wrong, try restarting the app")
 	}
-
-
 	//set the current button title to the correct title
 	myArray.gridCellArr[myIndex].title = theCellTitle
-
+	//return the bool for the enable/disable status of the commit move button
 	return theCommitButtonStatus
 }
 
 //called by "New Game" button
-func newGame (myGridArray: Game) {
+//this goes through the array and resets it back to new, so no title, all gray, all enabled
+func newGame(myGridArray: Game) {
 	for i in 0..<myGridArray.gridCellArr.count {
 		myGridArray.gridCellArr[i].title = ""
 		myGridArray.gridCellArr[i].backCol = .gray
@@ -133,7 +135,8 @@ func newGame (myGridArray: Game) {
 	}
 }
 
-//change player on commit move
+//change player
+//Called by the "Commit Move" and "Start Game" buttons
 func changePlayer(myCurrentPlayer: String) -> String {
 	var newPlayer: String = ""
 	if myCurrentPlayer == "Blue" {
@@ -141,10 +144,12 @@ func changePlayer(myCurrentPlayer: String) -> String {
 	} else if myCurrentPlayer == "Red" {
 		newPlayer = "Blue"
 	}
+	//return the string for who the new current player is
 	return newPlayer
 }
 
 //change button color on commit move for a single button
+//called by the "Commit Move" button
 func setButtonColor(myCurrentPlayer: String) -> Color {
 	var buttonColor: Color = .gray
 	if myCurrentPlayer == "Blue" {
@@ -152,11 +157,14 @@ func setButtonColor(myCurrentPlayer: String) -> Color {
 	} else if myCurrentPlayer == "Red" {
 		buttonColor = .red
 	}
+	//return the new color for the button
+	//if we can figure out how to make this a gradient, that would be cool
 	return buttonColor
 }
 
 //change colors for multiple buttons (SOS)
 //will modify for general game to handle multiple players
+//called by checkForSOS()
 func setSOSButtonColor(myCurrentPlayer: String, myFirstIndex: Int, mySecondIndex: Int, myThirdIndex: Int, myGridArray: Game) {
 	if myCurrentPlayer == "Blue" {
 		myGridArray.gridCellArr[myFirstIndex].backCol = .blue
@@ -171,7 +179,8 @@ func setSOSButtonColor(myCurrentPlayer: String, myFirstIndex: Int, mySecondIndex
 }
 
 //func to disable other buttons when making a move.
-func disableOtherButtonsDuringMove (myGridArray: Game, currentButtonIndex: Int) {
+//called by buttonClickStuff()
+func disableOtherButtonsDuringMove(myGridArray: Game, currentButtonIndex: Int) {
 	//iterate through the array
 	for i in 0..<myGridArray.gridCellArr.count {
 		//look for buttons that are not the current button and are not already disabled
@@ -182,7 +191,8 @@ func disableOtherButtonsDuringMove (myGridArray: Game, currentButtonIndex: Int) 
 }
 
 //func to enable other buttons when the current button being clicked goes to ""
-func enableOtherButtonsDuringMove (myGridArray: Game){
+//called by blue player radio button when changing setting back to human and by buttonClickStuff()
+func enableOtherButtonsDuringMove(myGridArray: Game){
 	for i in 0..<myGridArray.gridCellArr.count {
 		if myGridArray.gridCellArr[i].title == "" {
 			myGridArray.gridCellArr[i].buttonDisabled = false
@@ -194,18 +204,20 @@ func enableOtherButtonsDuringMove (myGridArray: Game){
 //we only care about the grid array because NOTHING has been clicked and we want to keep it that way
 //this will also erase any button that's been clicked and changed, but only at the beginning of a game.
 //it's just different enough to be worth the the six extra lines of code it is
-func disableAllButtonsForBlueComputerPlayerStart (myGridArray: Game) {
+//called by blue player radio button, "New Game" button, and on grid size change via the size picker
+func disableAllButtonsForBlueComputerPlayerStart(myGridArray: Game) {
 	for i in 0..<myGridArray.gridCellArr.count {
 		myGridArray.gridCellArr[i].title = ""
 		myGridArray.gridCellArr[i].buttonDisabled = true
 	}
 }
 
-//function to commit a move, called by the "Commit Move" button
-func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> (myUnusedButtonArray: [Int], myCountDownInt: Int, mySOSFlag: Bool, mySOSCounter: Int) {
+//function to commit a move, called by the "Commit Move" button and the "Start Game" button
+func commitMove(myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> (myUnusedButtonArray: [Int], myCountDownInt: Int, mySOSFlag: Bool, mySOSCounter: Int) {
 
 	//create temp array that is mutable for the list of unused buttons
 	var theTempArray = myUnusedButtons
+	//create the mutable used button countdown
 	var theTempCounter = myArrayUsedMemberCountdown
 	//did the commit result in an SOS? returns Bool
 	let theSOSTuple = checkForSOS(myGridArray: myGridArray, myLastButtonClickedIndex: myCommittedButtonIndex, myGridSize: myGridArray.gridSize, myCurrentPlayer: myCurrentPlayer)
@@ -220,15 +232,18 @@ func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray
 	//content, but 0,1,2 in terms of index, so removing index 3 is out of range. So we grab the index of the value via firstIndex(of:)
 	//that way, we don't have issues.
 	let theButtonToBeDisabledIndex = theTempArray.firstIndex(of: myCommittedButtonIndex)
-	//remove the button at theButtonToBeDisabledIndex from the array
 
+	//remove the button at theButtonToBeDisabledIndex from the array
 	theTempArray.remove(at: theButtonToBeDisabledIndex!)
+
 	//set the color for the button we are committing to that of the current player only if there wasn't an SOS
 	if !theSOSFlag {
 		myGridArray.gridCellArr[myCommittedButtonIndex].backCol = setButtonColor(myCurrentPlayer: myCurrentPlayer)
 	}
+
 	//disable the button we are committing so it can't be changed
 	myGridArray.gridCellArr[myCommittedButtonIndex].buttonDisabled = true
+
 	//re-enable all the existing blank buttons
 	for i in 0..<myGridArray.gridCellArr.count {
 		//if the title is "", reenable it
@@ -236,6 +251,7 @@ func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray
 			myGridArray.gridCellArr[i].buttonDisabled = false
 		}
 	}
+	//decrement the temp counter for the return
 	theTempCounter -= 1
 	//return theTempArray, countdownInt, and SOSflag back to ContentView
 	let theCommitMoveTuple = (myUnusedButtonArray: theTempArray, myCountDownInt: theTempCounter, mySOSFlag: theSOSFlag, mySOSCounter: theSOSCounter)
@@ -244,14 +260,12 @@ func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray
 
 //funciton to check for SOS
 //called by commitMove()
+//there are 8 possible ways to get an SOS for an S evaluation and four for an O eval
+//since S is always at the start or finish, while O is always in the middle
 func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: Int, myCurrentPlayer: String) -> (mySOSFlag: Bool, mySOSCounter: Int) {
 	//first we need to set some flags for leftmost/rightmost/topmost/bottommost positions
 	//since that has a lot to do with how we calculate wins
-	//we may not need a separate myGridSize
-	//print("the index is: \(myLastButtonClickedIndex) the y coord is: \(myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord)")
-	//hopefully these is obvious
-	//var adjacentCellTitle = ""
-	//var nextAdjacentCellTitle = ""
+
 	//needed to count multiple SOS's for general game
 	var SOSCounter: Int = 0
 
@@ -272,6 +286,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 	//there's an SOS
 	var SOSFlag: Bool = false
 	//check for xCoord edges
+	//as it turns out, we don't need to check for yCoord edges, w00t!
 	switch myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord {
 		case 0:
 			buttonLeftmostFlag = true
@@ -284,11 +299,11 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 
 	//get the title of the last button clicked
 	let theCurrentButtonTitle = myGridArray.gridCellArr[myLastButtonClickedIndex].title
-	//var theCurrentButtonIndex = myGridArray.gridCellArr[myLastButtonClickedIndex].index
 
 	//set up checks for at least 2 from bottom/right edge for L -> R horizontal, diag down, diag up checks.
 	let distanceFromRight = buttonRightEdgeCheck - myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord
 	let distanceFromBottom = buttonBottomEdgeCheck - myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord
+
 	//all the S checks here
 	if theCurrentButtonTitle == "S" {
 		//L - R horizontal, X goes up, Y is constant
@@ -336,6 +351,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				}
 			}
 		}
+
 		//vertical up check, can't combine it with diag check because horizontal position causes problems
 		//all we care about here is that the y coord of the button clicked is at least 2
 		if myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 2 {
@@ -348,6 +364,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				SOSCounter += 1
 			}
 		}
+
 		//vertical down check, separate for same reasons as vertical up check
 		//all we care about here is that distance from the bottom is at least 2
 		if distanceFromBottom >= 2 {
@@ -360,6 +377,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				SOSCounter += 1
 			}
 		}
+
 		//start RTL checks
 		//horizontal first, we need to care about are we at zero and are we at least 2 from left
 		//check for zer
@@ -404,6 +422,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 			}
 		}
 	}
+
 	//all the "O" checks here
 	if theCurrentButtonTitle == "O" {
 		//horizontal first. Needs to be both 1 away from the right (xCoord >= 1) AND one away from the left (xCoord <= right edge - 1)
@@ -419,8 +438,8 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				SOSFlag = true
 				SOSCounter += 1
 			}
-
 		}
+
 		//vertical O
 		//check for at least 1 from top and bottom
 		if (myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 1) && (distanceFromBottom >= 1) {
@@ -434,6 +453,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 				SOSCounter += 1
 			}
 		}
+
 		//for diags, we have to be 1 from top and bottom AND one from left and right, so four ands:
 		//may be able to check both diags in one try
 		if (myGridArray.gridCellArr[myLastButtonClickedIndex].xCoord >= 1) && (distanceFromRight >= 1) && (myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord >= 1) && (distanceFromBottom >= 1) {
@@ -455,6 +475,8 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 			}
 		}
 	}
+	//we return a bool for "was there an SOS" and an int for how many.
+	//the latter is only important for a general game, since any SOS wins and finishes a simple game
 	let myCheckForSOSTuple = (mySOSFlag: SOSFlag, mySOSCounter: SOSCounter)
 	return myCheckForSOSTuple
 }
@@ -463,9 +485,10 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 //called by "Start Game" and "Commit Move" buttons
 func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: Game, mySOSFlag: Bool, myRedPlayerScore: Int, myBluePlayerScore: Int) -> (myGameIsOver: Bool, myGameIsDraw: Bool, myGeneralGameWinner: String) {
 
+	//bools we'll be returning
 	var gameIsOver: Bool = false
 	var gameIsDraw: Bool = false
-	//we'll need this lateer
+	//we'll need these later
 	let gridCountdown = myArrayUsedMemberCountdown
 	var gameWinner: String = ""
 
@@ -530,6 +553,7 @@ func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: G
 			}
 		}
 	}
+	//return two bools and a string as a tuple
 	let gameIsOverTuple = (myGameIsOver: gameIsOver, myGameIsDraw: gameIsDraw, myGeneralGameWinner: gameWinner)
 	return gameIsOverTuple
 }
@@ -540,11 +564,13 @@ func gameOverAlert(myPlayerColor: String, myGameIsDraw: Bool, myGeneralGameWinne
 	var alertTitle: String = ""
 	var alertMessage: String = ""
 	var winningPlayer: String = ""
-
+	
+	//build draw/tie game alert
 	if myGameIsDraw {
 		alertTitle = "Game was a Draw"
 		alertMessage = "No one won! Click New Game or resize grid to play again"
 	} else {
+		//someone won
 		if myGameType == 1 {
 			//simple game
 			winningPlayer = myPlayerColor
@@ -555,13 +581,13 @@ func gameOverAlert(myPlayerColor: String, myGameIsDraw: Bool, myGeneralGameWinne
 		alertTitle = "We have a winner!"
 		alertMessage = "\(winningPlayer) Player Won! Click New Game or resize grid to play again"
 	}
-
+	//build the alert dialog
 	let myAlert = Alert(
 		title: Text(alertTitle),
 		message: Text(alertMessage),
 		dismissButton: .default(Text("Okay"))
 	)
-
+	//this returns the actual alert that's displayed
 	return myAlert
 }
 
@@ -577,7 +603,8 @@ func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayer
 	} else {
 		redPlayerScore = redPlayerScore + mySOSCounter
 	}
-
+	
+	//this returns the ints that are displayed in the score fields for a general game
 	let playerScoreTuple = (myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore)
 	return playerScoreTuple
 }
@@ -587,7 +614,7 @@ func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayer
 //we return an int that will be myCommittedButtonIndex in commitMove() and a title that will be the new title of the button
 //may do that here, since we can.
 //check to see if we need to yoink the clicked button here or if that happens in commitMove()
-//called by "Start Game" and "Commit Move" buttons
+//called by "Start Game" and "Commit Move" buttons for handling moves for a computer player
 func startGame(myUnusedButtons: [Int], myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> Int {
 	//create title array, shuffle it, and set the first element to be the new button title
 	let buttonTitles = ["S","O"]
@@ -608,10 +635,9 @@ func startGame(myUnusedButtons: [Int], myGridArray: Game, myCurrentPlayer: Strin
 	let buttonToClick = myUnusedButtons[buttonToClickIndex]
 	//we'll need to set the title. we can ignore the commit button status for now, we're not using it
 	//once we set the title, we call commitMove() once we exit this function
-	//set the title
+	//set the title. doing this here prevents us from having to return it
 	myGridArray.gridCellArr[buttonToClick].title = buttonTitle
-	//build the return. Note, we don't seem to use the button title we return, think about dumping it.
-	//let computerPlayerTuple = (myButtonTitle: buttonTitle, myButtonToClick: buttonToClick)
-	//return the tuple
+
+	//return the index of the button to "click
 	return buttonToClick
 }

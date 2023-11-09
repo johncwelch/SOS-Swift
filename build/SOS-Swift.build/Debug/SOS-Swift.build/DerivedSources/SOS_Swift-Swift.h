@@ -300,12 +300,10 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 #if defined(__OBJC__)
 @class NSApplication;
-@class NSNotification;
 
 SWIFT_CLASS("_TtC9SOS_Swift11AppDelegate")
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication * _Nonnull)sender SWIFT_WARN_UNUSED_RESULT;
-- (void)applicationWillTerminate:(NSNotification * _Nonnull)notification;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
