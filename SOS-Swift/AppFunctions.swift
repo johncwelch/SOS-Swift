@@ -79,8 +79,9 @@ func buildUnusedArray (myGridSize: Int)  -> [Int] {
 //an array of [Cell], and returns a tuple. By returning a tuple, we can pass back multiple values with some kind
 //of usable naming.
 
-func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game, myCurrentPlayer: String, myUnusedButtons: [Int]) -> (myTitle:String, myCommitButtonStatus: Bool, myCurrentPlayer: String) {
-
+func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game, myCurrentPlayer: String, myUnusedButtons: [Int]) -> Bool {
+	
+	//old tuple return (myTitle:String, myCommitButtonStatus: Bool, myCurrentPlayer: String)
 	var theCommitButtonStatus: Bool = false
 	var theCellTitle: String = ""
 	var theCurrentPlayer: String = ""
@@ -115,9 +116,13 @@ func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game, myCurre
 	} else {
 		theCurrentPlayer = "Blue"
 	}
+	
+	//set the current button title to the correct title
+	myArray.gridCellArr[myIndex].title = theCellTitle
 
-	let theReturnTuple = (myTitle: theCellTitle, myCommitButtonStatus: theCommitButtonStatus, myCurrentPlayer: theCurrentPlayer)
-	return theReturnTuple
+	//let theReturnTuple = (myTitle: theCellTitle, myCommitButtonStatus: theCommitButtonStatus, myCurrentPlayer: theCurrentPlayer)
+	//return theReturnTuple
+	return theCommitButtonStatus
 }
 
 func newGame (myGridArray: Game) {
@@ -591,7 +596,7 @@ func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayer
 //we return an int that will be myCommittedButtonIndex in commitMove() and a title that will be the new title of the button
 //may do that here, since we can.
 //check to see if we need to yoink the clicked button here or if that happens in commitMove()
-func startGame(myUnusedButtons: [Int], myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> (myButtonTitle: String, myButtonToClick: Int){
+func startGame(myUnusedButtons: [Int], myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> Int {
 	//create title array, shuffle it, and set the first element to be the new button title
 	let buttonTitles = ["S","O"]
 	//shuffle the array to get as random a result as we can
@@ -614,7 +619,7 @@ func startGame(myUnusedButtons: [Int], myGridArray: Game, myCurrentPlayer: Strin
 	//set the title
 	myGridArray.gridCellArr[buttonToClick].title = buttonTitle
 	//build the return. Note, we don't seem to use the button title we return, think about dumping it.
-	let computerPlayerTuple = (myButtonTitle: buttonTitle, myButtonToClick: buttonToClick)
+	//let computerPlayerTuple = (myButtonTitle: buttonTitle, myButtonToClick: buttonToClick)
 	//return the tuple
-	return computerPlayerTuple
+	return buttonToClick
 }

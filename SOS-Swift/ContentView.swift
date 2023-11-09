@@ -156,8 +156,9 @@ struct ContentView: View {
 				bluePlayerTypeRadioButton(index: 2, selectedIndex: $bluePlayerType)
 					.accessibilityLabel("Blue Player Computer")
 					.onChange(of: bluePlayerType) {
-						//we only hide when BOTH players are human
-						if (bluePlayerType == 1) && (redPlayerType == 1) {
+						//we hide whenever blue player is human
+						if (bluePlayerType == 1) {
+							//old if condition:(bluePlayerType == 1) && (redPlayerType == 1)
 							showStartGameButton = false
 							//if they change blue back to human, re-enable all the buttons
 							enableOtherButtonsDuringMove(myGridArray: theGame)
@@ -207,12 +208,12 @@ struct ContentView: View {
 				redPlayerTypeRadioButton(index: 2, selectedIndex: $redPlayerType)
 					.accessibilityLabel("Red Player Computer")
 					.onChange(of: redPlayerType) {
-						//we only hide when BOTH players are human
-						if (bluePlayerType == 1) && (redPlayerType == 1) {
+						//we only show when blue player is computer
+						//this is more of a doublecheck
+						if (bluePlayerType == 1) {
+							//slightly redundant but not overly so
 							showStartGameButton = false
 							//this may not be needed, we'll clean it up in the "make it pretty" spring
-						} else if (bluePlayerType == 2) {
-							showStartGameButton = true
 						}
 					}
 				HStack(alignment: .center) {
@@ -269,7 +270,7 @@ struct ContentView: View {
 				//disables itself and changes who the current player is
 				Button {
 					//used for computer moves
-					var buttonTitle: String = ""
+
 					//on commit...
 					//once you commit a move, we set the game type and player type buttons to disabled. the only way they re-enable
 					//is for new game or grid size change which is effectively a new game
@@ -291,12 +292,12 @@ struct ContentView: View {
 					disableStartGameButton = true
 					//no one has won, and general game and SOS, increment score
 					if (gameType == 2) && (SOSFlag) {
-						var incrementScoreTuple = incrementScore(myCurrentPlayer: currentPlayer, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore, mySOSCounter: SOSCounter)
+						let incrementScoreTuple = incrementScore(myCurrentPlayer: currentPlayer, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore, mySOSCounter: SOSCounter)
 						redPlayerScore = incrementScoreTuple.myRedPlayerScore
 						bluePlayerScore = incrementScoreTuple.myBluePlayerScore
 					}
 
-					var gameOverTuple  = isGameOver(myArrayUsedMemberCountdown: arrayUsedMemberCountdown, myGameType: gameType, myGridArray: theGame, mySOSFlag: SOSFlag, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore)
+					let gameOverTuple  = isGameOver(myArrayUsedMemberCountdown: arrayUsedMemberCountdown, myGameType: gameType, myGridArray: theGame, mySOSFlag: SOSFlag, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore)
 
 					//get is game a draw flag
 					gameWasDraw = gameOverTuple.myGameIsDraw
@@ -330,13 +331,9 @@ struct ContentView: View {
 						//we can collapse this into a single thing.
 						//right now the else is there as a test statement, will be removed
 						if ((currentPlayer == "Blue") && (bluePlayerType == 2)) || ((currentPlayer == "Red") && (redPlayerType == 2)) {
-							print("Next player is \(currentPlayer) and is a computer player")
 
-							//make the computer move
-							let theStartGameTuple = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
-							buttonTitle = theStartGameTuple.myButtonTitle
-							lastButtonClickedIndex = theStartGameTuple.myButtonToClick
-							
+							//make the computer move, return button clicked index
+							lastButtonClickedIndex = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
 							//here's where we duplicate a lot of code, but we only do it once, so it's fine.
 							//we can look at fixing it in the next sprint maybe.
 							let theCommitTuple = commitMove(myCommittedButtonIndex: lastButtonClickedIndex, myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
@@ -349,12 +346,12 @@ struct ContentView: View {
 							disableStartGameButton = true
 
 							if (gameType == 2) && (SOSFlag) {
-								var incrementScoreTuple = incrementScore(myCurrentPlayer: currentPlayer, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore, mySOSCounter: SOSCounter)
+								let incrementScoreTuple = incrementScore(myCurrentPlayer: currentPlayer, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore, mySOSCounter: SOSCounter)
 								redPlayerScore = incrementScoreTuple.myRedPlayerScore
 								bluePlayerScore = incrementScoreTuple.myBluePlayerScore
 							}
 
-							var gameOverTuple  = isGameOver(myArrayUsedMemberCountdown: arrayUsedMemberCountdown, myGameType: gameType, myGridArray: theGame, mySOSFlag: SOSFlag, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore)
+							let gameOverTuple  = isGameOver(myArrayUsedMemberCountdown: arrayUsedMemberCountdown, myGameType: gameType, myGridArray: theGame, mySOSFlag: SOSFlag, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore)
 							
 							gameWasDraw = gameOverTuple.myGameIsDraw
 							generalGameWinner = gameOverTuple.myGeneralGameWinner
@@ -369,7 +366,7 @@ struct ContentView: View {
 							}
 
 						} else if ((currentPlayer == "Blue") && (bluePlayerType == 1)) || ((currentPlayer == "Red") && (redPlayerType == 1))  {
-							print("Next player is \(currentPlayer) and is a human player")
+							//print("Next player is \(currentPlayer) and is a human player")
 						}
 					}
 
@@ -382,7 +379,7 @@ struct ContentView: View {
 				
 				//only show button if true
 				if showStartGameButton {
-					var buttonTitle: String = ""
+
 					Button {
 						//since we are effectively starting the game, and we don't actually click the commit move
 						//button, we replicate much of that here
@@ -394,10 +391,7 @@ struct ContentView: View {
 						if ((currentPlayer == "Blue") && (bluePlayerType == 2)) || ((currentPlayer == "Red") && (redPlayerType == 2)) {
 							//the return value is a dummy for the moment
 							//it works!
-							let theStartGameTuple = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
-							buttonTitle = theStartGameTuple.myButtonTitle
-							lastButtonClickedIndex = theStartGameTuple.myButtonToClick
-
+							lastButtonClickedIndex = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
 						}
 
 
@@ -418,7 +412,7 @@ struct ContentView: View {
 						//no one has won, and general game and SOS, increment score. note a win is impossible
 						//for start button since it can only be used as the first move
 						if (gameType == 2) && (SOSFlag) {
-							var incrementScoreTuple = incrementScore(myCurrentPlayer: currentPlayer, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore, mySOSCounter: SOSCounter)
+							let incrementScoreTuple = incrementScore(myCurrentPlayer: currentPlayer, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore, mySOSCounter: SOSCounter)
 							redPlayerScore = incrementScoreTuple.myRedPlayerScore
 							bluePlayerScore = incrementScoreTuple.myBluePlayerScore
 						}
@@ -445,10 +439,8 @@ struct ContentView: View {
 							if ((currentPlayer == "Blue") && (bluePlayerType == 2)) || ((currentPlayer == "Red") && (redPlayerType == 2)) {
 								//print("Next player is \(currentPlayer) and is a computer player")
 
-								//make the computer move
-								let theStartGameTuple = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
-								buttonTitle = theStartGameTuple.myButtonTitle
-								lastButtonClickedIndex = theStartGameTuple.myButtonToClick
+								//make the computer move, return button clicked index
+								lastButtonClickedIndex = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
 
 								//here's where we duplicate a lot of code, but we only do it once, so it's fine.
 								//we can look at fixing it in the next sprint maybe.
@@ -462,12 +454,12 @@ struct ContentView: View {
 								disableStartGameButton = true
 
 								if (gameType == 2) && (SOSFlag) {
-									var incrementScoreTuple = incrementScore(myCurrentPlayer: currentPlayer, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore, mySOSCounter: SOSCounter)
+									let incrementScoreTuple = incrementScore(myCurrentPlayer: currentPlayer, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore, mySOSCounter: SOSCounter)
 									redPlayerScore = incrementScoreTuple.myRedPlayerScore
 									bluePlayerScore = incrementScoreTuple.myBluePlayerScore
 								}
 
-								var gameOverTuple  = isGameOver(myArrayUsedMemberCountdown: arrayUsedMemberCountdown, myGameType: gameType, myGridArray: theGame, mySOSFlag: SOSFlag, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore)
+								let gameOverTuple  = isGameOver(myArrayUsedMemberCountdown: arrayUsedMemberCountdown, myGameType: gameType, myGridArray: theGame, mySOSFlag: SOSFlag, myRedPlayerScore: redPlayerScore, myBluePlayerScore: bluePlayerScore)
 
 								gameWasDraw = gameOverTuple.myGameIsDraw
 								generalGameWinner = gameOverTuple.myGeneralGameWinner
@@ -536,11 +528,10 @@ struct ContentView: View {
 							GeometryReader { gridCellSize in
 								//this sets up the index for gridCellArr so we "know" what button
 								//we're clicking
-								//let myIndex = row * boardSize + col
+
 								let myIndex = (row * theGame.gridSize) + col
 								//set up the initial array of unused buttons
-								//let arrayUsedButtonslist
-								//print("The used buttons array is \(arrayUsedButtonslist)")
+
 								//sanity check that avoids out of range errors when downsizing grid
 								if myIndex <= ((theGame.gridSize * theGame.gridSize) - 1) {
 									Button {
@@ -561,16 +552,10 @@ struct ContentView: View {
 										//the current player and the unused buttons array
 										//to buttonClickStuff
 
-										//we get back a tuple with the color for the button
-										//the title for the button, the commit button
-										//disable status, and the current player
-										let theTuple = buttonClickStuff(for: theGame.gridCellArr[myIndex].index, theTitle: theGame.gridCellArr[myIndex].title, myArray: theGame, myCurrentPlayer: currentPlayer, myUnusedButtons: arrayUsedButtonsList)
-										//set the current button title to the correct title
-										theGame.gridCellArr[myIndex].title = theTuple.myTitle
-										//set the commit button status
-										buttonBlank = theTuple.myCommitButtonStatus
-										//update lastButtonClickedInded
-										lastButtonClickedIndex = theGame.gridCellArr[myIndex].index
+										//we get back a bool with the commit button disable status
+
+										//the only return we really use is the commit button status so
+										buttonBlank = buttonClickStuff(for: theGame.gridCellArr[myIndex].index, theTitle: theGame.gridCellArr[myIndex].title, myArray: theGame, myCurrentPlayer: currentPlayer, myUnusedButtons: arrayUsedButtonsList)
 									} label: {
 										//set the text of the button to be the title of the button
 										Text(theGame.gridCellArr[myIndex].title)

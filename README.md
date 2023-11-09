@@ -199,3 +199,16 @@ Got the initial state cleaned up for starting the game. Added func disableAllBut
 * disables every button  
 
 if blue is changed back to human, then enableOtherButtonsDuringMove(myGridArray: theGame) is run and all the buttons are re-enabled. we also run disableAllButtonsForBlueComputerPlayerStart() for a new game (if blue is set to computer) and for resizing, which is also a form of new game. since you can only set the player types before the first move is made, this works rather nicely. now all i need is a unit test or two for the new stuff and this sprint is done.
+
+##20231109  
+Code Cleanup Phase:  
+  
+* Remove extraneous lastButtonClickedIndex = theGame.gridCellArr[myIndex].index from button click in ContentView  
+* Set button title in buttonClickStuff, not ContentView  
+* Update buttonClickStuff() to only return a bool, it's all we need  
+* Do we really need buttonTitle for computer moves outside of startButton()? We do not  
+* Update startGame() to only return the button clicked index int  
+* May not need start button state code for changing red player to computer at all, it was not  
+* Fixed error with hiding start game button on blue player start, it was requiring both players to be human to hide, that was incorrect  	  
+* Change all the vars to lets as the compiler is begging us to. Ignore the "change this to _" shit.
+		Honestly, no one has time for that kind of obfuscatory nonsense.  

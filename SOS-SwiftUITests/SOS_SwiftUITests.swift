@@ -92,7 +92,7 @@ final class SOS_SwiftUITests: XCTestCase {
 		XCTAssertTrue(myRedPlayerTypeComputer.isEnabled)
 		//XCTAssertTrue()
 		let swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window = SOSApp.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"]
-		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window/*@START_MENU_TOKEN@*/.groups.containing(.staticText, identifier:"gameTypeLabel")/*[[".groups.containing(.button, identifier:\"Computer\")",".groups.containing(.button, identifier:\"gameTypeGeneral\")",".groups.containing(.button, identifier:\"Commit Move\")",".groups.containing(.button, identifier:\"Human\")",".groups.containing(.staticText, identifier:\"currentPlayer\")",".groups.containing(.staticText, identifier:\"currentPlayerLabel\")",".groups.containing(.button, identifier:\"gameTypeSimple\")",".groups.containing(.button, identifier:\"New Game\")",".groups.containing(.staticText, identifier:\"redPlayerLabel\")",".groups.containing(.staticText, identifier:\"bluePlayerLabel\")",".groups.containing(.popUpButton, identifier:\"Board Size Dropdown\")",".groups.containing(.popUpButton, identifier:\"boardSizeDropdown\")",".groups.containing(.staticText, identifier:\"Board Size\")",".groups.containing(.staticText, identifier:\"gameTypeLabel\")"],[[[-1,13],[-1,12],[-1,11],[-1,10],[-1,9],[-1,8],[-1,7],[-1,6],[-1,5],[-1,4],[-1,3],[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.children(matching: .button).element(boundBy: 8).click()
+		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window.groups.containing(.staticText, identifier:"gameTypeLabel").children(matching: .button).element(boundBy: 8).click()
 		//button was clicked from blank, commit button is enabled
 		XCTAssertTrue(myCommitButton.isEnabled)
 		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window.buttons["commitButton"].click()
@@ -151,7 +151,7 @@ final class SOS_SwiftUITests: XCTestCase {
 	func testStartGameButtonEnableBluePlayerComputer() {
 		let SOSApp = XCUIApplication()
 		SOSApp.launch()
-		SOSApp/*@START_MENU_TOKEN@*/.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].buttons["Blue Player Computer"]/*[[".windows[\"SOS-Swift\"]",".groups.buttons[\"Blue Player Computer\"]",".buttons[\"Blue Player Computer\"]",".windows[\"SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1\"]"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.click()
+		SOSApp.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].buttons["Blue Player Computer"].click()
 		let startButton = SOSApp.buttons["startButton"]
 		XCTAssertTrue(startButton.exists)
 		XCTAssertTrue(startButton.isEnabled)
@@ -169,7 +169,7 @@ final class SOS_SwiftUITests: XCTestCase {
 		let SOSApp = XCUIApplication()
 		SOSApp.launch()
 		SOSApp.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].buttons["Red Player Computer"].click()
-		SOSApp/*@START_MENU_TOKEN@*/.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].buttons["Blue Player Computer"]/*[[".windows[\"SOS-Swift\"]",".groups.buttons[\"Blue Player Computer\"]",".buttons[\"Blue Player Computer\"]",".windows[\"SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1\"]"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.click()
+		SOSApp.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].buttons["Blue Player Computer"].click()
 		let startButton = SOSApp.buttons["startButton"]
 		XCTAssertTrue(startButton.exists)
 		XCTAssertTrue(startButton.isEnabled)
@@ -180,20 +180,19 @@ final class SOS_SwiftUITests: XCTestCase {
 
 	func testBoardSizeChange() {
 		XCUIApplication().launch()
-		let swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window = XCUIApplication()/*@START_MENU_TOKEN@*/.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"]/*[[".windows[\"SOS-Swift\"]",".windows[\"SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-		let boardsizedropdownPopUpButton = swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window/*@START_MENU_TOKEN@*/.popUpButtons["boardSizeDropdown"]/*[[".groups",".popUpButtons[\"Board Size Dropdown\"]",".popUpButtons[\"boardSizeDropdown\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/
+		let swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window = XCUIApplication().windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"]
+		let boardsizedropdownPopUpButton = swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window.popUpButtons["boardSizeDropdown"]
 		boardsizedropdownPopUpButton.click()
-		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window/*@START_MENU_TOKEN@*/.menuItems["4"]/*[[".groups",".popUpButtons[\"Board Size Dropdown\"]",".menus.menuItems[\"4\"]",".menuItems[\"4\"]",".popUpButtons[\"boardSizeDropdown\"]"],[[[-1,3],[-1,2],[-1,4,2],[-1,1,2],[-1,0,1]],[[-1,3],[-1,2],[-1,4,2],[-1,1,2]],[[-1,3],[-1,2]]],[0]]@END_MENU_TOKEN@*/.click()
+		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window.menuItems["4"].click()
 		boardsizedropdownPopUpButton.click()
-		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window/*@START_MENU_TOKEN@*/.menuItems["6"]/*[[".groups",".popUpButtons[\"Board Size Dropdown\"]",".menus.menuItems[\"6\"]",".menuItems[\"6\"]",".popUpButtons[\"boardSizeDropdown\"]"],[[[-1,3],[-1,2],[-1,4,2],[-1,1,2],[-1,0,1]],[[-1,3],[-1,2],[-1,4,2],[-1,1,2]],[[-1,3],[-1,2]]],[0]]@END_MENU_TOKEN@*/.click()
+		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window.menuItems["6"].click()
 
-		let boardsizedropdownPopUpButton2 = swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window/*@START_MENU_TOKEN@*/.popUpButtons["boardSizeDropdown"]/*[[".groups.popUpButtons[\"boardSizeDropdown\"]",".popUpButtons[\"boardSizeDropdown\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+		let boardsizedropdownPopUpButton2 = swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window.popUpButtons["boardSizeDropdown"]
 		boardsizedropdownPopUpButton2.click()
-		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window/*@START_MENU_TOKEN@*/.menuItems["10"]/*[[".groups",".popUpButtons[\"boardSizeDropdown\"]",".menus.menuItems[\"10\"]",".menuItems[\"10\"]"],[[[-1,3],[-1,2],[-1,1,2],[-1,0,1]],[[-1,3],[-1,2],[-1,1,2]],[[-1,3],[-1,2]]],[0]]@END_MENU_TOKEN@*/.click()
+		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window.menuItems["10"].click()
 		boardsizedropdownPopUpButton2.click()
-		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window/*@START_MENU_TOKEN@*/.menuItems["3"]/*[[".groups",".popUpButtons[\"boardSizeDropdown\"]",".menus.menuItems[\"3\"]",".menuItems[\"3\"]"],[[[-1,3],[-1,2],[-1,1,2],[-1,0,1]],[[-1,3],[-1,2],[-1,1,2]],[[-1,3],[-1,2]]],[0]]@END_MENU_TOKEN@*/.click()
+		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window.menuItems["3"].click()
 	}
-
 }
 
 
