@@ -212,3 +212,5 @@ Code Cleanup Phase:
 * Fixed error with hiding start game button on blue player start, it was requiring both players to be human to hide, that was incorrect  	  
 * Change all the vars to lets as the compiler is begging us to. Ignore the "change this to _" shit.
 		Honestly, no one has time for that kind of obfuscatory nonsense.  
+* removed player change code from buttonClickStuff(), it wasn't used at all
+* got rid of buttonTopRowFlag and buttonTopRowFlag and entire swith/case in checkForSOS(), they weren't used/needed

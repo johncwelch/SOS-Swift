@@ -50,18 +50,24 @@ func boardSizeSelect(theSelection: Int) {
 //this builds an array of Cell that gets attached to each button in the game. It's kind of important
 //takes in the grid size set in the UI, and then returns an array of cells
 func buildStructArray(theGridSize: Int) -> [Cell] {
+	//we do this because as passed, [Cell] is a constant
 	var myStructArray: [Cell] = []
+	//build the array size, so for a 3x3 grid, the arraysize would be 8, (0-8 is 9 cells)
 	let arraySize = (theGridSize * theGridSize) - 1
+	//bulld the array by appending to the var, setting the index and setting the background color to grey
 	for i in 0...arraySize {
 		myStructArray.append(Cell())
 		myStructArray[i].index = i
 		myStructArray[i].backCol = .gray
 	}
-
+	//reutrn the array
 	return myStructArray
 }
 
 //this takes care of creating the array of unused button indices
+//important for tracking which buttons are available for use
+//takes a size int and returns an int array
+//this is used on game start
 func buildUnusedArray (myGridSize: Int)  -> [Int] {
 	//set up the initial array of unused buttons
 	var theTempArray = [Int]()
@@ -78,14 +84,13 @@ func buildUnusedArray (myGridSize: Int)  -> [Int] {
 //and any other needs. it takes the index of the button clicked as an int, and the existing array of cells as
 //an array of [Cell], and returns a tuple. By returning a tuple, we can pass back multiple values with some kind
 //of usable naming.
-
+//called whenever a game grid button is clicked
 func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game, myCurrentPlayer: String, myUnusedButtons: [Int]) -> Bool {
 	
 	//old tuple return (myTitle:String, myCommitButtonStatus: Bool, myCurrentPlayer: String)
 	var theCommitButtonStatus: Bool = false
 	var theCellTitle: String = ""
-	var theCurrentPlayer: String = ""
-	//print("the button clicked was button: \(myIndex)")
+
 	//we'll need to build an array of already disabled buttons that we can pass
 	//switch statement to cycle between  titles on the button
 	switch theTitle {
@@ -111,22 +116,16 @@ func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game, myCurre
 		default:
 			print("Something went wrong, try restarting the app")
 	}
-	if myCurrentPlayer == "Blue" {
-		theCurrentPlayer = "Red"
-	} else {
-		theCurrentPlayer = "Blue"
-	}
-	
+
+
 	//set the current button title to the correct title
 	myArray.gridCellArr[myIndex].title = theCellTitle
 
-	//let theReturnTuple = (myTitle: theCellTitle, myCommitButtonStatus: theCommitButtonStatus, myCurrentPlayer: theCurrentPlayer)
-	//return theReturnTuple
 	return theCommitButtonStatus
 }
 
+//called by "New Game" button
 func newGame (myGridArray: Game) {
-	//print("The Size of the grid is: \(myGridArray.gridCellArr.count)")
 	for i in 0..<myGridArray.gridCellArr.count {
 		myGridArray.gridCellArr[i].title = ""
 		myGridArray.gridCellArr[i].backCol = .gray
@@ -194,7 +193,7 @@ func enableOtherButtonsDuringMove (myGridArray: Game){
 //kind of a dupe, but only used for start game where blue is the computer player
 //we only care about the grid array because NOTHING has been clicked and we want to keep it that way
 //this will also erase any button that's been clicked and changed, but only at the beginning of a game.
-//it's a bit of an edge case, but still
+//it's just different enough to be worth the the six extra lines of code it is
 func disableAllButtonsForBlueComputerPlayerStart (myGridArray: Game) {
 	for i in 0..<myGridArray.gridCellArr.count {
 		myGridArray.gridCellArr[i].title = ""
@@ -202,7 +201,7 @@ func disableAllButtonsForBlueComputerPlayerStart (myGridArray: Game) {
 	}
 }
 
-//function to commit a move
+//function to commit a move, called by the "Commit Move" button
 func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> (myUnusedButtonArray: [Int], myCountDownInt: Int, mySOSFlag: Bool, mySOSCounter: Int) {
 
 	//create temp array that is mutable for the list of unused buttons
@@ -244,6 +243,7 @@ func commitMove (myCommittedButtonIndex: Int, myUnusedButtons: [Int],myGridArray
 }
 
 //funciton to check for SOS
+//called by commitMove()
 func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: Int, myCurrentPlayer: String) -> (mySOSFlag: Bool, mySOSCounter: Int) {
 	//first we need to set some flags for leftmost/rightmost/topmost/bottommost positions
 	//since that has a lot to do with how we calculate wins
@@ -264,12 +264,11 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 	//button has an xCoord == 0
 	var buttonLeftmostFlag: Bool = false
 	//button has a yCoord == 0
-	var buttonTopRowFlag: Bool = false
+	//note the compiler complains about this not being written to but never read
 	//button has an xCoord = gridSize - 1 (so if gridSize is 3, rightMost would be 2)
 	var buttonRightmostFlag: Bool = false
 	//button has a yCoord = gridsize -1 (so if gridSize is 3, bottomMost would be 2)
-	var buttonBottomRowFlag: Bool = false
-	
+
 	//there's an SOS
 	var SOSFlag: Bool = false
 	//check for xCoord edges
@@ -282,17 +281,6 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 			buttonLeftmostFlag = false
 			buttonRightmostFlag = false
 	}
-	//check for yCoord edges
-	switch myGridArray.gridCellArr[myLastButtonClickedIndex].yCoord {
-		case 0:
-			buttonTopRowFlag = true
-		case buttonBottomEdgeCheck:
-			buttonBottomRowFlag = true
-		default:
-			buttonTopRowFlag = false
-			buttonBottomRowFlag = false
-	}
-
 
 	//get the title of the last button clicked
 	var theCurrentButtonTitle = myGridArray.gridCellArr[myLastButtonClickedIndex].title
@@ -472,6 +460,7 @@ func checkForSOS(myGridArray: Game, myLastButtonClickedIndex: Int, myGridSize: I
 }
 
 //function to manage checking for game over and handling if it is
+//called by "Start Game" and "Commit Move" buttons
 func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: Game, mySOSFlag: Bool, myRedPlayerScore: Int, myBluePlayerScore: Int) -> (myGameIsOver: Bool, myGameIsDraw: Bool, myGeneralGameWinner: String) {
 
 	var gameIsOver: Bool = false
@@ -546,6 +535,7 @@ func isGameOver(myArrayUsedMemberCountdown: Int, myGameType: Int, myGridArray: G
 }
 
 //function to manage game over alert messages
+//part of the "Commit Move" button code, but called whenever playerWon is true
 func gameOverAlert(myPlayerColor: String, myGameIsDraw: Bool, myGeneralGameWinner: String, myGameType: Int) -> Alert {
 	var alertTitle: String = ""
 	var alertMessage: String = ""
@@ -576,6 +566,7 @@ func gameOverAlert(myPlayerColor: String, myGameIsDraw: Bool, myGeneralGameWinne
 }
 
 //function to increment score in general game
+//called by "Start Game" and "Commit Move" buttons
 func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayerScore: Int, mySOSCounter: Int) -> (myRedPlayerScore: Int, myBluePlayerScore: Int){
 	var bluePlayerScore = myBluePlayerScore
 	var redPlayerScore = myRedPlayerScore
@@ -596,6 +587,7 @@ func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayer
 //we return an int that will be myCommittedButtonIndex in commitMove() and a title that will be the new title of the button
 //may do that here, since we can.
 //check to see if we need to yoink the clicked button here or if that happens in commitMove()
+//called by "Start Game" and "Commit Move" buttons
 func startGame(myUnusedButtons: [Int], myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> Int {
 	//create title array, shuffle it, and set the first element to be the new button title
 	let buttonTitles = ["S","O"]
