@@ -108,3 +108,14 @@ struct redPlayerTypeRadioButton: View {
 		}
 	}
 }
+
+//struct we can use to record the items needed to record a move
+//the index of the button, the title of the button, the player who
+//made the move, and the background color of the button.
+//the player may not be strictly necessary
+struct moveRecord {
+	var moveIndex: Int
+	var moveTitle: String
+	var movePlayer: String
+	var moveColor: Color
+}

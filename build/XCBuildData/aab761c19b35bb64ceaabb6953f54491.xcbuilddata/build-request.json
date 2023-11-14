@@ -1,22 +1,16 @@
 {
   "buildCommand" : {
-    "command" : "build",
-    "skipDependencies" : false,
-    "style" : "buildAndRun"
+    "command" : "prepareForIndexing",
+    "enableIndexBuildArena" : false,
+    "targets" : null
   },
   "configuredTargets" : [
-    {
-      "guid" : "11b6b763ed02764cd435309d8902da20c75ab89c8db55b3fd0ebd6a0e20a21b8"
-    },
-    {
-      "guid" : "11b6b763ed02764cd435309d8902da201e75db1d74f638ad4d8c90c4dc7fd6a1"
-    },
     {
       "guid" : "11b6b763ed02764cd435309d8902da20824dbeafedb3371d0a5f228366cc9021"
     }
   ],
   "containerPath" : "/Users/jwelch/Desktop/School Project/SOS-Swift/SOS-Swift.xcodeproj",
-  "continueBuildingAfterErrors" : false,
+  "continueBuildingAfterErrors" : true,
   "enableIndexBuildArena" : false,
   "hideShellScriptEnvironment" : false,
   "parameters" : {
@@ -54,9 +48,10 @@
       }
     }
   },
-  "schemeCommand" : "test",
+  "qos" : "default",
+  "schemeCommand" : "launch",
   "showNonLoggedProgress" : true,
-  "useDryRun" : false,
+  "useDryRun" : true,
   "useImplicitDependencies" : true,
   "useLegacyBuildLocations" : false,
   "useParallelTargets" : true

@@ -217,3 +217,7 @@ Code Cleanup Phase:
 * converted unmutated var's to let's, the compiler is much happier, and really, that's what's important
 * removed the applicationWillTerminate function that deleted app settings on quit, we don't need it anymore (left it there, just commented out, it's kind of useful at times)
 * Cleaned up comments, ensured all functions have what calls them and what they return listed in the comments
+
+
+##20231114
+added moveRecord{} struct as the primary entity for recording moves during a game.

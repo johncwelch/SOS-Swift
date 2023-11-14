@@ -23,7 +23,6 @@ class Cell: Identifiable {
 	var xCoord: Int = 0
 	var yCoord: Int = 0
 	var backCol: Color = .gray
-	//var disabled: Bool = false
 }
 
 //class that is a collection of cells that are attached to the buttons in contentview
