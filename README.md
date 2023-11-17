@@ -221,3 +221,15 @@ Code Cleanup Phase:
 
 ##20231114
 added moveRecord{} struct as the primary entity for recording moves during a game.
+
+##20231116
+added:
+	@State var gameMoveRecord = \[moveRecord\]() : this is the array we use to store recorded moves. Initialized with zero content  
+	@State var recordGame: Bool = false : this is used by the record game toggle to allow recording. Also used to set the toggle back to "off" for new game  
+	@State var playbackDisabled: Bool = true : this controls the visibility of the playback button, which should only be turned on when the game is over, i.e. playerWon is true
+	
+	func addRecordedMove(myGameRecord: \[moveRecord\], myCommittedButtonIndex: Int, myGridArray: Game, myCurrentPlayer: String) -> \[moveRecord\] : this accepts the array of moveRecord structs and adds the most recent move onto the end. This is trigged by both the commit button for manual moves and by the Start Game button for computer moves. In the case of computer v computer, it's also called each run through the while loop.  
+	  
+	Added the code to reset the moveRecord array to zero ( gameMoveRecord.removeAll() ), set the toggle button to the off position: self.recordGame = false, and disable the playback button: playbackDisabled = true each time the "New Game" button or the grid size picker is used.  
+  
+Verified that recording works properly for human v. human, human v. computer, and computer v. computer  

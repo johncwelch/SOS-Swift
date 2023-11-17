@@ -641,3 +641,16 @@ func startGame(myUnusedButtons: [Int], myGridArray: Game, myCurrentPlayer: Strin
 	//return the index of the button to "click
 	return buttonToClick
 }
+
+//add an element to the game record array
+//called by the Commit Move button for each manual move and for a following computer move. Called by the Start Game button for the initial move
+//by the computer blue player, then once each time through the while loop for computer v. computer.
+func addRecordedMove(myGameRecord: [moveRecord], myCommittedButtonIndex: Int, myGridArray: Game, myCurrentPlayer: String) -> [moveRecord] {
+	var tempGameRecord = myGameRecord
+	let theMove = myGridArray.gridCellArr[myCommittedButtonIndex]
+	let theTempMoveRecord = moveRecord(moveIndex: theMove.index, moveTitle: theMove.title, movePlayer: myCurrentPlayer, moveColor: theMove.backCol)
+	//print("theTempMoveRecord: \(theTempMoveRecord)")
+	tempGameRecord.append(theTempMoveRecord)
+	//print("tempGameRecord: \(tempGameRecord)")
+	return tempGameRecord
+}

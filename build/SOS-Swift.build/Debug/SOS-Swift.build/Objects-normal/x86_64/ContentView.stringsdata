@@ -145,6 +145,14 @@
       {
         "comment": "",
         "key": "Start Game"
+      },
+      {
+        "comment": "",
+        "key": "Record Game:"
+      },
+      {
+        "comment": "",
+        "key": "Playback"
       }
     ]
   },
