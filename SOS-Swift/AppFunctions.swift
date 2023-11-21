@@ -654,3 +654,22 @@ func addRecordedMove(myGameRecord: [moveRecord], myCommittedButtonIndex: Int, my
 	//print("tempGameRecord: \(tempGameRecord)")
 	return tempGameRecord
 }
+
+//called by the playback button, this changes the button with the passed index (myLoopCount) each time
+//it's called.
+func playbackGame (myGameRecord: [moveRecord], myGridArray: Game, myLoopCount: Int) -> String {
+	var theIndex: Int
+	var theTitle: String
+	var thePlayer: String
+	var theColor: Color
+	
+	theIndex = myGameRecord[myLoopCount].moveIndex
+	theTitle = myGameRecord[myLoopCount].moveTitle
+	thePlayer = myGameRecord[myLoopCount].movePlayer
+	theColor = myGameRecord[myLoopCount].moveColor
+
+	myGridArray.gridCellArr[theIndex].title = theTitle
+	myGridArray.gridCellArr[theIndex].backCol = theColor
+	
+	return thePlayer
+}

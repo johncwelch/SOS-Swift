@@ -233,3 +233,13 @@ added:
 	Added the code to reset the moveRecord array to zero ( gameMoveRecord.removeAll() ), set the toggle button to the off position: self.recordGame = false, and disable the playback button: playbackDisabled = true each time the "New Game" button or the grid size picker is used.  
   
 Verified that recording works properly for human v. human, human v. computer, and computer v. computer  
+
+##20231121
+DONE. Got playback to work!!!  
+  
+added:
+	@State var recordToggleDisabled: Bool = false: this disables the toggle when a game is running. It's re-enabled on new game start and on grid resized  
+	  
+	func playbackGame (myGameRecord: \[moveRecord\], myGridArray: Game, myLoopCount: Int) -> String: when the playback button is clicked, it fires off a timer that calls this once a second, which updates the "current" button so you can see the game replay in at a human speed.  
+	  
+Oh my god, that's the last thing I have to care about!

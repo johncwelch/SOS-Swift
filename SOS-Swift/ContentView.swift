@@ -60,6 +60,8 @@ struct ContentView: View {
 	@State var recordGame: Bool = false
 	//enabled state for playback button
 	@State var playbackDisabled: Bool = true
+	//used to disable the record game button during a game. avoids many problems
+	@State var recordToggleDisabled: Bool = false
 
 
 	var body: some View {
@@ -140,7 +142,9 @@ struct ContentView: View {
 						//set the record toggle to off
 						self.recordGame = false
 						//disable the playback button
-						playbackDisabled = true
+						self.playbackDisabled = true
+						//enable the record game toggle
+						self.recordToggleDisabled = false
 					}
 
 				    //put in a row with the current player label and value
@@ -280,7 +284,9 @@ struct ContentView: View {
 					//set the record toggle to off
 					self.recordGame = false
 					//disable the playback button
-					playbackDisabled = true
+					self.playbackDisabled = true
+					//enable the record game toggle
+					self.recordToggleDisabled = false
 				} label: {
 					Text("New Game")
 				}
@@ -297,8 +303,16 @@ struct ContentView: View {
 					//once you commit a move, we set the game type and player type buttons to disabled. the only way they re-enable
 					//is for new game or grid size change which is effectively a new game
 					gamePlayerTypeDisabled = true
+					//also disable the record game toggle
+					recordToggleDisabled = true
 
-					//if we're recording, add the move to the record array
+					//call commitMove() which alwasy calls checkForSOS() which may call setSOSButtonColor() (if there is an SOS)
+					let theCommitTuple = commitMove(myCommittedButtonIndex: lastButtonClickedIndex, myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
+					//set the new values for the used buttons array and the "are we done yet" counter
+					arrayUsedButtonsList = theCommitTuple.myUnusedButtonArray
+					arrayUsedMemberCountdown = theCommitTuple.myCountDownInt
+
+					//if we're recording, add the move to the record array. we put it after commitMove so we get the color right
 					//check to see state of recordGame
 					if recordGame {
 						print("gameMoveRecord before function: \(gameMoveRecord)")
@@ -307,11 +321,6 @@ struct ContentView: View {
 						print("gameMoveRecord after function: \(gameMoveRecord)")
 					}
 
-					//call commitMove() which alwasy calls checkForSOS() which may call setSOSButtonColor() (if there is an SOS)
-					let theCommitTuple = commitMove(myCommittedButtonIndex: lastButtonClickedIndex, myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
-					//set the new values for the used buttons array and the "are we done yet" counter
-					arrayUsedButtonsList = theCommitTuple.myUnusedButtonArray
-					arrayUsedMemberCountdown = theCommitTuple.myCountDownInt
 					//set the SOSFlag, so we know if we need to increase score for general game
 					//changing these to vars, because we may change them with computer players
 					var SOSFlag = theCommitTuple.mySOSFlag
@@ -343,6 +352,10 @@ struct ContentView: View {
 					//this is important since the computer player doesn't "click" the button
 					//but rather just runs commitMove()
 					if playerWon {
+						//if the game is over and recordGame is true, we want to enable playback
+						if recordGame {
+							self.playbackDisabled = false
+						}
 						return
 					}
 
@@ -367,7 +380,15 @@ struct ContentView: View {
 							//make the computer move, return button clicked index
 							lastButtonClickedIndex = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
 
-							//if we're recording, add the computer move here
+							//here's where we duplicate a lot of code, but we only do it once, so it's fine.
+							//we can look at fixing it in the next sprint maybe.
+							let theCommitTuple = commitMove(myCommittedButtonIndex: lastButtonClickedIndex, myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
+
+							arrayUsedButtonsList = theCommitTuple.myUnusedButtonArray
+							arrayUsedMemberCountdown = theCommitTuple.myCountDownInt
+
+							//if we're recording, add the move to the record array. we put it after commitMove so we get the color right
+							//check to see state of recordGame
 							if recordGame {
 								print("gameMoveRecord before function: \(gameMoveRecord)")
 								//add the committed move to the array
@@ -375,12 +396,6 @@ struct ContentView: View {
 								print("gameMoveRecord after function: \(gameMoveRecord)")
 							}
 
-							//here's where we duplicate a lot of code, but we only do it once, so it's fine.
-							//we can look at fixing it in the next sprint maybe.
-							let theCommitTuple = commitMove(myCommittedButtonIndex: lastButtonClickedIndex, myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
-
-							arrayUsedButtonsList = theCommitTuple.myUnusedButtonArray
-							arrayUsedMemberCountdown = theCommitTuple.myCountDownInt
 							SOSFlag = theCommitTuple.mySOSFlag
 							SOSCounter = theCommitTuple.mySOSCounter
 							buttonBlank = true
@@ -399,6 +414,10 @@ struct ContentView: View {
 							playerWon = gameOverTuple.myGameIsOver
 							
 							if playerWon {
+								//if the game is over and recordGame is true, we want to enable playback
+								if recordGame {
+									self.playbackDisabled = false
+								}
 								return
 							}
 							
@@ -426,26 +445,29 @@ struct ContentView: View {
 						//button, we replicate much of that here
 						//disable things
 						gamePlayerTypeDisabled = true
-						
+						recordToggleDisabled = true
+
 						//since this only works on the first move, which is always blue, there's no point in caring
 						//about red, but it literally takes half a line of code to set it up, so why not?
 						if ((currentPlayer == "Blue") && (bluePlayerType == 2)) || ((currentPlayer == "Red") && (redPlayerType == 2)) {
 							//get the last button "clicked" in the first computer move
 							lastButtonClickedIndex = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
 						}
-						//if we're recording, add the computer move here
+						
+						//so now we have a title and a button clicked, let's call commit move
+						let theCommitTuple = commitMove(myCommittedButtonIndex: lastButtonClickedIndex, myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
+
+						arrayUsedButtonsList = theCommitTuple.myUnusedButtonArray
+						arrayUsedMemberCountdown = theCommitTuple.myCountDownInt
+
+						//if we're recording, add the move to the record array. we put it after commitMove so we get the color right
+						//check to see state of recordGame
 						if recordGame {
 							print("gameMoveRecord before function: \(gameMoveRecord)")
 							//add the committed move to the array
 							gameMoveRecord = addRecordedMove(myGameRecord: gameMoveRecord, myCommittedButtonIndex: lastButtonClickedIndex, myGridArray: theGame, myCurrentPlayer: currentPlayer)
 							print("gameMoveRecord after function: \(gameMoveRecord)")
 						}
-
-						//so now we have a title and a button clicked, let's call commit move
-						let theCommitTuple = commitMove(myCommittedButtonIndex: lastButtonClickedIndex, myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
-
-						arrayUsedButtonsList = theCommitTuple.myUnusedButtonArray
-						arrayUsedMemberCountdown = theCommitTuple.myCountDownInt
 
 						var SOSFlag = theCommitTuple.mySOSFlag
 						//used for incrementing scores in general game because you can have one move create multiple SOS's
@@ -488,14 +510,6 @@ struct ContentView: View {
 								//make the computer move, return button clicked index
 								lastButtonClickedIndex = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
 								
-								//if we're recording, add the computer move here
-								if recordGame {
-									print("gameMoveRecord before function: \(gameMoveRecord)")
-									//add the committed move to the array
-									gameMoveRecord = addRecordedMove(myGameRecord: gameMoveRecord, myCommittedButtonIndex: lastButtonClickedIndex, myGridArray: theGame, myCurrentPlayer: currentPlayer)
-									print("gameMoveRecord after function: \(gameMoveRecord)")
-								}
-
 								//there is more than a little code dupe here, but, because of how this runs
 								//trying to shove it in a function doesn't make it faster or better, just a bit
 								//neater. meh. 
@@ -503,6 +517,16 @@ struct ContentView: View {
 
 								arrayUsedButtonsList = theCommitTuple.myUnusedButtonArray
 								arrayUsedMemberCountdown = theCommitTuple.myCountDownInt
+
+								//if we're recording, add the move to the record array. we put it after commitMove so we get the color right
+								//check to see state of recordGame
+								if recordGame {
+									print("gameMoveRecord before function: \(gameMoveRecord)")
+									//add the committed move to the array
+									gameMoveRecord = addRecordedMove(myGameRecord: gameMoveRecord, myCommittedButtonIndex: lastButtonClickedIndex, myGridArray: theGame, myCurrentPlayer: currentPlayer)
+									print("gameMoveRecord after function: \(gameMoveRecord)")
+								}
+
 								SOSFlag = theCommitTuple.mySOSFlag
 								SOSCounter = theCommitTuple.mySOSCounter
 								buttonBlank = true
@@ -521,6 +545,9 @@ struct ContentView: View {
 								playerWon = gameOverTuple.myGameIsOver
 
 								if playerWon {
+									if recordGame {
+										self.playbackDisabled = false
+									}
 									return
 								}
 
@@ -561,12 +588,40 @@ struct ContentView: View {
 				.toggleStyle(.switch)
 				.modifier(basicTextModifierNoFrame())
 				.padding(.trailing, 10.0)
+				.disabled(recordToggleDisabled)
 				/*.onChange(of: recordGame) {
 					print("Toggle State is: \(recordGame)")
 				}*/
 			//playback button
 			Button {
-				//do stuff
+				//call newGame() to clear all the buttons
+				//doesn't actually create a new game, but we want this for playback
+				newGame(myGridArray: theGame)
+				//disable all the buttons so you can't click on them during/after playback
+				for i in 0..<theGame.gridCellArr.count {
+					theGame.gridCellArr[i].buttonDisabled = true
+				}
+				//print("gameMoveRecordSize: \(gameMoveRecord.count)")
+				
+				//local vars for array index position (thePlayBackCounter) and for making sure
+				//we don't go out of bounds for theGameMoveRecord (theGameMoveRecordArrayBounds)
+				var thePlayBackCounter = 0
+				let theGameMoveRecordArrayBounds = gameMoveRecord.count - 1
+				
+				//timer that fires off once a second and plays back one move from gameMoveRecord each time
+				Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+					//bounds check
+					if thePlayBackCounter <= theGameMoveRecordArrayBounds {
+						//play back one move
+						currentPlayer = playbackGame(myGameRecord: gameMoveRecord, myGridArray: theGame, myLoopCount: thePlayBackCounter)
+					} else {
+						//we're done here. We don't empty the array here because we want to be able to play it back
+						//multiple times
+						timer.invalidate()
+					}
+					//increment our array index position
+					thePlayBackCounter += 1
+				}
 			} label: {
 				Text("Playback")
 			}
