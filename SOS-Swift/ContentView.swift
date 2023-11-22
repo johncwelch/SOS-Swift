@@ -589,6 +589,7 @@ struct ContentView: View {
 				.modifier(basicTextModifierNoFrame())
 				.padding(.trailing, 10.0)
 				.disabled(recordToggleDisabled)
+				.accessibilityLabel("recordGameToggle")
 				/*.onChange(of: recordGame) {
 					print("Toggle State is: \(recordGame)")
 				}*/
@@ -626,6 +627,7 @@ struct ContentView: View {
 				Text("Playback")
 			}
 			.disabled(playbackDisabled)
+			.accessibilityLabel("playBackRecordedGame")
 
 		}
 		Spacer()

@@ -241,5 +241,6 @@ added:
 	@State var recordToggleDisabled: Bool = false: this disables the toggle when a game is running. It's re-enabled on new game start and on grid resized  
 	  
 	func playbackGame (myGameRecord: \[moveRecord\], myGridArray: Game, myLoopCount: Int) -> String: when the playback button is clicked, it fires off a timer that calls this once a second, which updates the "current" button so you can see the game replay in at a human speed.  
+	updated the new game, commit button and grid resize Unit tests to validate the state of the record game toggle and the playback button
 	  
-Oh my god, that's the last thing I have to care about!
+Oh my god, that's the last thing I have to care about!  

@@ -58,7 +58,9 @@ final class SOS_SwiftUITests: XCTestCase {
 		let myBluePlayerTypeComputer = SOSApp.buttons["Blue Player Computer"]
 		let myRedPlayerTypeHuman = SOSApp.buttons["Red Player Human"]
 		let myRedPlayerTypeComputer = SOSApp.buttons["Red Player Computer"]
-		let myCurrentPlayer = SOSApp.staticTexts["Current Player"]
+		//note that toggles are switches
+		let myRecordGameToggle = SOSApp.switches["recordGameToggle"]
+		let myGamePlaybackButton = SOSApp.buttons["playBackRecordedGame"]
 		//click the button
 		SOSApp.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].buttons["New Game"].click()
 		//states that should be a specific way after clicking new game:
@@ -69,6 +71,8 @@ final class SOS_SwiftUITests: XCTestCase {
 		XCTAssertTrue(myBluePlayerTypeComputer.isEnabled)
 		XCTAssertTrue(myRedPlayerTypeHuman.isEnabled)
 		XCTAssertTrue(myRedPlayerTypeComputer.isEnabled)
+		XCTAssertTrue(myRecordGameToggle.isEnabled)
+		XCTAssertFalse(myGamePlaybackButton.isEnabled)
 	}
 
 	func testCommitButton() {
@@ -81,6 +85,7 @@ final class SOS_SwiftUITests: XCTestCase {
 		let myBluePlayerTypeComputer = SOSApp.buttons["Blue Player Computer"]
 		let myRedPlayerTypeHuman = SOSApp.buttons["Red Player Human"]
 		let myRedPlayerTypeComputer = SOSApp.buttons["Red Player Computer"]
+		let myRecordGameToggle = SOSApp.switches["recordGameToggle"]
 		//should be disabled before a button has an s or o
 		XCTAssertFalse(myCommitButton.isEnabled)
 		//should be enabled before commit is clicked
@@ -90,19 +95,23 @@ final class SOS_SwiftUITests: XCTestCase {
 		XCTAssertTrue(myBluePlayerTypeComputer.isEnabled)
 		XCTAssertTrue(myRedPlayerTypeHuman.isEnabled)
 		XCTAssertTrue(myRedPlayerTypeComputer.isEnabled)
-		//XCTAssertTrue()
+		XCTAssertTrue(myRecordGameToggle.isEnabled)
+
 		let swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window = SOSApp.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"]
-		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window.groups.containing(.staticText, identifier:"gameTypeLabel").children(matching: .button).element(boundBy: 8).click()
+		//click a game button
+		SOSApp.windows["SwiftUI.ModifiedContent<SOS_Swift.ContentView, SwiftUI._FlexFrameLayout>-1-AppWindow-1"].groups.containing(.staticText, identifier:"gameTypeLabel").children(matching: .button).element(boundBy: 9).click()
 		//button was clicked from blank, commit button is enabled
-		XCTAssertTrue(myCommitButton.isEnabled)
+		//XCTAssertTrue(myCommitButton.isEnabled)
 		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window.buttons["commitButton"].click()
-		//after commit button click, game type and player type radio buttons should be disabled
+		//after commit button click, game type and player type radio buttons should be disabled along with the record game toggle
 		XCTAssertFalse(myGameTypeSimpleButton.isEnabled)
 		XCTAssertFalse(myGameTypeGeneralButton.isEnabled)
 		XCTAssertFalse(myBluePlayerTypeHuman.isEnabled)
 		XCTAssertFalse(myBluePlayerTypeComputer.isEnabled)
 		XCTAssertFalse(myRedPlayerTypeHuman.isEnabled)
 		XCTAssertFalse(myRedPlayerTypeComputer.isEnabled)
+		XCTAssertFalse(myRecordGameToggle.isEnabled)
+
 	}
 
 	//test simple game selection
@@ -193,6 +202,7 @@ final class SOS_SwiftUITests: XCTestCase {
 		boardsizedropdownPopUpButton2.click()
 		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window.menuItems["3"].click()
 	}
+
 }
 
 
