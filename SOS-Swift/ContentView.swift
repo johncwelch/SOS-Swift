@@ -378,7 +378,7 @@ struct ContentView: View {
 						if ((currentPlayer == "Blue") && (bluePlayerType == 2)) || ((currentPlayer == "Red") && (redPlayerType == 2)) {
 
 							//make the computer move, return button clicked index
-							lastButtonClickedIndex = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
+							lastButtonClickedIndex = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame)
 
 							//here's where we duplicate a lot of code, but we only do it once, so it's fine.
 							//we can look at fixing it in the next sprint maybe.
@@ -451,7 +451,7 @@ struct ContentView: View {
 						//about red, but it literally takes half a line of code to set it up, so why not?
 						if ((currentPlayer == "Blue") && (bluePlayerType == 2)) || ((currentPlayer == "Red") && (redPlayerType == 2)) {
 							//get the last button "clicked" in the first computer move
-							lastButtonClickedIndex = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
+							lastButtonClickedIndex = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame)
 						}
 						
 						//so now we have a title and a button clicked, let's call commit move
@@ -508,7 +508,7 @@ struct ContentView: View {
 								//print("Next player is \(currentPlayer) and is a computer player")
 
 								//make the computer move, return button clicked index
-								lastButtonClickedIndex = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame, myCurrentPlayer: currentPlayer, myArrayUsedMemberCountdown: arrayUsedMemberCountdown)
+								lastButtonClickedIndex = startGame(myUnusedButtons: arrayUsedButtonsList, myGridArray: theGame)
 								
 								//there is more than a little code dupe here, but, because of how this runs
 								//trying to shove it in a function doesn't make it faster or better, just a bit
@@ -686,7 +686,7 @@ struct ContentView: View {
 										//we get back a bool with the commit button disable status
 
 										//the only return we really use is the commit button status so
-										buttonBlank = buttonClickStuff(for: theGame.gridCellArr[myIndex].index, theTitle: theGame.gridCellArr[myIndex].title, myArray: theGame, myCurrentPlayer: currentPlayer, myUnusedButtons: arrayUsedButtonsList)
+										buttonBlank = buttonClickStuff(for: theGame.gridCellArr[myIndex].index, theTitle: theGame.gridCellArr[myIndex].title, myArray: theGame)
 									} label: {
 										//set the text of the button to be the title of the button
 										Text(theGame.gridCellArr[myIndex].title)

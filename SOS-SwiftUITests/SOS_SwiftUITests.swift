@@ -202,7 +202,6 @@ final class SOS_SwiftUITests: XCTestCase {
 		boardsizedropdownPopUpButton2.click()
 		swiftuiModifiedcontentSosSwiftContentviewSwiftuiFlexframelayout1Appwindow1Window.menuItems["3"].click()
 	}
-
 }
 
 

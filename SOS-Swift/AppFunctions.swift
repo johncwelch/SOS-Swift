@@ -87,7 +87,7 @@ func buildUnusedArray(myGridSize: Int)  -> [Int] {
 //an array of [Cell], and returns a tuple. By returning a tuple, we can pass back multiple values with some kind
 //of usable naming.
 //called whenever a game grid button is clicked
-func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game, myCurrentPlayer: String, myUnusedButtons: [Int]) -> Bool {
+func buttonClickStuff(for myIndex: Int, theTitle: String, myArray: Game) -> Bool {
 	//old tuple return (myTitle:String, myCommitButtonStatus: Bool, myCurrentPlayer: String)
 
 	//mutable vars
@@ -615,7 +615,7 @@ func incrementScore(myCurrentPlayer: String, myRedPlayerScore: Int, myBluePlayer
 //may do that here, since we can.
 //check to see if we need to yoink the clicked button here or if that happens in commitMove()
 //called by "Start Game" and "Commit Move" buttons for handling moves for a computer player
-func startGame(myUnusedButtons: [Int], myGridArray: Game, myCurrentPlayer: String, myArrayUsedMemberCountdown: Int) -> Int {
+func startGame(myUnusedButtons: [Int], myGridArray: Game) -> Int {
 	//create title array, shuffle it, and set the first element to be the new button title
 	let buttonTitles = ["S","O"]
 	//shuffle the array to get as random a result as we can
